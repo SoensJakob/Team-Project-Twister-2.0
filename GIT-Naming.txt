@@ -1,0 +1,19 @@
+DOC - doc change    
+CHK - checkpoint (for a sequence of commits)     
+FEA - added a new feature     
+ENH - enhanced an existing feature     
+BUG - bug     
+TST - changed tests     
+DAT - update to data     
+CNF - changes to configuration     
+REL - commit for an actual release     
+REF - refactoring some code     
+OOPS - fixing mistake in a previous commit     
+BCH - started a new branch     
+MRG - commit after a merge     
+WIP - work in progress     
+VER - bump of version number     
+MIN - minor improvement     
+MNT – maintenance (package updates, build script)     
+
+Example usage: BUG: Fixed off by one error in coordinate calculations
