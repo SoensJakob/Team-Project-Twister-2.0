@@ -19,8 +19,12 @@
     <script src="script/templates.js"></script>
 </head>
 <body>
-    <div class="o-row">
-        <a href="initgame.html"><p>play twister<p></a>
+    <div id="InitGameWindow">
+        <div class="o-row">
+            <label for="MqttTopic">Enter playmat guid:</label>
+            <input type="text" id="MqttTopic" name="MqttTopic"><br><br>
+            <button onclick="MQTTconnect()">Check connection</button>
+        </div>
     </div>
 </body>
 </html>
