@@ -1,5 +1,9 @@
-const SelectPlayers = function(){
-    console.log("SelectPlayers func activated")
+// Global variables for templates
+player_count = 1
+
+
+// templates
+const Temp_SelectPlayers = function(){
     document.getElementById('InitGameWindow').innerHTML = `
         <div class="o-row" id="PlayerWindow">`;
             for (let i = 1; i <= player_count; i++) {
@@ -20,9 +24,7 @@ const SelectPlayers = function(){
     `;
 }
 
-const SelectGameOptions = function(){
-    //var playernames = JSON.parse(window.localStorage.getItem("players"));
-    //alert(playernames[0]['value']);
+const Temp_SelectGameOptions = function(){
     document.getElementById('InitGameWindow').innerHTML = `
         <div class="o-row">
             <label for="gamemodes">Choose a gamemode:</label>
@@ -32,7 +34,7 @@ const SelectGameOptions = function(){
             </select>
         </div>
         <div class="o-row">
-            <label for="timer">Choose a gamemode:</label>
+            <label for="timer">Choose a timer:</label>
             <select id="timer">
                 <option value="None" selected>None</option>
                 <option value="5">5s</option>
@@ -44,7 +46,7 @@ const SelectGameOptions = function(){
             </select>
         <div>
         <div class="o-row">
-            <label for="actions">Choose a gamemode:</label>
+            <label for="actions">Choose actions:</label>
             <select id="actions">
                 <option value="None" selected>None</option>
                 <option value="ActionList1">ActionList1</option>
@@ -57,12 +59,31 @@ const SelectGameOptions = function(){
     `;
 }
 
+const Temp_GetReady = function(){
+    document.getElementById('InitGameWindow').innerHTML = `
+        <div class="o-row">
+            <label>Get Ready</label></br>
+            <Label>The game starts in:</label></br>
+            <p id="InitGameCounter">x</p>
+        </div>
+    `;
+}
+
+const Temp_TwisterClassic = function(){
+    document.getElementById('InitGameWindow').innerHTML = `
+        <div class="o-row">
+            <progress value="0" max="10" id="progressBar"></progress>
+        </div>
+    `;
+}
+
+// Template functions
 const AddPlayer = function(){
     if( player_count >= 4){
         alert("max players reached");
     }
     else{
         player_count++;
-        SelectPlayers();
+        Temp_SelectPlayers();
     }
 }
