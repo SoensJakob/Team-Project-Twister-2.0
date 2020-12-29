@@ -4,23 +4,14 @@ player_count = 1
 
 // templates
 const Temp_SelectPlayers = function(){
-    document.getElementById('InitGameWindow').innerHTML = `
-        <div class="o-row" id="PlayerWindow">`;
-            for (let i = 1; i <= player_count; i++) {
-                document.getElementById('PlayerWindow').innerHTML += `
-                <div class="o-row">
-                    <img src="./img/avatar1.jpg" alt="Jakob">
-                    <input type="text" name="players" placeholder="player${i}" maxlength="15" required>
-                </div>`;
-            }
-            document.getElementById('PlayerWindow').innerHTML += `
-                <div class="o-row">
-                    <button onclick="AddPlayer()">Add player</button>
-                </div> 
-                <div>
-                    <button type="button" onclick="ValidatePlayers();">Next</button>
-                </div>
-        </div>           
+    document.getElementById('InitGameWindow').innerHTML += `     
+        <div class="o-row">
+            <label for="playername">name:</label>
+            <input type="text" id="playername" name="playernamename">
+        </div> 
+        <div class="o-row">
+            <label id="addplayer">Add Player</label>
+        </div>    
     `;
 }
 

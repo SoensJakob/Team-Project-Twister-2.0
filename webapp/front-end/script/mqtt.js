@@ -1,8 +1,8 @@
 // mqtt client, user and device details
 var mqtt;
-var serverUrl   = "192.168.0.178";
+var serverUrl   = "localhost"; //192.168.0.25
 var port        = 9001;
-var clientId    = createGUID();
+var clientId    = "clientID-" + parseInt(Math.random() * 100);  
 var device_name = "bobbie-pc";
 var tenant      = "";
 var username    = "";
@@ -16,14 +16,6 @@ var connected_flag      = 0;
 var undeliveredMessages = [];
 var clean_sessions      = true;
 var retain_flag         = false;
-
-// function to create unique device-id
-function createGUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-       return v.toString(16);
-    });
-}
 
 const onConnectionLost = function(){
 	console.log("connection lost");
@@ -75,8 +67,8 @@ function disconnect() {
 //-------------------------------------------------------------------------------------------
 const MQTTconnect = function() {
     topic = document.getElementById("MqttTopic").value;
-    mqtt = new Paho.MQTT.Client(serverUrl, port, clientId);
     console.log("connecting to " + serverUrl + ":" + port + " with clientid: " + clientId + "clean session= "+ clean_sessions)
+    mqtt = new Paho.MQTT.Client(serverUrl, port);
     var options = {
         timeout: 3,
         cleanSession: clean_sessions,
