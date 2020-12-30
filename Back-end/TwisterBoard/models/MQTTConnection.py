@@ -1,4 +1,4 @@
-import paho.mqtt.client as mqtt
+
 import logging
 
 class MQTTConnection(object):
