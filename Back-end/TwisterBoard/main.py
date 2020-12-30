@@ -62,9 +62,3 @@ try:
 except KeyboardInterrupt as e:
     twister.cleanup()
     client.disconnect()
-
-
-
-
-
-
