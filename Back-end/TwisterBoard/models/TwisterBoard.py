@@ -38,31 +38,28 @@ class TwisterBoard(object):
                             place_list = self.pressed_buttons[x]
                             place_list[pin_list.index(channel)] = 0
                             self.pressed_buttons[x] = place_list
-                            print(self.pressed_buttons)
 
     def buttonAction(self, channel):
         io_input = io.input(channel)
         print(io_input)
         if (io_input):
-            self.buttonPressed(channel)
+            self.buttonPressed(channel, self.limb)
         else: 
             self.buttonUnPressed(channel)
 
-    def buttonPressed(self, channel):
+    def buttonPressed(self, channel, limb):
         print("Button pressed")
+        print(limb)
         for x in range(len(self._color_list)):
-            print(channel in self._color_list[x])
             if channel in self._color_list[x]:
                 pin_list = self._color_list[x]
                 for y in range(len(pin_list)):
                     if pin_list[y] != channel:                        
                         self.removeOneListener(pin_list[y])
-                        print("Removed listener")
                     else:
                         place_list = self.pressed_buttons[x]
-                        place_list[pin_list.index(channel)] = 1
+                        place_list[pin_list.index(channel)] = limb
                         self.pressed_buttons[x] = place_list
-                        print(self.pressed_buttons)
                 print("Events removed")
 
 
@@ -75,11 +72,12 @@ class TwisterBoard(object):
         for x in self._listInputs:
             self.removeOneListener(x)
 
-    def createOneListener(self, button):
+    def createOneListener(self, button, limb):
+        self.limb = limb
         io.add_event_detect(button, io.BOTH, callback=self.buttonAction, bouncetime=100)
 
     def createAllListeners(self):
         print("Creating listeners")
         for x in self._listInputs:
-            self.createOneListener(x)
+            self.createOneListener(x, 0)
         print("Created listeners")
