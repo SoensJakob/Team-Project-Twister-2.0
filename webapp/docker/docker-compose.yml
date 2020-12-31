@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  webapp:
+    image: tiangolo/uwsgi-nginx-flask
+    build: ./webapp
+    ports:
+      80:80
