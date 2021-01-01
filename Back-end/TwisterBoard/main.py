@@ -8,44 +8,57 @@ import json
 # Custom imports
 from models.TwisterBoard import TwisterBoard
 
-
-
 # MQTT 
 def connect():
     global client
     try:
-        address = '192.068.123.181'
-        client.connect(address)
-    except:
         address = '127.0.0.1'
         client.connect(address)
+        print("Connected")
+    except:
+        print("Not possible")
     else:
         print('Not possible to connect')
 
 def on_message(client, userdata, msg):
     message = json.loads(str(msg.payload.decode("utf-8")))
-    print(message["limb"])
     limb = message["limb"]
-    if int(message["color"]) == 0:
-        print("Color Red")
-        for x in twister._color_list[0]:
-            twister.createOneListener(x, limb)
-    elif int(message["color"]) == 1:
-        print("Color Blue")
-        for x in twister._color_list[1]:
-            twister.createOneListener(x, limb)
-    elif int(message["color"]) == 2:
+    color = message["color"]
+    place = message["place"]
+
+    print(limb, color[1], place)
+    if place == None:
+        no_place(limb, color)
+    else:
+        w_place(color, place, limb)
+
+
+def w_place(color, place, limb="1"):
+    row_list = twister._color_list[int(color[1])]
+    place = row_list[int(place)]
+    twister.createOneListener(color[1], limb, place)
+    print_color(color[0])
+
+def no_place(color, limb=1):
+    for x in twister._color_list[color[1]]:
+        twister.createOneListener(color[1], limb ,x)
+    print_color(color[0])
+
+
+def print_color(color):
+    if color == "G":
         print("Color Green")
-        for x in twister._color_list[2]:
-            twister.createOneListener(x, limb)
-    elif int(message["color"]) == 3:
+            
+    elif color == "R":
+        print("Color Red")
+        
+    elif color == "B":
+        print("Color Blue")
+
+    elif color == "Y":
         print("Color Yellow")
-        for x in twister._color_list[3]:
-            twister.createOneListener(x, limb)
     else:
         pass
-
-
 
 
 # Main
@@ -62,3 +75,4 @@ try:
 except KeyboardInterrupt as e:
     twister.cleanup()
     client.disconnect()
+    print("Closing program")

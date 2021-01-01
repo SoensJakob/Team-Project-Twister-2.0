@@ -41,15 +41,13 @@ class TwisterBoard(object):
 
     def buttonAction(self, channel):
         io_input = io.input(channel)
-        print(io_input)
         if (io_input):
-            self.buttonPressed(channel, self.limb)
+            self.buttonPressed(channel)
         else: 
             self.buttonUnPressed(channel)
 
-    def buttonPressed(self, channel, limb):
+    def buttonPressed(self, channel):
         print("Button pressed")
-        print(limb)
         for x in range(len(self._color_list)):
             if channel in self._color_list[x]:
                 pin_list = self._color_list[x]
@@ -58,7 +56,7 @@ class TwisterBoard(object):
                         self.removeOneListener(pin_list[y])
                     else:
                         place_list = self.pressed_buttons[x]
-                        place_list[pin_list.index(channel)] = limb
+                        place_list[pin_list.index(channel)] = self.limb
                         self.pressed_buttons[x] = place_list
                 print("Events removed")
 
@@ -72,8 +70,9 @@ class TwisterBoard(object):
         for x in self._listInputs:
             self.removeOneListener(x)
 
-    def createOneListener(self, button, limb):
+    def createOneListener(self,color, limb, button):
         self.limb = limb
+        self.color_place = color
         io.add_event_detect(button, io.BOTH, callback=self.buttonAction, bouncetime=100)
 
     def createAllListeners(self):
