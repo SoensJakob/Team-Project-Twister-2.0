@@ -104,7 +104,7 @@ p{
 a {
   color: var(--global-textcolor);
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   text-decoration: none;
 }
 
@@ -124,6 +124,7 @@ a {
   height: 100vh;
   overflow: hidden;
   display: flex;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
 }
@@ -250,21 +251,35 @@ front page
 login page
 */
 
-.c-loginpage{
-  background-color: var(--global-color-red);
-}
 .c-loginpage-main{
-  font-size: 1.5rem;
   color: var(--global-color-white);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
   flex-grow: 0.9;
   width: 90%;
 }
 .c-loginpage-text{
 padding: 1rem 0;
+}
+
+/*qr code page*/
+
+.c-qr-page_main{
+flex-grow: 0.6;
+}
+
+.c-qr-page_scanner{
+  font-size: 1.2rem;
+  width: 14rem;
+  border-radius: var(--global-borderRadius);
+  background-color: var(--global-color-white);
+  margin-bottom: 3rem;
+}
+
+.c-qr-page_text{
+  padding: 1rem 0;
+}
+
+.c-qr-page_button{
+  width: 10rem;
 }
 
 /*------------------------------------*\
@@ -289,11 +304,40 @@ padding: 1rem 0;
     Utility classes align text or components
 */
 
-.u-align-center {
+/*horizontaal*/
+
+.u-justify-center {
   justify-content: center;
 }
-.u-align-bottom {
+.u-justify-bottom {
   justify-content: flex-end;
+}
+
+/*basic flex layout*/
+
+.u-basic-flex-layout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/*basic background colors*/
+
+.u-background-color-blue{
+  background-color: var(--global-color-blue);
+}
+
+.u-background-color-red{
+  background-color: var(--global-color-red);
+}
+
+.u-background-color-green{
+  background-color: var(--global-color-green);
+}
+
+.u-background-color-yellow{
+  background-color: var(--global-color-yellow);
 }
 
 /*------------------------------------*\
