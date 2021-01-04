@@ -1,12 +1,15 @@
 /*------------------------------------*\
 #Global Game Variables
 \*------------------------------------*/
-let timer         = 0;
+let gametimer     = 0;
+let deadtimer     = 10
 let mqttmssg      = "";
 let colors        = ["yellow", "blue", "green", "red"]
 let bodyparts     = ["left hand", "left foot", "right foot", "right hand"]
 let scoreplayer1  = 1
-let currentplayer = 1
+let players       = []
+let currentplayerindex = 0
+let playerscores  = [0, 0, 0, 0]
 
 const setoutmsg = function(out_msg){
     mqttmssg = out_msg;
@@ -19,11 +22,14 @@ const setoutmsg = function(out_msg){
 
 const StartGame = function(){
     let gamemode = JSON.parse(localStorage.getItem('gamesettings')).gamemode;
-    timer = JSON.parse(localStorage.getItem('gamesettings')).timer;
+    gametimer = JSON.parse(localStorage.getItem('gamesettings')).timer;
+    for([key, val] of Object.entries(JSON.parse(localStorage.getItem('players')))) {
+        players.push(val);
+    }
     switch(gamemode) {
         case "Twister-Classic":
             console.log("starting twister classic");
-            Temp_TwisterClassic();
+            Temp_TwisterClassic(gametimer);
             PlayTwister()
             break;
       
@@ -43,19 +49,32 @@ const StartGame = function(){
 \*------------------------------------*/
 
 const PlayTwister = function(){
-    let currplayername = JSON.parse(localStorage.getItem('players'))['player' + currentplayer];
-    let twistermove = NewTwisterMove();
+    let twistermove   = NewTwisterMove();
+    let currentplayer = players[currentplayerindex];
     document.querySelector("#twistermove").innerHTML = twistermove;
-    document.querySelector("#currentplayer").innerHTML = currplayername;
+    document.querySelector("#currentplayer").innerHTML = currentplayer;
 
-    var timeleft = 10;
+    var timeleft = 5;
     var TwisterTimer = setInterval(function(){
+        document.getElementById("progressBar").value = timeleft;
         if (timeleft == 0) {
             clearInterval(TwisterTimer);
-            Temp_WaitingScreen(10, currplayername);
-            localStorage.removeItem('players')['player' + currentplayer];
+            mqttmssg = "";
+            players.splice(currentplayer, 1);
+            if (!players.length) {
+                Temp_EndGame();
+                console.log("game done");
+            }
+            else{
+                Temp_WaitingScreen(deadtimer, currentplayer);
+            }
         }
-        document.getElementById("progressBar").value = timeleft;
+        else if (mqttmssg['color'] == randColor) {
+            clearInterval(downloadTimer);
+            mqttmssg = "";
+            playerscores[currentplayerindex] += timeleft;
+        }
+        NextPlayer();
         timeleft -= 1;
     }, 1000);
 }
@@ -67,10 +86,10 @@ const NewTwisterMove = function(){
 }
 
 const NextPlayer = function(){
-    if (currentplayer < Object.keys(JSON.parse(localStorage.getItem('players'))).length) {
+    if (currentplayerindex < players.length) {
         currentplayer++;
     }
-    else if(currentplayer == Object.keys(JSON.parse(localStorage.getItem('players'))).length) {
-        currentplayer = 1;
+    else if(currentplayerindex == players.length) {
+        currentplayer = 0;
     }
 }

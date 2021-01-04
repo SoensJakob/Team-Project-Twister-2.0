@@ -119,6 +119,14 @@ const Temp_TwisterClassic = function(){
     `;
 }
 
+const Temp_EndGame = function(){
+    document.querySelector('#gamewindow').innerHTML = `
+        <div class="o-row">
+            <h1>game is ended</h1>
+        </div>
+    `;
+}
+
 
 /*------------------------------------*\
 #Template functions
