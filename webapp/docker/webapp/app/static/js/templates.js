@@ -24,9 +24,10 @@ const Temp_SelectPlayers = function(){
         <button type="button" onclick="AddPlayer();">Add Player</button>
     </div> 
     <div class="o-row" id="addplayerfield">
-        <button type="button" onclick="ValidatePlayers();">Next</button>
+        <button type="button" id="BtnSelectPlayers">Next</button>
     </div> 
     `;
+    document.querySelector("#BtnSelectPlayers").addEventListener("click", function() {ValidatePlayers();});
 }
 
 

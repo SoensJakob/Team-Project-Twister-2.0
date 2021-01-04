@@ -7,4 +7,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const init = function(){
     window.onload = Temp_SelectPlayers;
+    MQTTconnect();
 }

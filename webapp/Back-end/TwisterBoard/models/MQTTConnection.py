@@ -31,9 +31,6 @@ class MQTTConnection(object):
             logging.error("Non binary input")
     
     def on_message(self, client, userdata, message):
-        """
-        docstring
-        """
         print("message received " ,str(message.payload.decode("utf-8")))
 
     def incoming_messages(self):
