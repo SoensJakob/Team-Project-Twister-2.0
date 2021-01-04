@@ -1,5 +1,4 @@
 Flask==1.1.1
-flask_socketio
 uWSGI==2.0.18
 Flask-Login==0.4.1
 requests==2.24.0
