@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  mqtt:
+    image: toke/mosquitto
+    ports:
+      - 9001:9001
+  webapp:
+    image: tiangolo/uwsgi-nginx-flask
+    build: ./webapp
+    ports:
+      - 80:80
+    depends_on: 
+      - mqtt

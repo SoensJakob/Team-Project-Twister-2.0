@@ -1,0 +1,63 @@
+Inleiding: Welkom op deze presentatie voor ons team project. 
+	   Vandaag zullen wij het hebben over onze Project keuze Twister 2.0
+
+	   Ik zal dit doen aan de hand van 4 vragen
+		- Who Are we -> Wie zijn wij?
+		- Why are we doing this -> Waarom doen we dit
+		- What is it exactly that we're doing -> Wat gaan we precies doen
+		- How are we going to do it -> Hoe gaan we dit doen.
+
+
+
+
+	   Eerst en vooral zal iedereen zichzelf eens voorstellen en uitleggen .
+	   Ik ben Jakob ik zal in dit project proberen in goede baan te leiden als Scrum master. 
+	   Daarnaast zal ik ook helpen met de hardware en frontend. 
+
+           Herber stelt zich voor.
+           Maxim stelt zich voor.
+	   Robbe stelt zich voor.
+
+
+
+
+
+	   Waarom doen we dit?  
+ 
+	   -> Hoe kunnen we op een moderne manier twister spelen?
+	   Wij gaan een webapplicatie maken die verbonden is aan een twisterbord op deze manier
+	   kunnen wij meer variatie in het spel brengen. 
+
+	   
+
+
+
+	   Wat is dit dan precies.
+
+	   Twister 2.0 werkt exact zoals basis twister met wat extra functionaliteiten. 
+	   
+	   De app vervangt de scheidrechter, dus je volledig alleen spelen of wordt ier niemand buitengesloten tijdens het spelen met vrienden. 
+	   Een ranking systeem om zo te gaan vergelijken met vrienden of andere spelers.
+    	   Extra game modes toevoegen naast basis Twister zoals memory. Dit kan je spelen alleen of met maximum 4 spelers 
+           Hierbij moetje de volgorde van de leds volgen.
+	   Via een simpele design zorgen we ervoor dat het spel makkelijk te spelen is voor kinderen 
+	   plug 'n play sluit aan op het simpele design.
+	   Geen login of moeilijke aansluitingen gewoon in het stopcontact verbinden met de app en spelen. 
+	   Dit is allemaal in de vorm van een webapplicatie om het zo bereikbaar te maken op smartphone, tablet of computer.
+	
+	   Nu geef ik eerst het woord aan Herber. Hij zal meer informatie geven over de hardware van het project.
+
+
+
+
+
+
+	   Als we eens gaan kijken naar ons Trello board vind je 5
+
+
+
+
+
+
+
+	
