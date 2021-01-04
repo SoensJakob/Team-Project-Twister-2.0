@@ -13,22 +13,22 @@ def connect():
     global client
     try:
         address = '127.0.0.1'
-        client.connect(address)
+        client.connect(address, 1883)
         print("Connected")
     except:
         print("Not possible")
-    else:
-        print('Not possible to connect')
 
 def on_message(client, userdata, msg):
     message = json.loads(str(msg.payload.decode("utf-8")))
     limb = message["limb"]
     color = message["color"]
-    place = message["place"]
-
+    try:
+        place = message["place"]
+    except Exception as e:
+        place = None
     print(limb, color[1], place)
     if place == None:
-        no_place(limb, color)
+        no_place(color, limb )
     else:
         w_place(color, place, limb)
 
@@ -36,12 +36,14 @@ def on_message(client, userdata, msg):
 def w_place(color, place, limb="1"):
     row_list = twister._color_list[int(color[1])]
     place = row_list[int(place)]
-    twister.createOneListener(color[1], limb, place)
+    twister.createOneListener(color[1], limb)
     print_color(color[0])
 
+    
+
 def no_place(color, limb=1):
-    for x in twister._color_list[color[1]]:
-        twister.createOneListener(color[1], limb ,x)
+    for x in twister._color_list[int(color[1])]:
+        twister.createOneListener(x ,limb)
     print_color(color[0])
 
 
