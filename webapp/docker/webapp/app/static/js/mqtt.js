@@ -1,13 +1,13 @@
 // mqtt client, user and device details
 var mqtt;
-var serverUrl   = "localhost"; //192.168.0.25
+var serverUrl   = "127.0.0.1";
 var port        = 9001;
 var clientId    = "clientID-" + parseInt(Math.random() * 100);  
 var device_name = "bobbie-pc";
 var tenant      = "";
 var username    = "";
 var password    = "";
-var topic       = "";
+var topic       = "/twisterboard";
 var out_msg     = "";
 var sqos        = 2;
 
@@ -54,7 +54,6 @@ function onConnect() {
     connected_flag=1;
     console.log("Connected to " + serverUrl + ":" + port + " with clientid: " + clientId + "clean session= "+ clean_sessions)
     sub_topics();
-    Temp_SelectPlayers();
 }
     
 function disconnect() {
@@ -66,9 +65,8 @@ function disconnect() {
 // mqtt init connection function
 //-------------------------------------------------------------------------------------------
 const MQTTconnect = function() {
-    topic = document.getElementById("MqttTopic").value;
     console.log("connecting to " + serverUrl + ":" + port + " with clientid: " + clientId + "clean session= "+ clean_sessions)
-    mqtt = new Paho.MQTT.Client(serverUrl, port);
+    mqtt = new Paho.MQTT.Client(serverUrl, port, clientId);
     var options = {
         timeout: 3,
         cleanSession: clean_sessions,
