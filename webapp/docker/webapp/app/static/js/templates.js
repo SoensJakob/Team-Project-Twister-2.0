@@ -11,7 +11,7 @@ timer_startgame = 5
 
 const Temp_SelectPlayers = function(){
     document.querySelector('#gamewindow').innerHTML = ` 
-    <div" id="playerfields">    
+    <div id="playerfields">    
         <div class="o-row">
             <label for="playername">name:</label>
             <input type="text" name="playername">
@@ -23,7 +23,7 @@ const Temp_SelectPlayers = function(){
     <div class="o-row" id="addplayerfield">
         <button type="button" onclick="AddPlayer();">Add Player</button>
     </div> 
-    <div class="o-row" id="addplayerfield">
+    <div class="o-row">
         <button type="button" id="BtnSelectPlayers">Next</button>
     </div> 
     `;
@@ -45,7 +45,7 @@ const Temp_SelectGameOptions = function(){
                 <option value="None" selected>None</option>
                 <option value="5">5s</option>
                 <option value="10">10s</option>
-                <option value=15">15s</option>
+                <option value="15">15s</option>
                 <option value="20">20s</option>
                 <option value="25">25s</option>
                 <option value="30">30s</option>
@@ -134,12 +134,30 @@ const Temp_EndGame = function(){
 
 const AddPlayer = function(){
     if (player_count < 4) {
-        document.getElementById('playerfields').innerHTML += `
-            <div class="o-row">
-                <label for="playername">name:</label>
-                <input type="text" name="playername">
-            </div> 
-        `;
+        let playerfield = document.getElementById("playerfields");
+        //create div element and place it in id
+        let row = document.createElement("div");
+        row.classList.add("o-row");
+        playerfield.appendChild(row);
+
+        //create label/input + details and place it in div 
+        let lbl = document.createElement("label");
+        lbl.innerHTML = "name: ";
+        lbl.setAttribute("for", "playername");
+        row.appendChild(lbl);
+
+        let inpt = document.createElement("input");
+        inpt.setAttribute("type", "text");
+        inpt.setAttribute("name", "playername");
+        row.appendChild(inpt);
+
+        //oude code
+        // document.getElementById('playerfields').innerHTML += `
+        //     <div class="o-row">
+        //         <label for="playername">name:</label>
+        //         <input type="text" name="playername">
+        //     </div> 
+        // `;
         if (player_count == 3) {
             let addplayerfield = document.getElementById("addplayerfield");
             if (addplayerfield.style.display === "none") {
