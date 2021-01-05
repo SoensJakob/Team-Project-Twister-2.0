@@ -26,14 +26,11 @@ const onConnectionLost = function(){
 // message callbacks for mqtt
 //-------------------------------------------------------------------------------------------
 const onMessageArrived = function(r_message){
-    //console.log(out_msg+row);
     try{
-        //out_msg="Message received: "+ r_message.payloadString + " from topic: " + r_message.destinationName;
-        //console.log(out_msg);
         setoutmsg(r_message.payloadString);
     }
     catch(err){
-        document.getElementById("out_messages").innerHTML = err.message;
+        alert(err.message);
     }
 }
 
