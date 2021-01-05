@@ -1,0 +1,24 @@
+Vragen Milestone 1
+
+Twister met een twist
+
+Hoeveel meerwaarde is een luidspreker? 
+
+Is het nodig dat het spel online staat -> Meerdere matten op verschillende locaties? 
+
+Highscore voor iedere mat? zoals een arcade? 
+
+Verschillende Game modes: Twister met extra acties, Memory mode, color mode waar de kleuren van de mat veranderen. 
+
+-> Zijn dit intressante game modes, zijn ze verstaanbaar, zijn er verbeteringen? 
+
+
+
+
+Testing
+
+UX Testing met XD prototype 
+
+Hardware Testing door het op te zetten op locatie
+
+Eventueel naarmate mogelijk nadenken hoe het spel wordt gespeeld. (Hoe mensen omgaan in normaal twister zodat er geen onnodige fouten worden geregistreerd.)
