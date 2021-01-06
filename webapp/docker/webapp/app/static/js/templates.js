@@ -29,24 +29,48 @@ const Temp_IkWeetGeenNaam = function(params) {
 }
 
 const Temp_SelectPlayers = function(){ //later terug zetten, sgewoon efkes voor beter html te kunnen lezen
-    // document.querySelector('#gamewindow').innerHTML = ` 
-    // <div id="playerfields">    
-    //     <div class="o-row">
-    //         <label for="playername">name:</label>
-    //         <input type="text" name="playername">
-    //     </div> 
-    // <div>
-    
-    // `;
-    // document.querySelector('#gamewindow').innerHTML += ` 
-    // <div class="o-row" id="addplayerfield">
-    //     <button type="button" onclick="AddPlayer();">Add Player</button>
-    // </div> 
-    // <div class="o-row">
-    //     <button type="button" id="BtnSelectPlayers">Next</button>
-    // </div> 
-    // `;
-    document.querySelector("#BtnSelectPlayers").addEventListener("click", function() {ValidatePlayers();});
+    document.querySelector('#gamewindow').innerHTML = ` 
+        <div class="o-container u-background-color-red">
+            <nav class="o-nav o-nav-white">
+                <a href="login.html" class="o-backbutton o-backbutton_white">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p>Back</p>
+                </a>
+            </nav>
+            <main class="c-numberPlayers u-basic-flex-layout">
+                <div class="c-numberPlayers-slider">
+                    <p>number of players</p>
+                    <div class="o-slider-wrap">
+                        <input type="range" min="1" max="4" value="1" class="o-slider" id="myRange">
+                        <span class="o-NumberPlayersValue"></span>
+                    </div>
+                </div>
+                <!--hier begint de player fields-->
+                <div id="playerfields">    
+                    <div class="o-row c-newplayer">
+                        <label for="playername">name player:</label>
+                        <input type="text" class="c-inputplayer" placeholder="name..." name="playername">
+                    </div> 
+                </div>
+                <div class="o-row">
+                    <button type="button" id="BtnValidatePlayers">Next</button>
+                </div> 
+            </main>
+        </div>
+    `;
+    document.querySelector("#BtnValidatePlayers").addEventListener("click", function() {ValidatePlayers();});
+    const allRanges = document.querySelectorAll(".o-slider-wrap");
+    allRanges.forEach(wrap => {
+        const range = wrap.querySelector(".o-slider");
+        const bubble = wrap.querySelector(".o-NumberPlayersValue");
+
+        range.addEventListener("input", () => {
+            setBubble(range, bubble);
+            AddPlayer(bubble.innerHTML)
+        });
+
+        setBubble(range, bubble);
+    });
 }
 
 const Temp_SelectGameOptions = function(){
@@ -138,18 +162,21 @@ const Temp_TwisterClassic = function(){
     `;
 }
 
-const Temp_EndGame = function(){
-    document.querySelector('#gamewindow').innerHTML = `
-        <div class="o-row">
-            <h1>game is ended</h1>
-        </div>
-    `;
-}
-
 
 /*------------------------------------*\
 #Template functions
 \*------------------------------------*/
+
+function setBubble(range, bubble) {
+    const val = range.value;
+    const min = range.min ? range.min : 1;
+    const max = range.max ? range.max : 4;
+    const newVal = Number(((val - min) * 100) / (max - min));
+    bubble.innerHTML = val;
+
+    // Sorta magic numbers based on size of the native UI thumb
+    bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
+}
 
 const AddPlayer = function(NumberPlayers){
     console.log(NumberPlayers)
@@ -181,45 +208,5 @@ const AddPlayer = function(NumberPlayers){
         lastelement.remove()
         player_count--;
     }
-    
-
-
-    //oude code
-    
-    // if (player_count < 4) {
-    //     let playerfield = document.getElementById("playerfields");
-    //     //create div element and place it in id
-    //     let row = document.createElement("div");
-    //     row.classList.add("o-row");
-    //     playerfield.appendChild(row);
-
-    //     //create label/input + details and place it in div 
-    //     let lbl = document.createElement("label");
-    //     lbl.innerHTML = "name: ";
-    //     lbl.setAttribute("for", "playername");
-    //     row.appendChild(lbl);
-
-    //     let inpt = document.createElement("input");
-    //     inpt.setAttribute("type", "text");
-    //     inpt.setAttribute("name", "playername");
-    //     row.appendChild(inpt);
-
-    //     //oude code
-    //     // document.getElementById('playerfields').innerHTML += `
-    //     //     <div class="o-row">
-    //     //         <label for="playername">name:</label>
-    //     //         <input type="text" name="playername">
-    //     //     </div> 
-    //     // `;
-    //     if (player_count == 3) {
-    //         let addplayerfield = document.getElementById("addplayerfield");
-    //         if (addplayerfield.style.display === "none") {
-    //             addplayerfield.style.display = "block";
-    //         } else {
-    //             addplayerfield.style.display = "none";
-    //         }
-    //     }
-    //    player_count++;
-    //}
     
 }
