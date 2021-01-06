@@ -18,6 +18,7 @@ Verschillende Game modes: Twister met extra acties, Memory mode, color mode waar
 Testing
 
 UX Testing met XD prototype 
+-> adhv. flows 
 
 Hardware Testing door het op te zetten op locatie
 
