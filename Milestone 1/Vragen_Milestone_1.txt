@@ -12,6 +12,8 @@ Verschillende Game modes: Twister met extra acties, Memory mode, color mode waar
 
 -> Zijn dit intressante game modes, zijn ze verstaanbaar, zijn er verbeteringen? 
 
+Scherm op de mat? waarop de acties worden weergegeven.
+
 
 
 
@@ -22,4 +24,5 @@ UX Testing met XD prototype
 
 Hardware Testing door het op te zetten op locatie
 
-Eventueel naarmate mogelijk nadenken hoe het spel wordt gespeeld. (Hoe mensen omgaan in normaal twister zodat er geen onnodige fouten worden geregistreerd.)
+Eventueel naarmate mogelijk nadenken hoe het spel wordt gespeeld.
+(Hoe mensen omgaan in normaal twister zodat er geen onnodige fouten worden geregistreerd.)
