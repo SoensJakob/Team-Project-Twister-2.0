@@ -19,7 +19,70 @@
     <script src="../static/js/game.js"></script>
 </head>
 <body>
-    <div id="gamewindow">
-        <div id="playerfields">
+    <div class="o-container u-background-color-red">
+        <nav class="o-nav o-nav-white">
+            <a href="login.html" class="o-backbutton o-backbutton_white">
+                <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                <p>Back</p>
+            </a>
+        </nav>
+        <main class="c-numberPlayers u-basic-flex-layout">
+        <div class="c-numberPlayers-slider">
+        <p>number of players
+        </p>
+        <div class="o-slider-wrap">
+        <input type="range" min="1" max="4" value="1" class="o-slider" id="myRange">
+        <span class="o-NumberPlayersValue"></span>
+        </div>
+        </div>
+
+        <!--hier begint de player fields-->
+        <form action="post">
+        <div id="playerfields">    
+            <div class="o-row c-newplayer">
+                <label for="playername">name player:</label>
+                <input type="text" class="c-inputplayer" placeholder="name..." name="playername">
+            </div> 
+        </div>
+        </form>
+
+        <!-- button code
+        <div id="addplayerfield">
+        <button type="button" onclick="AddPlayer();">Add Player</button>
+        </div> 
+        <div>
+        <button type="button" id="BtnSelectPlayers">Next</button>
+        </div> 
+        </div> -->
+        </main>
+    </div>
+    <footer class="o-footer">
+
+    </footer>
+    <!--script voor value onder slider thumb te krijgen-->
+    <script>
+        const allRanges = document.querySelectorAll(".o-slider-wrap");
+        allRanges.forEach(wrap => {
+        const range = wrap.querySelector(".o-slider");
+        const bubble = wrap.querySelector(".o-NumberPlayersValue");
+
+        range.addEventListener("input", () => {
+            setBubble(range, bubble);
+            AddPlayer(bubble.innerHTML)
+        });
+        setBubble(range, bubble);
+        });
+
+        function setBubble(range, bubble) {
+            const val = range.value;
+            const min = range.min ? range.min : 1;
+            const max = range.max ? range.max : 4;
+            const newVal = Number(((val - min) * 100) / (max - min));
+            bubble.innerHTML = val;
+
+            // Sorta magic numbers based on size of the native UI thumb
+            bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
+        }
+    </script>
 </body>
 </html>
