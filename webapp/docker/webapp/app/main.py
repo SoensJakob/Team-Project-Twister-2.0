@@ -62,12 +62,12 @@ def scores():
     print(content)
     if request.method == 'POST':
         try:
-            return render_template('scores.html', users=content)
+            return render_template('scores.html')
             
         except Exception as e:
             return  "main - scores error: ", e
 
-    return render_template('register.html')
+    return render_template('scores.html')
 
 
 if __name__ == '__main__':

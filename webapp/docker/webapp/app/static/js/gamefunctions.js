@@ -28,6 +28,7 @@ const StartGame = function(){
         player_info['playerinfo'].push({'name': val, 'score': 0, 'alive':1});
         playercount++;
     }
+    localStorage.removeItem("players");
     switch(gamemode) {
         case "Twister-Classic":
             console.log("starting twister classic");
@@ -51,7 +52,6 @@ const StartGame = function(){
 \*------------------------------------*/
 
 const PlayTwister = function(){
-    mqttmssg = "";
     let twistermove   = NewTwisterMove();
     let currentplayer = player_info.playerinfo[currentplayerindex].name;
     if (gametimer == null) {
@@ -60,7 +60,7 @@ const PlayTwister = function(){
     document.querySelector("#twistermove").innerHTML = `${twistermove[0]} ${twistermove[1]}`;
     document.querySelector("#currentplayer").innerHTML = currentplayer;
     // nog wegdoen in productie
-    let timeleft = 8;
+    let timeleft = 2;
     let TwisterTimer = setInterval(function(){
         document.querySelector("#progressBar").value = timeleft;
         if (timeleft == 0) {
@@ -70,8 +70,9 @@ const PlayTwister = function(){
             NextPlayer();
             CheckIfGameIsFinished(currentplayer);
         }
-        else if (mqttmssg['color'] == 'green') { //twistermove[0]
+        else if (mqttmssg == 'green') { //mqttmssg['color'] == twistermove[0]
             clearInterval(downloadTimer);
+            mqttmssg = "";
             player_info.playerinfo[currentplayerindex].score += timeleft;
             NextPlayer();
         }
@@ -87,14 +88,13 @@ const NewTwisterMove = function(){
 
 const NextPlayer = function(){
     currentplayerindex++;
-    let alive = player_info.playerinfo[currentplayerindex - 1].alive;
+    let alive = player_info.playerinfo[currentplayerindex].alive;
     if (alive == 0) {
         currentplayerindex++;
     }
     else if(currentplayerindex == playercount) {
-        currentplayerindex = 1;
+        currentplayerindex = 0;
     }
-    console.log(player_info);
 }
 
 const RemovePlayer = function() {
@@ -103,12 +103,13 @@ const RemovePlayer = function() {
 }
 
 const CheckIfGameIsFinished = function(currentplayer){
-    if (playercount == 0) {
-        const fetch_param = {headers: { "content-type":"application/json; charset=UTF-8"}, body: JSON.stringify(playerinfo), method:"POST"}
-        fetch('/scores', fetch_param)
-        .catch(error=>console.log('main - CheckIfGameIsFinished error: failed to post json to flask'))
-        // nog veranderen in productie
-        //window.location.replace("/scores");
+    if (playercount == 1) {
+        //const fetch_param = {headers: { "content-type":"application/json; charset=UTF-8"}, body: JSON.stringify(player_info), method:"POST"}
+        //fetch('/scores', fetch_param)
+        //.catch(error=>console.log('main - CheckIfGameIsFinished error: failed to post json to flask'))
+        // nog verwijderen in productie
+        window.localStorage.setItem("EndGame", JSON.stringify(player_info));
+        window.location.replace("/scores.html");
     }
     else{
         Temp_WaitingScreen(deadtimer, currentplayer);
