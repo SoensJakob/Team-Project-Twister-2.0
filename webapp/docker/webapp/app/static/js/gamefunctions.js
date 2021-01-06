@@ -7,9 +7,10 @@ let mqttmssg      = "";
 let colors        = ["yellow", "blue", "green", "red"]
 let bodyparts     = ["left hand", "left foot", "right foot", "right hand"]
 let scoreplayer1  = 1
+let playerinfo    = {}
 let players       = []
 let currentplayerindex = 0
-let playerscores  = [0, 0, 0, 0]
+let playerscores  = []
 
 const setoutmsg = function(out_msg){
     mqttmssg = out_msg;
@@ -24,7 +25,12 @@ const StartGame = function(){
     let gamemode = JSON.parse(localStorage.getItem('gamesettings')).gamemode;
     gametimer = JSON.parse(localStorage.getItem('gamesettings')).timer;
     for([key, val] of Object.entries(JSON.parse(localStorage.getItem('players')))) {
+        playerinfo.push({
+            key:   val,
+            value: 0
+        });
         players.push(val);
+        playerscores.push(0);
     }
     switch(gamemode) {
         case "Twister-Classic":
@@ -49,6 +55,7 @@ const StartGame = function(){
 \*------------------------------------*/
 
 const PlayTwister = function(){
+    mqttmssg = "";
     let twistermove   = NewTwisterMove();
     let currentplayer = players[currentplayerindex];
     document.querySelector("#twistermove").innerHTML = twistermove;
@@ -58,9 +65,13 @@ const PlayTwister = function(){
     var TwisterTimer = setInterval(function(){
         document.getElementById("progressBar").value = timeleft;
         if (timeleft == 0) {
+            // stopt de TwisterTimer
             clearInterval(TwisterTimer);
-            mqttmssg = "";
+
+            // verwijder currentplayer naam en score uit array en v
             players.splice(currentplayer, 1);
+            playerscores.splice(currentplayer, 1);
+
             if (!players.length) {
                 Temp_EndGame();
                 console.log("game done");
@@ -71,7 +82,6 @@ const PlayTwister = function(){
         }
         else if (mqttmssg['color'] == randColor) {
             clearInterval(downloadTimer);
-            mqttmssg = "";
             playerscores[currentplayerindex] += timeleft;
         }
         NextPlayer();

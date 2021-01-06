@@ -9,6 +9,25 @@ timer_startgame = 5
 #Game Templates
 \*------------------------------------*/
 
+const Temp_IkWeetGeenNaam = function(params) {
+    document.querySelector('#gamewindow').innerHTML = `
+        <div class="o-container u-background-color-red">
+            <nav class="o-nav o-nav-white">
+                <a href="index.html" class="o-backbutton o-backbutton_white">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p>Back</p>
+                </a>
+            </nav>
+            <main class="c-loginpage-main u-basic-flex-layout">
+            <button class="o-button"><a id="Play">play as guest</a></button>
+                <p class="c-loginpage-text">or</p>
+            <button class="o-button"><a href="/login">login</a></button>
+            </main>
+        </div>
+    `;
+    document.querySelector('#Play').addEventListener('click', function name() {Temp_SelectPlayers();})
+}
+
 const Temp_SelectPlayers = function(){ //later terug zetten, sgewoon efkes voor beter html te kunnen lezen
     // document.querySelector('#gamewindow').innerHTML = ` 
     // <div id="playerfields">    
