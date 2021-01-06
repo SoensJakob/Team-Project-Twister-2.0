@@ -2,8 +2,7 @@
 #Global variables for templates
 \*------------------------------------*/
 
-player_count    = 1
-timer_startgame = 5
+player_count = 1;
 
 /*------------------------------------*\
 #Game Templates

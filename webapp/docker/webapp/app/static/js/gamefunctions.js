@@ -2,19 +2,18 @@
 #Global Game Variables
 \*------------------------------------*/
 let gametimer     = 0;
-let deadtimer     = 10;
+// nog veranderen in productie
+let deadtimer     = 3;
 let mqttmssg      = "";
 let colors        = ["yellow", "blue", "green", "red"];
 let bodyparts     = ["left hand", "left foot", "right foot", "right hand"];
-let scoreplayer1  = 1;
-let players       = [];
-let playerscores  = [];
-let deadplayers   = [];
-let deadplayerscores = [];
+let player_info    = JSON.parse('{"playerinfo":[]}'); 
+let playercount   = 0;
 let currentplayerindex = 0;
 
 const setoutmsg = function(out_msg){
     mqttmssg = out_msg;
+    console.log(mqttmssg);
 }
 
 
@@ -26,8 +25,8 @@ const StartGame = function(){
     let gamemode = JSON.parse(localStorage.getItem('gamesettings')).gamemode;
     gametimer = JSON.parse(localStorage.getItem('gamesettings')).timer;
     for([key, val] of Object.entries(JSON.parse(localStorage.getItem('players')))) {
-        players.push(val);
-        playerscores.push(0);
+        player_info['playerinfo'].push({'name': val, 'score': 0, 'alive':1});
+        playercount++;
     }
     switch(gamemode) {
         case "Twister-Classic":
@@ -54,24 +53,28 @@ const StartGame = function(){
 const PlayTwister = function(){
     mqttmssg = "";
     let twistermove   = NewTwisterMove();
-    let currentplayer = players[currentplayerindex];
+    let currentplayer = player_info.playerinfo[currentplayerindex].name;
+    if (gametimer == null) {
+        timeleft = 9999999999
+    }
     document.querySelector("#twistermove").innerHTML = `${twistermove[0]} ${twistermove[1]}`;
     document.querySelector("#currentplayer").innerHTML = currentplayer;
-
-    var timeleft = 5;
-    var TwisterTimer = setInterval(function(){
-        document.getElementById("progressBar").value = timeleft;
+    // nog wegdoen in productie
+    let timeleft = 8;
+    let TwisterTimer = setInterval(function(){
+        document.querySelector("#progressBar").value = timeleft;
         if (timeleft == 0) {
             // stopt de TwisterTimer
             clearInterval(TwisterTimer);
             RemovePlayer();
-            CheckIfGameIsFinished();
+            NextPlayer();
+            CheckIfGameIsFinished(currentplayer);
         }
-        else if (mqttmssg['color'] == twistermove[0]) {
+        else if (mqttmssg['color'] == 'green') { //twistermove[0]
             clearInterval(downloadTimer);
-            playerscores[currentplayerindex] += timeleft;
+            player_info.playerinfo[currentplayerindex].score += timeleft;
+            NextPlayer();
         }
-        NextPlayer();
         timeleft -= 1;
     }, 1000);
 }
@@ -83,26 +86,29 @@ const NewTwisterMove = function(){
 }
 
 const NextPlayer = function(){
-    if (currentplayerindex < players.length) {
-        currentplayer++;
+    currentplayerindex++;
+    let alive = player_info.playerinfo[currentplayerindex - 1].alive;
+    if (alive == 0) {
+        currentplayerindex++;
     }
-    else if(currentplayerindex == players.length) {
-        currentplayer = 0;
+    else if(currentplayerindex == playercount) {
+        currentplayerindex = 1;
     }
+    console.log(player_info);
 }
 
 const RemovePlayer = function() {
-    deadplayers.push(players[currentplayer]);
-    deadplayerscores.push(playerscores[currentplayer]);
-
-    // verwijder currentplayer naam en score uit arrays
-    players.splice(currentplayer, 1);
-    playerscores.splice(currentplayer, 1);
+    playercount--;
+    player_info.playerinfo[currentplayerindex].alive = 0;
 }
 
-const CheckIfGameIsFinished = function(){
-    if (!players.length) {
-        window.location.replace("scores.html");
+const CheckIfGameIsFinished = function(currentplayer){
+    if (playercount == 0) {
+        const fetch_param = {headers: { "content-type":"application/json; charset=UTF-8"}, body: JSON.stringify(playerinfo), method:"POST"}
+        fetch('/scores', fetch_param)
+        .catch(error=>console.log('main - CheckIfGameIsFinished error: failed to post json to flask'))
+        // nog veranderen in productie
+        //window.location.replace("/scores");
     }
     else{
         Temp_WaitingScreen(deadtimer, currentplayer);

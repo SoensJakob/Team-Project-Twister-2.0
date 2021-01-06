@@ -1,4 +1,10 @@
 /*------------------------------------*\
+#Global variables for Game Validations
+\*------------------------------------*/
+// nog veranderen in productie
+const TimerStartGame = 5;
+
+/*------------------------------------*\
 #Game Validations
 \*------------------------------------*/
 
@@ -30,6 +36,6 @@ const ValidateGameSettings = function(){
     gamesettings['actions'] = document.querySelector("#GameActions").value;
     console.log('ValidateGameSettings: ', gamesettings);
     window.localStorage.setItem("gamesettings", JSON.stringify(gamesettings));
-    Temp_WaitingScreen(5, null);
+    Temp_WaitingScreen(TimerStartGame, null);
 }
 
