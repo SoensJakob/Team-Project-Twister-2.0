@@ -11,7 +11,7 @@ let player_info    = JSON.parse('{"playerinfo":[]}');
 let playercount   = 0;
 let currentplayerindex = 0;
 
-const setoutmsg = function(out_msg){
+const setoutmsg = (out_msg) => {
     mqttmssg = out_msg;
 }
 
@@ -69,6 +69,7 @@ const PlayTwister = () => {
             CheckIfGameIsFinished(currentplayer);
             NextPlayer();
         }
+        // nog veranderen in productie
         else if (mqttmssg == 'green') { //mqttmssg['color'] == twistermove[0]
             clearInterval(TwisterTimer);
             mqttmssg = "";

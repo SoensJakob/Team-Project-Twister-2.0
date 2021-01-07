@@ -11,3 +11,7 @@ services:
       - 80:80
     depends_on: 
       - mqtt
+  api:
+    build: ./api
+    ports:
+        - 8080:80

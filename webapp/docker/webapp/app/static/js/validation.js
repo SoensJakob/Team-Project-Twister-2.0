@@ -8,7 +8,7 @@ const TimerStartGame = 5;
 #Game Validations
 \*------------------------------------*/
 
-const ValidatePlayers = function(){
+const ValidatePlayers = () => {
     let players = {};
     let val_players = true;
     let inputplayers = document.getElementsByName("playername");
@@ -28,7 +28,7 @@ const ValidatePlayers = function(){
     }
 }
 
-const ValidateGameSettings = function(){
+const ValidateGameSettings = () => {
     let gamesettings = {};
     gamesettings['gamemode'] = document.querySelector("#GameMode").value;
     gamesettings['timer'] = document.querySelector("#GameTimer").value;

@@ -8,7 +8,7 @@ player_count = 1;
 #Game Templates
 \*------------------------------------*/
 
-const Temp_IkWeetGeenNaam = function(params) {
+const Temp_IkWeetGeenNaam = () => {
     document.querySelector('#gamewindow').innerHTML = `
         <div class="o-container u-background-color-red">
             <nav class="o-nav o-nav-white">
@@ -27,7 +27,7 @@ const Temp_IkWeetGeenNaam = function(params) {
     document.querySelector('#Play').addEventListener('click', function name() {Temp_SelectPlayers();})
 }
 
-const Temp_SelectPlayers = function(){ //later terug zetten, sgewoon efkes voor beter html te kunnen lezen
+const Temp_SelectPlayers = () => {
     document.querySelector('#gamewindow').innerHTML = ` 
         <div class="o-container u-background-color-red">
             <nav class="o-nav o-nav-white">
@@ -72,7 +72,7 @@ const Temp_SelectPlayers = function(){ //later terug zetten, sgewoon efkes voor 
     });
 }
 
-const Temp_SelectGameOptions = function(){
+const Temp_SelectGameOptions = () => {
     document.querySelector('#gamewindow').innerHTML = `
         <div class="o-row">
             <label for="GameMode">Choose a gamemode:</label>
@@ -108,7 +108,7 @@ const Temp_SelectGameOptions = function(){
     document.querySelector("#BtnGameSettings").addEventListener("click", function() {ValidateGameSettings();});
 }
 
-const Temp_WaitingScreen = function(time, player){
+const Temp_WaitingScreen = (time, player) => {
     if (player == null) {
         document.querySelector('#gamewindow').innerHTML = `
         <div class="o-row">
@@ -127,24 +127,10 @@ const Temp_WaitingScreen = function(time, player){
         </div>
         `;
     }
-    var timeleft = time - 1;
-    var game_countdown = setInterval(function(){
-        document.querySelector("#WaitingCounter").innerHTML = timeleft;
-        if (timeleft <= 0) {
-            if (player == null) {
-                StartGame();
-            }
-            else if (player != null) {
-                Temp_TwisterClassic();
-                PlayTwister()
-            }
-            clearInterval(game_countdown);
-        }
-        timeleft -= 1;
-    }, 1000);
+    WaitingTimer();
 }
 
-const Temp_TwisterClassic = function(){
+const Temp_TwisterClassic = () => {
     document.querySelector('#gamewindow').innerHTML = `
         <div class="o-row">
             <progress value="0" max="10" id="progressBar"></progress>
@@ -166,7 +152,7 @@ const Temp_TwisterClassic = function(){
 #Template functions
 \*------------------------------------*/
 
-function setBubble(range, bubble) {
+const setBubble = (range, bubble) => {
     const val = range.value;
     const min = range.min ? range.min : 1;
     const max = range.max ? range.max : 4;
@@ -177,7 +163,7 @@ function setBubble(range, bubble) {
     bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
 }
 
-const AddPlayer = function(NumberPlayers){
+const AddPlayer = (NumberPlayers) => {
     if(NumberPlayers >= player_count){
         let playerfield = document.getElementById("playerfields");
         //create div element and place it in id
@@ -205,6 +191,23 @@ const AddPlayer = function(NumberPlayers){
         var lastelement = len < 1 ? "" : elems[len-1];
         lastelement.remove()
         player_count--;
-    }
-    
+    }   
+}
+
+const WaitingTimer = () =>{
+    var timeleft = time - 1;
+    var game_countdown = setInterval(function(){
+        document.querySelector("#WaitingCounter").innerHTML = timeleft;
+        if (timeleft <= 0) {
+            if (player == null) {
+                StartGame();
+            }
+            else if (player != null) {
+                Temp_TwisterClassic();
+                PlayTwister();
+            }
+            clearInterval(game_countdown);
+        }
+        timeleft -= 1;
+    }, 1000);
 }

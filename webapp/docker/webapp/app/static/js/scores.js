@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     init();
 });
 
-const init = function(){
+const init = () => {
     const playerinfo = JSON.parse(localStorage.getItem('EndGame'))
     console.log(playerinfo.playerinfo[0].name);
     for (let index = 0; index < Object.keys(playerinfo['playerinfo']).length; index++) {
