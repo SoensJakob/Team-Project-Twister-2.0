@@ -51,6 +51,7 @@ const StartGame = () => {
 \*------------------------------------*/
 
 const PlayTwister = () => {
+    mqttmssg = "";
     let twistermove   = NewTwisterMove();
     let currentplayer = player_info.playerinfo[currentplayerindex].name;
     if (gametimer == null) {
@@ -59,11 +60,11 @@ const PlayTwister = () => {
     document.querySelector("#twistermove").innerHTML = `${twistermove[0]} ${twistermove[1]}`;
     document.querySelector("#currentplayer").innerHTML = currentplayer;
     // nog veranderen in productie
-    let timeleft = 100;
+    let timeleft = 100; // = gametimer
     let TwisterTimer = setInterval(function(){
         document.querySelector("#progressBar").value =  Math.ceil(timeleft / 10);
-        if (timeleft == 0) {
-            // stopt de TwisterTimer
+        // nog veranderen in productie
+        if (timeleft == 0 ) { // || mqttmssg != twistermove[0]
             clearInterval(TwisterTimer);
             RemovePlayer();
             CheckIfGameIsFinished(currentplayer);
@@ -72,7 +73,6 @@ const PlayTwister = () => {
         // nog veranderen in productie
         else if (mqttmssg == 'green') { //mqttmssg['color'] == twistermove[0]
             clearInterval(TwisterTimer);
-            mqttmssg = "";
             player_info.playerinfo[currentplayerindex].score += timeleft;
             NextPlayer();
             PlayTwister();
