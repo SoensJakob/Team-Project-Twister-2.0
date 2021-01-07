@@ -127,7 +127,21 @@ const Temp_WaitingScreen = (time, player) => {
         </div>
         `;
     }
-    WaitingTimer();
+    var timeleft = time - 1;
+    var game_countdown = setInterval(function(){
+        document.querySelector("#WaitingCounter").innerHTML = timeleft;
+        if (timeleft <= 0) {
+            if (player == null) {
+                 StartGame();
+            }
+            else if (player != null) {
+                Temp_TwisterClassic();
+                PlayTwister();
+            }
+            clearInterval(game_countdown);
+        }
+        timeleft -= 1;
+    }, 1000);
 }
 
 const Temp_TwisterClassic = () => {
@@ -192,22 +206,4 @@ const AddPlayer = (NumberPlayers) => {
         lastelement.remove()
         player_count--;
     }   
-}
-
-const WaitingTimer = () =>{
-    var timeleft = time - 1;
-    var game_countdown = setInterval(function(){
-        document.querySelector("#WaitingCounter").innerHTML = timeleft;
-        if (timeleft <= 0) {
-            if (player == null) {
-                StartGame();
-            }
-            else if (player != null) {
-                Temp_TwisterClassic();
-                PlayTwister();
-            }
-            clearInterval(game_countdown);
-        }
-        timeleft -= 1;
-    }, 1000);
 }
