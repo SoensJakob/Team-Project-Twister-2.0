@@ -8,9 +8,10 @@ Is het nodig dat het spel online staat -> Meerdere matten op verschillende locat
 
 Highscore voor iedere mat? zoals een arcade? 
 
-Verschillende Game modes: Twister met extra acties, Memory mode, color mode waar de kleuren van de mat veranderen. 
+Verschillende Game modes: Twister met extra acties, Game Mode All together, Memory mode, color mode waar de kleuren van de mat veranderen. 
 
 -> Zijn dit intressante game modes, zijn ze verstaanbaar, zijn er verbeteringen? 
+
 
 Scherm op de mat? waarop de acties worden weergegeven.
 
@@ -30,6 +31,12 @@ Door meer game modes toe tevoegen in dezelfde vorm als twister het spel uitgebre
 
 
 Testing
+
+Het concept voorstellen in een paar korte zinnen. 
+
+Vragen stellen aan de docenten. 
+
+Dan UX testing
 
 UX Testing met XD prototype 
 -> adhv. flows 
