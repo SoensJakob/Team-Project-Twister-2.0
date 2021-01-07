@@ -7,7 +7,7 @@ let deadtimer           = 3;
 let playercount         = 0;
 let currenplayercount   = 0;
 let currentplayerindex  = 0;
-let mqttmssg            = JSON.parse('{}'); //  "buttonpressed":[{"place":"", "color":"", "limb":""}]
+let mqttmssg            = [];
 let colors              = ["yellow", "blue", "green", "red"];
 let bodyparts           = ["left hand", "left foot", "right foot", "right hand"];
 let player_info         = JSON.parse('{"playerinfo":[]}'); 
@@ -16,11 +16,11 @@ const setoutmsg = (out_msg) => {
     //jsonstring twister example: jsonstring = '{ "buttonpressed":[{"place":"1G", "color":"green", "limb":"right hand"}]}';
     let mqttobj = JSON.parse(out_msg);
     if (mqttobj.buttonpressed) {
-        mqttmssg = mqttobj.buttonpressed[0]
+        mqttmssg = ["pressed", mqttobj.buttonpressed[0]]
         
     }
     else if (!mqttobj.buttonreleased){
-        console.log('buttonreleased');
+        mqttmssg = ["released", mqttobj.buttonpressed[0]]
     }
     else{
         console.log("game - gamefunctions error: mqttobj error in setoutmsg");
@@ -85,15 +85,19 @@ const PlayTwister = () => {
             NextPlayer(true);
             CheckIfGameIsFinished(currentplayer);
         }
-        else if (mqttmssg.color == twistermove[0]) {
+        else if (mqttmssg[1].color == twistermove[0]) {
             clearInterval(TwisterTimer);
             player_info.playerinfo[currentplayerindex].score += timeleft;
             NextPlayer(false);
             PlayTwister();
         }
-        else if (mqttmssg.color != twistermove[0] && mqttmssg.color) {
+        else if (mqttmssg[1].color && mqttmssg.color[1] != twistermove[0]) {
             clearInterval(TwisterTimer);
             CheckIfGameIsFinished(currentplayer);
+            NextPlayer(true);
+        }
+        else if (mqttmssg[0] == "released") {
+            // hier kijken welke plaats is ingedrukt en welke naam erop staat om die dan te verwijderen
             NextPlayer(true);
         }
         timeleft -= 1;
