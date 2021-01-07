@@ -3,13 +3,14 @@
 \*------------------------------------*/
 let gametimer     = 0;
 // nog veranderen in productie
-let deadtimer     = 3;
-let mqttmssg      = JSON.parse('{ "buttonpressed":[{"place":"", "color":"", "limb":""}]}');
-let colors        = ["yellow", "blue", "green", "red"];
-let bodyparts     = ["left hand", "left foot", "right foot", "right hand"];
-let player_info    = JSON.parse('{"playerinfo":[]}'); 
-let playercount   = 0;
-let currentplayerindex = 0;
+let deadtimer           = 3;
+let playercount         = 0;
+let currenplayercount   = 0;
+let currentplayerindex  = 0;
+let mqttmssg            = JSON.parse('{}'); //  "buttonpressed":[{"place":"", "color":"", "limb":""}]
+let colors              = ["yellow", "blue", "green", "red"];
+let bodyparts           = ["left hand", "left foot", "right foot", "right hand"];
+let player_info         = JSON.parse('{"playerinfo":[]}'); 
 
 const setoutmsg = (out_msg) => {
     //jsonstring twister example: jsonstring = '{ "buttonpressed":[{"place":"1G", "color":"green", "limb":"right hand"}]}';
@@ -43,6 +44,7 @@ const StartGame = () => {
         player_info['playerinfo'].push({'name': val, 'score': 0, 'alive':1});
         playercount++;
     }
+    currenplayercount = playercount;
     localStorage.removeItem("players");
     switch(gamemode) {
         case "Twister-Classic":
@@ -80,20 +82,19 @@ const PlayTwister = () => {
         document.querySelector("#progressBar").value =  Math.ceil(timeleft / 10);
         if (timeleft == 0) {
             clearInterval(TwisterTimer);
-            RemovePlayer();
+            NextPlayer(true);
             CheckIfGameIsFinished(currentplayer);
         }
         else if (mqttmssg.color == twistermove[0]) {
             clearInterval(TwisterTimer);
             player_info.playerinfo[currentplayerindex].score += timeleft;
-            NextPlayer();
+            NextPlayer(false);
             PlayTwister();
         }
         else if (mqttmssg.color != twistermove[0] && mqttmssg.color) {
             clearInterval(TwisterTimer);
-            RemovePlayer();
             CheckIfGameIsFinished(currentplayer);
-            NextPlayer();
+            NextPlayer(true);
         }
         timeleft -= 1;
     }, 100);
@@ -105,31 +106,22 @@ const NewTwisterMove = () => {
     return [randColor, randBodypart]
 }
 
-const NextPlayer = () => {
-    console.log(currentplayerindex, ' old');
+const NextPlayer = (dead) => {
+    if (dead) {
+        player_info.playerinfo[currentplayerindex].alive = 0;
+        currenplayercount--;
+    }
+    currentplayerindex++;
     if (currentplayerindex == playercount) {
         currentplayerindex = 0;
     }
-    else{
-        currentplayerindex++;
-        if (currentplayerindex == playercount) {
-            currentplayerindex = 0
-        }
-        if (player_info.playerinfo[currentplayerindex].alive == 0) {
-            NextPlayer();
-        }
+    if (player_info.playerinfo[currentplayerindex].alive == 0) {
+        NextPlayer();
     }
-    console.log(currentplayerindex, ' new');
-}
-
-const RemovePlayer = () => {
-    player_info.playerinfo[currentplayerindex].alive = 0;
-    NextPlayer();
-    playercount--;
 }
 
 const CheckIfGameIsFinished = function(currentplayer){
-    if (playercount == 1) {
+    if (currenplayercount == 1) {
         //const fetch_param = {headers: { "content-type":"application/json; charset=UTF-8"}, body: JSON.stringify(player_info), method:"POST"}
         //fetch('/scores', fetch_param)
         //.catch(error=>console.log('main - CheckIfGameIsFinished error: failed to post json to flask'))
