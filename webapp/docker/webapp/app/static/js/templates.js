@@ -178,7 +178,6 @@ function setBubble(range, bubble) {
 }
 
 const AddPlayer = function(NumberPlayers){
-    console.log(NumberPlayers)
     if(NumberPlayers >= player_count){
         let playerfield = document.getElementById("playerfields");
         //create div element and place it in id

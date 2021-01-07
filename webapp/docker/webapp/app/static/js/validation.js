@@ -23,7 +23,6 @@ const ValidatePlayers = function(){
         }
     }
     if (val_players) {
-        console.log(players);
         window.localStorage.setItem("players", JSON.stringify(players));
         Temp_SelectGameOptions();
     }
@@ -34,7 +33,6 @@ const ValidateGameSettings = function(){
     gamesettings['gamemode'] = document.querySelector("#GameMode").value;
     gamesettings['timer'] = document.querySelector("#GameTimer").value;
     gamesettings['actions'] = document.querySelector("#GameActions").value;
-    console.log('ValidateGameSettings: ', gamesettings);
     window.localStorage.setItem("gamesettings", JSON.stringify(gamesettings));
     Temp_WaitingScreen(TimerStartGame, null);
 }
