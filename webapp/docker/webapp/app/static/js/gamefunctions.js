@@ -78,7 +78,6 @@ const PlayTwister = () => {
     let timeleft = gametimer;
     let TwisterTimer = setInterval(function(){
         document.querySelector("#progressBar").value =  Math.ceil(timeleft / 10);
-        console.log(timeleft);
         if (timeleft == 0) {
             clearInterval(TwisterTimer);
             RemovePlayer();
@@ -95,9 +94,6 @@ const PlayTwister = () => {
             RemovePlayer();
             CheckIfGameIsFinished(currentplayer);
             NextPlayer();
-        }
-        else{
-            console.log('game - gamefunctions error: timer error playtwister')
         }
         timeleft -= 1;
     }, 100);
@@ -127,9 +123,9 @@ const NextPlayer = () => {
 }
 
 const RemovePlayer = () => {
-    playercount--;
     player_info.playerinfo[currentplayerindex].alive = 0;
     NextPlayer();
+    playercount--;
 }
 
 const CheckIfGameIsFinished = function(currentplayer){
@@ -139,7 +135,7 @@ const CheckIfGameIsFinished = function(currentplayer){
         //.catch(error=>console.log('main - CheckIfGameIsFinished error: failed to post json to flask'))
         // nog verwijderen in productie
         window.localStorage.setItem("EndGame", JSON.stringify(player_info));
-        //window.location.replace("/scores");
+        window.location.replace("/scores");
     }
     else{
         Temp_WaitingScreen(deadtimer, currentplayer);
