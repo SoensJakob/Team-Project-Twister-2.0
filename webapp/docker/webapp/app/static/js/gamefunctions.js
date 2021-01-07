@@ -4,7 +4,7 @@
 let gametimer     = 0;
 // nog veranderen in productie
 let deadtimer     = 3;
-let mqttmssg      = "";
+let mqttmssg      = JSON.parse('{ "buttonpressed":[{"place":"", "color":"", "limb":""}]}');
 let colors        = ["yellow", "blue", "green", "red"];
 let bodyparts     = ["left hand", "left foot", "right foot", "right hand"];
 let player_info    = JSON.parse('{"playerinfo":[]}'); 
@@ -12,7 +12,18 @@ let playercount   = 0;
 let currentplayerindex = 0;
 
 const setoutmsg = (out_msg) => {
-    mqttmssg = out_msg;
+    //jsonstring twister example: jsonstring = '{ "buttonpressed":[{"place":"1G", "color":"green", "limb":"right hand"}]}';
+    let mqttobj = JSON.parse(out_msg);
+    if (mqttobj.buttonpressed) {
+        mqttmssg = mqttobj.buttonpressed[0]
+        
+    }
+    else if (!mqttobj.buttonreleased){
+        console.log('buttonreleased');
+    }
+    else{
+        console.log("game - gamefunctions error: mqttobj error in setoutmsg");
+    }
 }
 
 
@@ -22,7 +33,12 @@ const setoutmsg = (out_msg) => {
 
 const StartGame = () => {
     let gamemode = JSON.parse(localStorage.getItem('gamesettings')).gamemode;
-    gametimer = JSON.parse(localStorage.getItem('gamesettings')).timer;
+    gametimer = (JSON.parse(localStorage.getItem('gamesettings')).timer) * 10;
+    console.log(gametimer, " stargame")
+    if (gametimer == null) {
+        gametimer = 999999;
+    }
+
     for([key, val] of Object.entries(JSON.parse(localStorage.getItem('players')))) {
         player_info['playerinfo'].push({'name': val, 'score': 0, 'alive':1});
         playercount++;
@@ -31,8 +47,8 @@ const StartGame = () => {
     switch(gamemode) {
         case "Twister-Classic":
             console.log("starting twister classic");
-            Temp_TwisterClassic(gametimer);
-            PlayTwister()
+            Temp_TwisterClassic((gametimer / 10));
+            PlayTwister();
             break;
       
         case "Simon-says":
@@ -52,30 +68,36 @@ const StartGame = () => {
 
 const PlayTwister = () => {
     mqttmssg = "";
+    
     let twistermove   = NewTwisterMove();
     let currentplayer = player_info.playerinfo[currentplayerindex].name;
-    if (gametimer == null) {
-        timeleft = 9999999999
-    }
-    document.querySelector("#twistermove").innerHTML = `${twistermove[0]} ${twistermove[1]}`;
+    
     document.querySelector("#currentplayer").innerHTML = currentplayer;
-    // nog veranderen in productie
-    let timeleft = 100; // = gametimer
+    document.querySelector("#twistermove").innerHTML = `${twistermove[0]} ${twistermove[1]}`;
+
+    let timeleft = gametimer;
     let TwisterTimer = setInterval(function(){
         document.querySelector("#progressBar").value =  Math.ceil(timeleft / 10);
-        // nog veranderen in productie
-        if (timeleft == 0 ) { // || mqttmssg != twistermove[0]
+        console.log(timeleft);
+        if (timeleft == 0) {
+            clearInterval(TwisterTimer);
+            RemovePlayer();
+            CheckIfGameIsFinished(currentplayer);
+        }
+        else if (mqttmssg.color == twistermove[0]) {
+            clearInterval(TwisterTimer);
+            player_info.playerinfo[currentplayerindex].score += timeleft;
+            NextPlayer();
+            PlayTwister();
+        }
+        else if (mqttmssg.color != twistermove[0] && mqttmssg.color) {
             clearInterval(TwisterTimer);
             RemovePlayer();
             CheckIfGameIsFinished(currentplayer);
             NextPlayer();
         }
-        // nog veranderen in productie
-        else if (mqttmssg == 'green') { //mqttmssg['color'] == twistermove[0]
-            clearInterval(TwisterTimer);
-            player_info.playerinfo[currentplayerindex].score += timeleft;
-            NextPlayer();
-            PlayTwister();
+        else{
+            console.log('game - gamefunctions error: timer error playtwister')
         }
         timeleft -= 1;
     }, 100);
@@ -88,20 +110,26 @@ const NewTwisterMove = () => {
 }
 
 const NextPlayer = () => {
+    console.log(currentplayerindex, ' old');
     if (currentplayerindex == playercount) {
         currentplayerindex = 0;
     }
     else{
         currentplayerindex++;
+        if (currentplayerindex == playercount) {
+            currentplayerindex = 0
+        }
         if (player_info.playerinfo[currentplayerindex].alive == 0) {
             NextPlayer();
         }
     }
+    console.log(currentplayerindex, ' new');
 }
 
 const RemovePlayer = () => {
     playercount--;
     player_info.playerinfo[currentplayerindex].alive = 0;
+    NextPlayer();
 }
 
 const CheckIfGameIsFinished = function(currentplayer){
@@ -111,7 +139,7 @@ const CheckIfGameIsFinished = function(currentplayer){
         //.catch(error=>console.log('main - CheckIfGameIsFinished error: failed to post json to flask'))
         // nog verwijderen in productie
         window.localStorage.setItem("EndGame", JSON.stringify(player_info));
-        window.location.replace("/scores");
+        //window.location.replace("/scores");
     }
     else{
         Temp_WaitingScreen(deadtimer, currentplayer);

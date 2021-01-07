@@ -1,62 +1,16 @@
-<div class="o-container u-background-color-red">
-    <nav class="o-nav o-nav-white">
-        <a href="login.html" class="o-backbutton o-backbutton_white">
-            <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-            <p>Back</p>
-        </a>
-    </nav>
-    <main class="c-numberPlayers u-basic-flex-layout">
-        <div class="c-numberPlayers-slider">
-            <p>number of players</p>
-            <div class="o-slider-wrap">
-                <input type="range" min="1" max="4" value="1" class="o-slider" id="myRange">
-                <span class="o-NumberPlayersValue"></span>
-            </div>
-        </div>
-        <!--hier begint de player fields-->
-        <div id="playerfields">    
-            <div class="o-row c-newplayer">
-                <label for="playername">name player:</label>
-                <input type="text" class="c-inputplayer" placeholder="name..." name="playername">
-            </div> 
-        </div>
-    </main>
-</div>
-<!--script voor value onder slider thumb te krijgen-->
-<script>
-    const allRanges = document.querySelectorAll(".o-slider-wrap");
-    allRanges.forEach(wrap => {
-    const range = wrap.querySelector(".o-slider");
-    const bubble = wrap.querySelector(".o-NumberPlayersValue");
-
-    range.addEventListener("input", () => {
-        setBubble(range, bubble);
-        AddPlayer(bubble.innerHTML)
-    });
-    setBubble(range, bubble);
-    });
-
-    function setBubble(range, bubble) {
-        const val = range.value;
-        const min = range.min ? range.min : 1;
-        const max = range.max ? range.max : 4;
-        const newVal = Number(((val - min) * 100) / (max - min));
-        bubble.innerHTML = val;
-
-        // Sorta magic numbers based on size of the native UI thumb
-        bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
-    }
-
-    if (currentplayerindex == (playercount - 1)) {
-        currentplayerindex = 0;
-    }
-    else{
-        console.log(currentplayerindex);
-        console.log(player_info.playerinfo[currentplayerindex]);
-        if (player_info.playerinfo[currentplayerindex].alive == 0) {
-            currentplayerindex++;
-        }
-        currentplayerindex++;
-    }
-    
-</script>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="../static/js/TESTJS.js"></script>
+    </head>
+    <body>
+        
+        <input value="null">
+    </body>
+</html>

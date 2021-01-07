@@ -2,7 +2,7 @@
 #Global variables for templates
 \*------------------------------------*/
 
-player_count = 1;
+player_count  = 1;
 
 /*------------------------------------*\
 #Game Templates
@@ -84,7 +84,7 @@ const Temp_SelectGameOptions = () => {
         <div class="o-row">
             <label for="GameTimer">Choose a timer:</label>
             <select id="GameTimer">
-                <option value="None" selected>None</option>
+                <option value="null" selected>infinite</option>
                 <option value="5">5s</option>
                 <option value="10">10s</option>
                 <option value="15">15s</option>
@@ -96,7 +96,7 @@ const Temp_SelectGameOptions = () => {
         <div class="o-row">
             <label for="GameActions">Choose actions:</label>
             <select id="GameActions">
-                <option value="None" selected>None</option>
+                <option value="null" selected>None</option>
                 <option value="ActionList1">ActionList1</option>
                 <option value="ActionList2">ActionList2</option>
             </select>
@@ -127,27 +127,13 @@ const Temp_WaitingScreen = (time, player) => {
         </div>
         `;
     }
-    var timeleft = time - 1;
-    var game_countdown = setInterval(function(){
-        document.querySelector("#WaitingCounter").innerHTML = timeleft;
-        if (timeleft <= 0) {
-            if (player == null) {
-                 StartGame();
-            }
-            else if (player != null) {
-                Temp_TwisterClassic();
-                PlayTwister();
-            }
-            clearInterval(game_countdown);
-        }
-        timeleft -= 1;
-    }, 1000);
+    TimerWaitingScreen(time, player);
 }
 
 const Temp_TwisterClassic = () => {
     document.querySelector('#gamewindow').innerHTML = `
         <div class="o-row">
-            <progress value="0" max="10" id="progressBar"></progress>
+            <progress value="0" max="${(gametimer / 10)}" id="progressBar"></progress>
         </div>
         <div class="o-row">
             <label id="currentplayer"></label>
@@ -206,4 +192,22 @@ const AddPlayer = (NumberPlayers) => {
         lastelement.remove()
         player_count--;
     }   
+}
+
+const TimerWaitingScreen = (time, player) => {
+    var timeleft = time - 1;
+    var game_countdown = setInterval(function(){
+        document.querySelector("#WaitingCounter").innerHTML = timeleft;
+        if (timeleft == 0) {
+            if (player == null) {
+                 StartGame();
+            }
+            else if (player != null) {
+                Temp_TwisterClassic();
+                PlayTwister();
+            }
+            clearInterval(game_countdown);
+        }
+        timeleft -= 1;
+    }, 1000);
 }
