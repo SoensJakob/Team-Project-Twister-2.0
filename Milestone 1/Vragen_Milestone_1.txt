@@ -17,6 +17,18 @@ Scherm op de mat? waarop de acties worden weergegeven.
 
 
 
+
+Concept
+Twister met een twist 
+
+De draaischijf wordt vervangen door de APP.
+Met de app kan je inloggen met een account of als gast spelen. 
+Je kan er verschillende game modes spelen. Je score wordt ook telkens bijgehouden in een highscore
+Bij users die ingelogd zijn kunnen ze die gaan bijhouden en terug ophalen. 
+Door meer game modes toe tevoegen in dezelfde vorm als twister het spel uitgebreider te maken en zo ook leuker. 
+
+
+
 Testing
 
 UX Testing met XD prototype 
