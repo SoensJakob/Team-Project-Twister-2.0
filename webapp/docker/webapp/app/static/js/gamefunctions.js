@@ -13,17 +13,19 @@ let bodyparts           = ["left hand", "left foot", "right foot", "right hand"]
 let player_info         = JSON.parse('{"playerinfo":[]}'); 
 
 const setoutmsg = (out_msg) => {
-    //jsonstring twister example: jsonstring = '{ "buttonpressed":[{"place":"1G", "color":"green", "limb":"right hand"}]}';
+    //jsonstring twister example: jsonstring = '{ "buttonpressed":[{"place":"1", "color":"green", "limb":"right hand"}]}';
     let mqttobj = JSON.parse(out_msg);
-    if (mqttobj.buttonpressed) {
-        mqttmssg = ["pressed", mqttobj.buttonpressed[0]]
-        
-    }
-    else if (!mqttobj.buttonreleased){
-        mqttmssg = ["released", mqttobj.buttonpressed[0]]
-    }
-    else{
-        console.log("game - gamefunctions error: mqttobj error in setoutmsg");
+    switch (Object.keys(mqttobj)[0]) {
+        case 'buttonpressed':
+            mqttmssg = ["pressed", mqttobj.buttonpressed[0]];
+            break;
+        case 'buttonreleased':
+            mqttmssg = ["released", mqttobj.buttonpressed[0]];
+            break;
+    
+        default:
+            console.log("game - gamefunctions error: mqttobj error in setoutmsg");
+            break;
     }
 }
 
@@ -35,10 +37,6 @@ const setoutmsg = (out_msg) => {
 const StartGame = () => {
     let gamemode = JSON.parse(localStorage.getItem('gamesettings')).gamemode;
     gametimer = (JSON.parse(localStorage.getItem('gamesettings')).timer) * 10;
-    console.log(gametimer, " stargame")
-    if (gametimer == null) {
-        gametimer = 999999;
-    }
 
     for([key, val] of Object.entries(JSON.parse(localStorage.getItem('players')))) {
         player_info['playerinfo'].push({'name': val, 'score': 0, 'alive':1});
@@ -76,8 +74,13 @@ const PlayTwister = () => {
     
     document.querySelector("#currentplayer").innerHTML = currentplayer;
     document.querySelector("#twistermove").innerHTML = `${twistermove[0]} ${twistermove[1]}`;
-
+    
     let timeleft = gametimer;
+    if (timeleft == null) {
+        timeleft = 10;
+    }
+    
+    
     let TwisterTimer = setInterval(function(){
         document.querySelector("#progressBar").value =  Math.ceil(timeleft / 10);
         if (timeleft == 0) {
@@ -100,8 +103,15 @@ const PlayTwister = () => {
             // hier kijken welke plaats is ingedrukt en welke naam erop staat om die dan te verwijderen
             NextPlayer(true);
         }
-        timeleft -= 1;
+
+        if (timeleft != null) {
+            timeleft -= 1;
+        }
     }, 100);
+}
+
+const PlayMemmory = () => {
+
 }
 
 const NewTwisterMove = () => {
@@ -126,12 +136,11 @@ const NextPlayer = (dead) => {
 
 const CheckIfGameIsFinished = function(currentplayer){
     if (currenplayercount == 1) {
-        //const fetch_param = {headers: { "content-type":"application/json; charset=UTF-8"}, body: JSON.stringify(player_info), method:"POST"}
-        //fetch('/scores', fetch_param)
-        //.catch(error=>console.log('main - CheckIfGameIsFinished error: failed to post json to flask'))
-        // nog verwijderen in productie
-        window.localStorage.setItem("EndGame", JSON.stringify(player_info));
-        window.location.replace("/scores");
+        //window.localStorage.setItem("EndGame", JSON.stringify(player_info));
+        player_info.sort(function (key, value) {
+            return a.name.localeCompare(value.score);
+        });
+        Temp_EndGame(player_info);
     }
     else{
         Temp_WaitingScreen(deadtimer, currentplayer);

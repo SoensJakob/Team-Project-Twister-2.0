@@ -147,6 +147,27 @@ const Temp_TwisterClassic = () => {
     `;
 }
 
+const Temp_EndGame = (player_info) => {
+    document.querySelector('#gamewindow').innerHTML = `
+        <table id="scoreboard">
+            <tr>
+                <th>name</th>
+                <th>score</th>
+                <th>place</th>
+            </tr>
+        </table>
+    `;
+    player_info.forEach(player => {
+        document.querySelector('#scoreboard').innerHTML += `
+            <tr>
+                <td>${player.name}</td>
+                <td>${player.score}</td>
+                <td>${playerinfo.index}</td>
+            </tr>
+        `;
+    });
+}
+
 
 /*------------------------------------*\
 #Template functions
