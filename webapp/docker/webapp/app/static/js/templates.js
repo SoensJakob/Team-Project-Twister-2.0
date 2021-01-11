@@ -97,7 +97,7 @@ const Temp_SelectGameOptions = () => {
                     <!--slider-->
                     <div class="c-numberPlayers-slider">   
                         <div class="o-slider-wrap">         
-                            <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="myRange">
+                            <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
                             <span class="o-NumberPlayersValue"></span>
                         </div>
                     </div> 

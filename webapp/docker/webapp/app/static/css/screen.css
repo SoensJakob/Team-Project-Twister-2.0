@@ -162,12 +162,15 @@ input[type=text] {
   width: 90%;
   padding: 2rem 0;
 }
+.o-nav > a{
+  color: var(--global-textcolor);
+}
 
 /*
 in case there is a background color that needs white color
 */
 
-.o-nav-white{
+.o-nav-white > a{
   color: var(--global-color-white);
 }
 /*
@@ -430,6 +433,11 @@ flex-grow: 0.6;
 }
 .c-slider-wrap{
   padding: 0rem 0rem;
+}
+
+/*transitionpage*/
+.c-waitPage{
+  flex-grow: 1;
 }
 
 /*custom select*/

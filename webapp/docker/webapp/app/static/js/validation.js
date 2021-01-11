@@ -32,6 +32,7 @@ const ValidateGameSettings = () => {
     let gamesettings = {};
     gamesettings['gamemode'] = document.querySelector("#GameMode").value;
     gamesettings['timer'] = document.querySelector("#GameTimer").value;
+    console.log(document.querySelector("#GameTimer").value);
     gamesettings['actions'] = document.querySelector("#GameActions").value;
     window.localStorage.setItem("gamesettings", JSON.stringify(gamesettings));
     Temp_WaitingScreen(TimerStartGame, null);

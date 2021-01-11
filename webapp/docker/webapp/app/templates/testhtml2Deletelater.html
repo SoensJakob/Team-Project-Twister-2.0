@@ -11,68 +11,24 @@
 
      <!-- Scripts
         ============================================= -->
-        <script src="../static/js/paho-mqttws31.js"></script>
-        <script src="../static/js/gamefunctions.js"></script>
-        <script src="../static/js/mqtt.js"></script>
-        <script src="../static/js/templates.js"></script>
-        <script src="../static/js/validation.js"></script>
-        <script src="../static/js/game.js"></script>
     
 </head>
 <body>
     <div id="gamewindow">
-        <div class="o-container u-background-color-green u-justify-bottom">
-            <nav class="o-nav o-nav-white">
-                <a href="login.html" class="o-backbutton o-backbutton_white">
-                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                    <p>Back</p>
-                </a>
-            </nav>
-            <main class="c-SelectGameOptions">
-                <div class="o-row">
-                    <label class="custom-select-label" for="GameMode">Gamemode:</label>
-                    <div class="custom-select">
-                    <select id="GameMode">
-                        <option value="Twister-Classic" selected>Twister Classic</option>
-                        <option value="Simon-says">Simon Says</option>
-                    </select>
-                    </div>
-                </div>
-                <div class="o-row">
-                    <label class="custom-select-label" for="GameTimer">Timer:</label>
-                   
-                    <!--slider-->
-                    <div class="c-numberPlayers-slider">   
-                        <div class="o-slider-wrap">         
-                            <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="myRange">
-                            <span class="o-NumberPlayersValue"></span>
-                        </div>
-                    </div> 
+      <div class="o-container u-background-color-green u-justify-bottom u-background-color-yellow">
+        <nav class="o-nav">
+            <a href="login.html" class="o-backbutton o-backbutton_white">
+                <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
+                <p>Back</p>
+            </a>
+        </nav> 
+        <main class="c-waitPage u-basic-flex-layout">
+          <label>Get Ready</label></br>
+          <Label>The game starts in:</label></br>
+          <p id="WaitingCounter">${time}</p>
+      </main>
+      </div>
 
-                    <div class="c-numberPlayers-slider">
-                        <p>number of players</p>
-                        <div class="o-slider-wrap">
-                            <input type="range" min="1" max="4" value="1" class="o-slider" id="myRange">
-                            <span class="o-NumberPlayersValue"></span>
-                        </div>
-                    </div>
-                         
-                <div>
-                <div class="o-row">
-                    <label class="custom-select-label" for="GameActions">Actions:</label>
-                    <div class="custom-select">
-                    <select id="GameActions">
-                        <option value="null" selected>None</option>
-                        <option value="ActionList1">ActionList1</option>
-                        <option value="ActionList2">ActionList2</option>
-                    </select>
-                    </div>
-                </div>
-            </main>
-            <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-                <button type="button" id="BtnGameSettings" class="o-button-large" id="BtnValidatePlayers">play</button>
-            </footer>
-        </div>
          <!--script voor custom select-->
         <script>
             var x, i, j, l, ll, selElmnt, a, b, c;
