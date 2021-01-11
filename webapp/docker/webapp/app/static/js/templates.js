@@ -29,33 +29,33 @@ const Temp_IkWeetGeenNaam = () => {
 
 const Temp_SelectPlayers = () => {
     document.querySelector('#gamewindow').innerHTML = ` 
-        <div class="o-container u-background-color-red">
-            <nav class="o-nav o-nav-white">
-                <a href="login.html" class="o-backbutton o-backbutton_white">
-                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                    <p>Back</p>
-                </a>
-            </nav>
-            <main class="c-numberPlayers u-basic-flex-layout">
-                <div class="c-numberPlayers-slider">
-                    <p>number of players</p>
-                    <div class="o-slider-wrap">
-                        <input type="range" min="1" max="4" value="1" class="o-slider" id="myRange">
-                        <span class="o-NumberPlayersValue"></span>
-                    </div>
-                </div>
-                <!--hier begint de player fields-->
-                <div id="playerfields">    
-                    <div class="o-row c-newplayer">
-                        <label for="playername">name player:</label>
-                        <input type="text" class="c-inputplayer" placeholder="name..." name="playername">
-                    </div> 
-                </div>
-                <div class="o-row">
-                    <button type="button" id="BtnValidatePlayers">Next</button>
-                </div> 
-            </main>
+    <div class="o-container u-background-color-red u-justify-bottom">
+    <nav class="o-nav o-nav-white">
+        <a href="login.html" class="o-backbutton o-backbutton_white">
+            <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+            <p>Back</p>
+        </a>
+    </nav>
+    <main class="c-numberPlayers">
+        <div class="c-numberPlayers-slider">
+            <p>number of players</p>
+            <div class="o-slider-wrap">
+                <input type="range" min="1" max="4" value="1" class="o-slider" id="myRange">
+                <span class="o-NumberPlayersValue"></span>
+            </div>
         </div>
+        <!--hier begint de player fields-->
+        <div id="playerfields">    
+            <div class="o-row c-newplayer">
+                <label for="playername">name player:</label>
+                <input type="text" class="c-inputplayer" placeholder="name..." name="playername">
+            </div> 
+        </div>
+    </main>
+    <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
+        <button type="button" class="o-button-large" id="BtnValidatePlayers">play</button>
+    </footer>
+</div>
     `;
     document.querySelector("#BtnValidatePlayers").addEventListener("click", function() {ValidatePlayers();});
     const allRanges = document.querySelectorAll(".o-slider-wrap");
@@ -74,6 +74,14 @@ const Temp_SelectPlayers = () => {
 
 const Temp_SelectGameOptions = () => {
     document.querySelector('#gamewindow').innerHTML = `
+    <div class="o-container u-background-color-red u-justify-bottom">
+    <nav class="o-nav o-nav-white">
+        <a href="login.html" class="o-backbutton o-backbutton_white">
+            <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+            <p>Back</p>
+        </a>
+    </nav>
+    <main class="c-numberPlayers">
         <div class="o-row">
             <label for="GameMode">Choose a gamemode:</label>
             <select id="GameMode">
@@ -104,6 +112,11 @@ const Temp_SelectGameOptions = () => {
         <div class="o-row">
             <button type="button" id="BtnGameSettings">Play Game</button>
         </div>
+    </main>
+    <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
+        <button type="button" class="o-button-large" id="BtnValidatePlayers">play</button>
+    </footer>
+</div>
     `;
     document.querySelector("#BtnGameSettings").addEventListener("click", function() {ValidateGameSettings();});
 }
@@ -185,7 +198,7 @@ const setBubble = (range, bubble) => {
 }
 
 const AddPlayer = (NumberPlayers) => {
-    if(NumberPlayers >= player_count){
+    if(NumberPlayers > player_count){
         let playerfield = document.getElementById("playerfields");
         //create div element and place it in id
         let row = document.createElement("div");
