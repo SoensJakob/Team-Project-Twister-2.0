@@ -8,6 +8,15 @@
     ============================================= -->
     <link rel="stylesheet" href="../static/css/normalize.css" />
     <link rel="stylesheet" href="../static/css/screen.css" />
+
+     <!-- Scripts
+        ============================================= -->
+        <script src="../static/js/paho-mqttws31.js"></script>
+        <script src="../static/js/gamefunctions.js"></script>
+        <script src="../static/js/mqtt.js"></script>
+        <script src="../static/js/templates.js"></script>
+        <script src="../static/js/validation.js"></script>
+        <script src="../static/js/game.js"></script>
     
 </head>
 <body>
@@ -31,28 +40,28 @@
                 </div>
                 <div class="o-row">
                     <label class="custom-select-label" for="GameTimer">Timer:</label>
-                    <!-- old timer html
-                        <div class="custom-select">
-                        <select id="GameTimer">
-                            <option value="null" selected>none</option>
-                            <option value="5">5s</option>
-                            <option value="10">10s</option>
-                            <option value="15">15s</option>
-                            <option value="20">20s</option>
-                            <option value="25">25s</option>
-                            <option value="30">30s</option>
-                        </select>
-                    </div> -->
+                   
                     <!--slider-->
-                    <div class="c-numberPlayers-slider">                  
+                    <div class="c-numberPlayers-slider">   
+                        <div class="o-slider-wrap">         
                             <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="myRange">
                             <span class="o-NumberPlayersValue"></span>
+                        </div>
+                    </div> 
+
+                    <div class="c-numberPlayers-slider">
+                        <p>number of players</p>
+                        <div class="o-slider-wrap">
+                            <input type="range" min="1" max="4" value="1" class="o-slider" id="myRange">
+                            <span class="o-NumberPlayersValue"></span>
+                        </div>
                     </div>
+                         
                 <div>
                 <div class="o-row">
                     <label class="custom-select-label" for="GameActions">Actions:</label>
                     <div class="custom-select">
-                    <select class="custom-select" id="GameActions">
+                    <select id="GameActions">
                         <option value="null" selected>None</option>
                         <option value="ActionList1">ActionList1</option>
                         <option value="ActionList2">ActionList2</option>
@@ -145,6 +154,23 @@
             then close all select boxes:*/
             document.addEventListener("click", closeAllSelect);
         </script>
+       <script> 
+        document.querySelector("#BtnValidatePlayers").addEventListener("click", function() {ValidatePlayers();});
+        
+        const allRanges = document.querySelectorAll(".o-slider-wrap");
+        allRanges.forEach(wrap => {
+        const range = wrap.querySelector(".o-slider");
+        const bubble = wrap.querySelector(".o-NumberPlayersValue");
+
+        range.addEventListener("input", () => {
+            setBubble(range, bubble);
+            AddPlayer(bubble.innerHTML)
+        });
+
+        setBubble(range, bubble);
+    });
+    
+    </script>
     </div>
 </div>
 </body>

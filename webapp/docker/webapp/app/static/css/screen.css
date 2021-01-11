@@ -257,7 +257,6 @@ in case there is a background color that needs white color
 /*voor de value text de bol te doen volgen*/
 .o-slider-wrap{
   position: relative;
-  padding: 1rem 0;
 }
 .o-NumberPlayersValue{
   position: absolute;
@@ -429,6 +428,9 @@ flex-grow: 0.6;
   border: 1px solid #519F51;
   background-color: #5DB25D;
 }
+.c-slider-wrap{
+  padding: 0rem 0rem;
+}
 
 /*custom select*/
 .custom-select-label{
@@ -520,6 +522,9 @@ flex-grow: 0.6;
 */
 
 /*horizontaal*/
+.u-padding-slider{
+  padding: 1rem 0;
+}
 
 .u-justify-center {
   justify-content: center;
