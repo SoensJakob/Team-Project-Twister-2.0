@@ -74,49 +74,139 @@ const Temp_SelectPlayers = () => {
 
 const Temp_SelectGameOptions = () => {
     document.querySelector('#gamewindow').innerHTML = `
-    <div class="o-container u-background-color-red u-justify-bottom">
-    <nav class="o-nav o-nav-white">
-        <a href="login.html" class="o-backbutton o-backbutton_white">
-            <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-            <p>Back</p>
-        </a>
-    </nav>
-    <main class="c-numberPlayers">
-        <div class="o-row">
-            <label for="GameMode">Choose a gamemode:</label>
-            <select id="GameMode">
-                <option value="Twister-Classic" selected>Twister Classic</option>
-                <option value="Simon-says">Simon Says</option>
-            </select>
+    <div class="o-container u-background-color-green u-justify-bottom">
+            <nav class="o-nav o-nav-white">
+                <a href="login.html" class="o-backbutton o-backbutton_white">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p>Back</p>
+                </a>
+            </nav>
+            <main class="c-SelectGameOptions">
+                <div class="o-row">
+                    <label class="custom-select-label" for="GameMode">Gamemode:</label>
+                    <div class="custom-select">
+                    <select id="GameMode">
+                        <option value="Twister-Classic" selected>Twister Classic</option>
+                        <option value="Simon-says">Simon Says</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="o-row">
+                    <label class="custom-select-label" for="GameTimer">Timer:</label>
+                    <!-- old timer html
+                        <div class="custom-select">
+                        <select id="GameTimer">
+                            <option value="null" selected>none</option>
+                            <option value="5">5s</option>
+                            <option value="10">10s</option>
+                            <option value="15">15s</option>
+                            <option value="20">20s</option>
+                            <option value="25">25s</option>
+                            <option value="30">30s</option>
+                        </select>
+                    </div> -->
+                    <!--slider-->
+                    <div class="c-numberPlayers-slider">                  
+                            <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="myRange">
+                            <span class="o-NumberPlayersValue"></span>
+                    </div>
+                <div>
+                <div class="o-row">
+                    <label class="custom-select-label" for="GameActions">Actions:</label>
+                    <div class="custom-select">
+                    <select class="custom-select" id="GameActions">
+                        <option value="null" selected>None</option>
+                        <option value="ActionList1">ActionList1</option>
+                        <option value="ActionList2">ActionList2</option>
+                    </select>
+                    </div>
+                </div>
+            </main>
+            <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
+                <button type="button" id="BtnGameSettings" class="o-button-large" id="BtnValidatePlayers">play</button>
+            </footer>
         </div>
-        <div class="o-row">
-            <label for="GameTimer">Choose a timer:</label>
-            <select id="GameTimer">
-                <option value="null" selected>infinite</option>
-                <option value="5">5s</option>
-                <option value="10">10s</option>
-                <option value="15">15s</option>
-                <option value="20">20s</option>
-                <option value="25">25s</option>
-                <option value="30">30s</option>
-            </select>
-        <div>
-        <div class="o-row">
-            <label for="GameActions">Choose actions:</label>
-            <select id="GameActions">
-                <option value="null" selected>None</option>
-                <option value="ActionList1">ActionList1</option>
-                <option value="ActionList2">ActionList2</option>
-            </select>
-        </div>
-        <div class="o-row">
-            <button type="button" id="BtnGameSettings">Play Game</button>
-        </div>
-    </main>
-    <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
-        <button type="button" class="o-button-large" id="BtnValidatePlayers">play</button>
-    </footer>
-</div>
+         <!--script voor custom select-->
+        <script>
+            var x, i, j, l, ll, selElmnt, a, b, c;
+            /*look for any elements with the class "custom-select":*/
+            x = document.getElementsByClassName("custom-select");
+            l = x.length;
+            for (i = 0; i < l; i++) {
+              selElmnt = x[i].getElementsByTagName("select")[0];
+              ll = selElmnt.length;
+              /*for each element, create a new DIV that will act as the selected item:*/
+              a = document.createElement("DIV");
+              a.setAttribute("class", "select-selected");
+              a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+              x[i].appendChild(a);
+              /*for each element, create a new DIV that will contain the option list:*/
+              b = document.createElement("DIV");
+              b.setAttribute("class", "select-items select-hide");
+              for (j = 1; j < ll; j++) {
+                /*for each option in the original select element,
+                create a new DIV that will act as an option item:*/
+                c = document.createElement("DIV");
+                c.innerHTML = selElmnt.options[j].innerHTML;
+                c.addEventListener("click", function(e) {
+                    /*when an item is clicked, update the original select box,
+                    and the selected item:*/
+                    var y, i, k, s, h, sl, yl;
+                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                    sl = s.length;
+                    h = this.parentNode.previousSibling;
+                    for (i = 0; i < sl; i++) {
+                      if (s.options[i].innerHTML == this.innerHTML) {
+                        s.selectedIndex = i;
+                        h.innerHTML = this.innerHTML;
+                        y = this.parentNode.getElementsByClassName("same-as-selected");
+                        yl = y.length;
+                        for (k = 0; k < yl; k++) {
+                          y[k].removeAttribute("class");
+                        }
+                        this.setAttribute("class", "same-as-selected");
+                        break;
+                      }
+                    }
+                    h.click();
+                });
+                b.appendChild(c);
+              }
+              x[i].appendChild(b);
+              a.addEventListener("click", function(e) {
+                  /*when the select box is clicked, close any other select boxes,
+                  and open/close the current select box:*/
+                  e.stopPropagation();
+                  closeAllSelect(this);
+                  this.nextSibling.classList.toggle("select-hide");
+                  this.classList.toggle("select-arrow-active");
+                });
+            }
+            function closeAllSelect(elmnt) {
+              /*a function that will close all select boxes in the document,
+              except the current select box:*/
+              var x, y, i, xl, yl, arrNo = [];
+              x = document.getElementsByClassName("select-items");
+              y = document.getElementsByClassName("select-selected");
+              xl = x.length;
+              yl = y.length;
+              for (i = 0; i < yl; i++) {
+                if (elmnt == y[i]) {
+                  arrNo.push(i)
+                } else {
+                  y[i].classList.remove("select-arrow-active");
+                }
+              }
+              for (i = 0; i < xl; i++) {
+                if (arrNo.indexOf(i)) {
+                  x[i].classList.add("select-hide");
+                }
+              }
+            }
+            /*if the user clicks anywhere outside the select box,
+            then close all select boxes:*/
+            document.addEventListener("click", closeAllSelect);
+        </script>
     `;
     document.querySelector("#BtnGameSettings").addEventListener("click", function() {ValidateGameSettings();});
 }
