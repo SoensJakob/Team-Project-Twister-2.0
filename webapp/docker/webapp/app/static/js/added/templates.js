@@ -142,14 +142,25 @@ const Temp_SelectPlayers = (maxplayers) => {
     });
 }
 
+
+
+
 const Temp_WaitingScreen = (time, player) => {
     if (!player) {
         document.querySelector('#gamewindow').innerHTML = `
-        <div class="o-row">
-            <label>Get Ready</label></br>
-            <Label>The game starts in:</label></br>
-            <p id="WaitingCounter">${time}</p>
-        </div>
+        <div class="o-container u-background-color-green u-justify-bottom u-background-color-yellow">
+        <nav class="o-nav">
+            <a href="#" class="o-backbutton o-backbutton_white">
+                <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
+                <p>Back</p>
+            </a>
+        </nav> 
+        <main class="c-waitPage">
+          <h1 class="c-ready">Get Ready</h1>
+          <h2>The game starts in:</h2>
+          <p class="c-counter" id="WaitingCounter">${time}</p>
+      </main>
+      </div>
         `;
         TimerWaitingScreen(time);
     }
@@ -171,31 +182,37 @@ const Temp_WaitingScreen = (time, player) => {
 
 const Temp_TwisterClassic = (gametimer) => {
     document.querySelector('#gamewindow').innerHTML = `
-        <div class="o-row">
-            <label id="twistermovelimb"></label>
-        </div>
-        <div class="o-row">
-            <img style="height:60px;max-width:60px;width: 60;" id="imgtwisterlimb"></label>
-        </div>
-    `;
-    if (gametimer) {
-        document.querySelector('#gamewindow').innerHTML += `
-            <div class="o-row">
-                <p id="progressBarnumber">${gametimer / 10}</p>
+    <div class="o-container u-justify-bottom u-background-color-blue">
+        <nav class="o-nav">
+            <a href="#" class="o-backbutton">
+                <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                <p class="o-backbutton_white">Back</p>
+            </a>
+        </nav> 
+    
+        <main class="c-gamemode-twister u-color-white">
+        <h1 id="twistermovelimb">right foot</h1>
+        <img class="c-gamemode-twister__image" src="../static/img/right_foot.svg" id="imgtwisterlimb">
+            <div id="timer" class="c-gamemode-twister-info">
             </div>
-            <div class="o-row">
-                <progress value="0" max="${gametimer / 10}" id="progressBar"></progress>
-            </div>
-        `;
-    }
-    document.querySelector('#gamewindow').innerHTML += `
+            <p id="twistermovecolor" class="c-gamemode-twister__color">blue</p>
+        </main>
+        <footer class="o-footer u-footer-background-color-blue u-footer-border-color-blue c-gamemode-twister__footer">
         <div class="o-row">
-            <label id="twistermovecolor"></label>
+            <p>player: </p>
+            <label class="c-gamemode-twister__name" id="currentplayer">nathan</label>
         </div>
-        <div class="o-row">
-            <label id="currentplayer"></label>
+        </footer>
         </div>
-    `;
+ `;
+ if (gametimer) {
+     document.querySelector('#timer').innerHTML += `
+     <!--hier komen de seconden value-->
+     <p class="c-gamemode-twister__seconds">seconds left: <span id="progressBarnumber">${gametimer/10}</span></p>
+     <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
+     `;
+ }
+ 
 }
 
 const Temp_EndGame = (player_info) => {
