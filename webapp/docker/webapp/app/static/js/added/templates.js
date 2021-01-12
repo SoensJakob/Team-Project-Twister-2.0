@@ -26,7 +26,25 @@ const Temp_SelectGameOptions = () => {
                     </select>
                 </div>
                 <div id="GameSettings" class="o-row">
-
+                    <div class="o-row">
+                    <label class="c-custom-select-label" for="GameTimer">Timer:</label>
+                    <div class="c-numberPlayers-slider">   
+                        <div class="o-slider-wrap">         
+                            <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
+                            <span class="o-NumberTimerValue"></span>
+                        </div>
+                    </div> 
+                    </div> 
+                    <div>
+                        <div class="o-row">
+                            <label class="c-custom-select-label" for="GameActions">Actions:</label>
+                            <select id="GameActions" class="o-select">
+                                <option value="null" selected>None</option>
+                                <option value="ActionList1">ActionList1</option>
+                                <option value="ActionList2">ActionList2</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </main>
             <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
@@ -97,7 +115,6 @@ const Temp_SelectPlayers = (maxplayers) => {
                         <span class="o-NumberPlayersValue"></span>
                     </div>
                 </div>
-                <!--hier begint de player fields-->
                 <div id="playerfields">    
                     <div class="o-row c-newplayer">
                         <label for="playername">name player:</label>
@@ -162,7 +179,7 @@ const setBubble = (range, bubble) => {
 }
 
 const AddPlayer = (NumberPlayers) => {
-    if(NumberPlayers >= player_count){
+    if(NumberPlayers > player_count){
         let playerfield = document.getElementById("playerfields");
         //create div element and place it in id
         let row = document.createElement("div");
