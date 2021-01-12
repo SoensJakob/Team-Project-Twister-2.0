@@ -170,7 +170,7 @@ const Temp_TwisterClassic = (gametimer) => {
             <label id="twistermovelimb"></label>
         </div>
         <div class="o-row">
-            <img id="imgtwisterlimb"></label>
+            <img style="height:60px;max-width:60px;width: 60;" id="imgtwisterlimb"></label>
         </div>
     `;
     if (gametimer) {

@@ -1,8 +1,19 @@
 /*------------------------------------*\
 #Global Game Variables
 \*------------------------------------*/
-let gametimer, playercount, currenplayercount;
+
+let mqttmssg = ['',''];
+let twisterboard = [
+    [["",""],["",""],["",""],["",""]],
+    [["",""],["",""],["",""],["",""]],
+    [["",""],["",""],["",""],["",""]],
+    [["",""],["",""],["",""],["",""]],
+    [["",""],["",""],["",""],["",""]],
+    [["",""],["",""],["",""],["",""]]
+]
+let currentplayerindex = 0;
 let player_info = JSON.parse('{"playerinfo":[]}'); 
+let gametimer, timeleft, playercount, currenplayercount, bodyparts, colors;
 
 const setoutmsg = (out_msg) => {
     //jsonstring twister example: jsonstring = '{ "buttonpressed":[{"place":"1", "color":"green", "limb":"right hand"}]}';
@@ -12,7 +23,7 @@ const setoutmsg = (out_msg) => {
             mqttmssg = ["pressed", mqttobj.buttonpressed[0]];
             break;
         case 'buttonreleased':
-            mqttmssg = ["released", mqttobj.buttonpressed[0]];
+            mqttmssg = ["released", mqttobj.buttonreleased[0]];
             break;
     
         default:
@@ -39,8 +50,6 @@ const StartGame = () => {
         case "Twister-Classic":
             console.log("starting twister classic");
             SetupTwister(gamesettings);
-            gametimer = gamesettings.timer * 10;
-            Temp_TwisterClassic((gametimer / 10));
             PlayTwister();
             break;
       
@@ -56,57 +65,91 @@ const StartGame = () => {
 
 const SetupTwister = (gamesettings) => {
     gametimer = gamesettings.timer;
-    if (gametimer){
-        gametimer = gamesettings.time * 10;
+    colors = ["red", "blue", "yellow", "green"];
+    bodyparts = ["left hand", "left foot", "right foot", "right hand"];
+    if (gametimer != 0){
+        gametimer *= 10;
         Temp_TwisterClassic((gametimer / 10));
     }
-    else if (!gametimer) {
+    else if (gametimer == 0) {
         gametimer = null;
         Temp_TwisterClassic(gametimer);
+        console.log('gametimer is not set:', gametimer);
     }
-    console.log(gametimer);
+    else{
+        console.log()
+    }
+    timeleft = gametimer;
 }
 
 const PlayTwister = () => {
+    // set variables
     mqttmssg = [];
-    
-    let twistermove   = NewTwisterMove();
     let currentplayer = player_info.playerinfo[currentplayerindex].name;
-    
-    document.querySelector("#currentplayer").innerHTML = currentplayer;
-    document.querySelector("#twistermove").innerHTML = `${twistermove[0]} ${twistermove[1]}`;
-    
-    let timeleft = gametimer;
-    if (timeleft == null) {
-        timeleft = 10;
-    }
-    
+    let randcolor = GetTwisterColor();
+    let randbodypart = bodyparts[Math.floor(Math.random() * bodyparts.length)];
+    let arrbodypart = randbodypart.split(" ");
+
+    // set innerhtml/vaslues temp_playtwister
+    document.querySelector("#twistermovelimb").innerHTML = randbodypart;
+    document.querySelector("#imgtwisterlimb").src = `../static/img/${arrbodypart[0]}_${arrbodypart[1]}.svg`;
+    document.querySelector("#twistermovecolor").innerHTML = randcolor;
+    document.querySelector("#currentplayer").innerHTML = currentplayer; 
     
     let TwisterTimer = setInterval(function(){
-        document.querySelector("#progressBar").value =  Math.ceil(timeleft / 10);
+        if (timeleft) {
+            document.querySelector("#progressBar").value =  Math.ceil(timeleft / 10);
+            document.querySelector("#progressBarnumber").innerHTML =  Math.ceil(timeleft / 10);
+        }
+        
         if (timeleft == 0) {
             clearInterval(TwisterTimer);
             NextPlayer(true);
             CheckIfGameIsFinished(currentplayer);
         }
-        else if (mqttmssg[1].color == twistermove[0]) {
-            clearInterval(TwisterTimer);
-            player_info.playerinfo[currentplayerindex].score += timeleft;
-            NextPlayer(false);
-            PlayTwister();
-        }
-        else if (mqttmssg[1].color && mqttmssg.color[1] != twistermove[0]) {
-            clearInterval(TwisterTimer);
-            CheckIfGameIsFinished(currentplayer);
-            NextPlayer(true);
-        }
-        else if (mqttmssg[0] == "released") {
-            // hier kijken welke plaats is ingedrukt en welke naam erop staat om die dan te verwijderen
-            NextPlayer(true);
-        }
-
-        if (timeleft != null) {
+        
+        // if gametimer is set -> countdown
+        if (timeleft) {
             timeleft -= 1;
         }
     }, 100);
+}
+
+const NextPlayer = (dead) => {
+    if (dead) {
+        player_info.playerinfo[currentplayerindex].alive = 0;
+        currenplayercount--;
+    }
+    currentplayerindex++;
+    if (currentplayerindex == playercount) {
+        currentplayerindex = 0;
+    }
+    if (player_info.playerinfo[currentplayerindex].alive == 0) {
+        NextPlayer();
+    }
+}
+
+const CheckIfGameIsFinished = function(currentplayer){
+    if (currenplayercount == 0) {
+        //window.localStorage.setItem("EndGame", JSON.stringify(player_info));
+        player_info.sort(function (key, value) {
+            return a.name.localeCompare(value.score);
+        });
+        Temp_EndGame(player_info);
+    }
+    else{
+        Temp_WaitingScreen(deadtimer, currentplayer);
+    }
+}
+
+const GetTwisterColor = () => {
+    let countbtnused = 0;
+    let randindex = Math.floor(Math.random() * colors.length)
+    twisterboard.forEach(row => {
+        if (row[randindex][0]) {
+            countbtnused++;
+        }
+    });
+    if (countbtnused == 6) {GetTwisterColor()}
+    else { return colors[randindex]}
 }

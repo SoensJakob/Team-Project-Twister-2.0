@@ -1,6 +1,6 @@
 'use strict'
 
-const StartGameTimer = 5;
+const StartGameTimer = 3;
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM geladen');
