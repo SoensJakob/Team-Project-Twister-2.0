@@ -151,17 +151,22 @@ const Temp_WaitingScreen = (time, player) => {
             <p id="WaitingCounter">${time}</p>
         </div>
         `;
+        TimerWaitingScreen(time);
     }
     else if (player) {
         document.querySelector('#gamewindow').innerHTML = `
         <div class="o-row">
             <label>Player ${player} is dead</label></br>
-            <Label>The game continues in:</label></br>
-            <p id="WaitingCounter">${time}</p>
+            <Label>${player} please push button to continue game</label></br>
+            <button id="ContinueGame">Resume game</button>
         </div>
         `;
+        document.querySelector('#ContinueGame').addEventListener('click', function() {
+            Temp_TwisterClassic(time);
+            PlayTwister();
+        })
     }
-    TimerWaitingScreen(time, player);
+    
 }
 
 const Temp_TwisterClassic = (gametimer) => {
@@ -176,10 +181,10 @@ const Temp_TwisterClassic = (gametimer) => {
     if (gametimer) {
         document.querySelector('#gamewindow').innerHTML += `
             <div class="o-row">
-                <p id="progressBarnumber">${gametimer}</p>
+                <p id="progressBarnumber">${gametimer / 10}</p>
             </div>
             <div class="o-row">
-                <progress value="0" max="${gametimer}" id="progressBar"></progress>
+                <progress value="0" max="${gametimer / 10}" id="progressBar"></progress>
             </div>
         `;
     }
@@ -191,6 +196,28 @@ const Temp_TwisterClassic = (gametimer) => {
             <label id="currentplayer"></label>
         </div>
     `;
+}
+
+const Temp_EndGame = (player_info) => {
+    document.querySelector('#gamewindow').innerHTML = `
+        <table id="scoreboard">
+            <tr>
+                <th>name</th>
+                <th>score</th>
+                <th>place</th>
+            </tr>
+        </table>
+    `;
+    for (let i = 0; i < player_info.length; i++) {
+        console.log(player_info.playerinfo[i].name);
+        document.querySelector('#scoreboard').innerHTML += `
+            <tr>
+                <td>${player_info.playerinfo[i].name}</td>
+                <td>${player_info.playerinfo[i].score}</td>
+                <td>${player_info.playerinfo[i].index}</td>
+            </tr>
+        `;
+    }
 }
 
 /*------------------------------------*\
@@ -231,27 +258,21 @@ const AddPlayer = (NumberPlayers) => {
     }
     else{
         let elems = document.getElementsByClassName("o-row");
-        var len = elems.length;
-        var lastelement = len <= 1 ? "" : elems[len-1];
+        let len = elems.length;
+        let lastelement = len <= 1 ? "" : elems[len-1];
         lastelement.remove()
         player_count--;
     }   
 }
 
 //functions voor Temp_WaitingScreen
-const TimerWaitingScreen = (time, player) => {
+const TimerWaitingScreen = (time) => {
     var timeleft = time - 1;
     var game_countdown = setInterval(function(){
         document.querySelector("#WaitingCounter").innerHTML = timeleft;
         if (timeleft == 0) {
-            if (player == null) {
-                 StartGame();
-            }
-            else if (player != null) {
-                Temp_TwisterClassic();
-                PlayTwister();
-            }
             clearInterval(game_countdown);
+            StartGame();
         }
         timeleft -= 1;
     }, 1000);

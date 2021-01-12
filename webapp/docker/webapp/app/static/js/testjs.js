@@ -8,8 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const init = function(){
-    let bodyparts = ["left hand", "left foot", "right foot", "right hand"];
-    let randBodypart = bodyparts[Math.floor(Math.random() * bodyparts.length)];
-    let arrbodypart = randBodypart.split(" ");
-    document.querySelector("#imgtwisterlimb").src = `../static/img/${arrbodypart[0]}_${arrbodypart[1]}.svg`;
+    let playerinfo = JSON.parse(localStorage.getItem('EndGame'));
+    console.log(playerinfo);
+    playerinfo[0].forEach(player => {
+        console.log()
+    });
 }
