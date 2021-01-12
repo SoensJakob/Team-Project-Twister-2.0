@@ -57,6 +57,7 @@ html,
 body {
   min-height: 100vh;
   background-color: var(--global-color-green);
+  color: var(--global-textcolor);
 }
 
 *,
@@ -94,11 +95,11 @@ h3 {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 p{
@@ -122,7 +123,6 @@ input[type=text] {
 }
 
 
-
 /*------------------------------------*\
 #OBJECTS
 \*------------------------------------*/
@@ -142,6 +142,11 @@ input[type=text] {
   align-items: center;
 }
 
+.o-row{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
 /*
     Objects: navigation row
@@ -157,12 +162,15 @@ input[type=text] {
   width: 90%;
   padding: 2rem 0;
 }
+.o-nav > a{
+  color: var(--global-textcolor);
+}
 
 /*
 in case there is a background color that needs white color
 */
 
-.o-nav-white{
+.o-nav-white > a{
   color: var(--global-color-white);
 }
 /*
@@ -197,27 +205,22 @@ in case there is a background color that needs white color
   border: none;
   padding: 0.5rem 2rem;
   border-radius: var(--global-borderRadius);
+  outline: none;
+  cursor: pointer;
 }
 
-/*
-    Object: Hide accessible
-    ---
-    Accessibly hide any element
-*/
-
-.o-hidden {
-  display: none;
-}
-
-.o-hide-accessible {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+.o-button-large{
+  width: 10rem;
+  height: 3rem;
+  background: var(--global-color-white);
+  border: none;
+  padding: 0.5rem 2rem;
+  border-radius: var(--global-borderRadius);
+  outline: none;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--global-textcolor);
+  cursor: pointer;
 }
 
 /*slider input*/
@@ -257,7 +260,6 @@ in case there is a background color that needs white color
 /*voor de value text de bol te doen volgen*/
 .o-slider-wrap{
   position: relative;
-  padding: 1rem 0;
 }
 .o-NumberPlayersValue{
   position: absolute;
@@ -270,9 +272,54 @@ in case there is a background color that needs white color
   left: 50%;
 }
 
+/*select*/
+.o-select{
+  margin: 1rem 0 0 0;
+  padding: 0.5rem;
+  font-family: Arial Rounded MT, sans-serif;
+  color: var(--global-textcolor);
+  line-height: 1;
+  border: 0;
+  border-radius: 5px;
+  height: 34px;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right var(--global-color-white);
+  -webkit-appearance: none;
+  background-position-x: 14rem;
+  outline: none
+}
+
+/*footer*/
+
 .o-footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem 1.5rem 0 0;
+  height: 8rem;
   width: 100%;
 }
+
+/*
+    Object: Hide accessible
+    ---
+    Accessibly hide any element
+*/
+
+.o-hidden {
+  display: none;
+}
+
+.o-hide-accessible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 /*------------------------------------*\
 #COMPONENTS
 \*------------------------------------*/
@@ -353,9 +400,17 @@ flex-grow: 0.6;
   font-size: var(--global-font-size-md);
   color: var(--global-color-white);
   width: 15rem;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-start;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
 
 .c-numberPlayers-slider{
+  padding-top: 1rem;
   width: 100%;
 }
 
@@ -375,6 +430,43 @@ flex-grow: 0.6;
 
 #playerfields{
   padding-top: 1rem;
+  width: 100%;
+}
+
+/*Game Options page*/
+
+.c-SelectGameOptions{
+  flex-grow: 1;
+  width: 16rem;
+  color: var(--global-color-white);
+
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.c-slider{
+  border: 1px solid #519F51;
+  background-color: #5DB25D;
+}
+.c-slider-wrap{
+  padding: 0rem 0rem;
+}
+
+.c-custom-select-label{
+  padding-top: 1rem;
+}
+
+/*transitionpage*/
+.c-waitPage{
+  text-align: center;
+  flex-grow: 1;
+}
+.c-counter{
+  padding-top: 3rem;
+  font-size: 2rem;
+}
+.c-ready{
+  padding-top: 4rem;
 }
 
 /*------------------------------------*\
@@ -401,6 +493,11 @@ flex-grow: 0.6;
 
 /*horizontaal*/
 
+
+.u-padding-slider{
+  padding: 1rem 0;
+}
+
 .u-justify-center {
   justify-content: center;
 }
@@ -425,26 +522,39 @@ flex-grow: 0.6;
 .u-footer-background-color-blue{
   background-color: var(--global-color-blue-dark);
 }
-
+.u-footer-border-color-blue{
+  border: 5px solid #2D7FB5;
+  border-bottom: none;
+}
 .u-background-color-red{
   background-color: var(--global-color-red);
 }
-.u-footer-background-color-blue{
+.u-footer-background-color-red{
   background-color: var(--global-color-red-dark);
 }
-
+.u-footer-border-color-red{
+  border: 5px solid #AF3432;
+  border-bottom: none;
+}
 .u-background-color-green{
   background-color: var(--global-color-green);
 }
 .u-footer-background-color-green{
   background-color: var(--global-color-green-dark);
 }
-
+.u-footer-border-color-green{
+  border: 5px solid #5AAA5A;
+  border-bottom: none;
+}
 .u-background-color-yellow{
   background-color: var(--global-color-yellow);
 }
 .u-footer-background-color-yellow{
   background-color: var(--global-color-yellow-dark);
+}
+.u-footer-border-color-yellow{
+  border: 5px solid #AEA02E;
+  border-bottom: none;
 }
 
 /*------------------------------------*\
