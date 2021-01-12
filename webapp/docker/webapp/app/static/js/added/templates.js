@@ -150,9 +150,6 @@ const Temp_SelectPlayers = (maxplayers) => {
     });
 }
 
-
-
-
 const Temp_WaitingScreen = (time, player) => {
     if (!player) {
         document.querySelector('#gamewindow').innerHTML = `
