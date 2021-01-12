@@ -34,6 +34,11 @@ body{
   /*textcolor*/
   --global-textcolor: #4B4B4B;
 
+  /*font-sizes*/
+  --global-font-size-md: 1.1rem;
+  --global-font-size-lg: 1.2rem;
+  --global-font-size-xl: 1.3rem;
+
   /* border radius */
   --global-borderRadius: 0.5rem;
   --global-borderWidth: 0.25rem;
@@ -52,6 +57,7 @@ html,
 body {
   min-height: 100vh;
   background-color: var(--global-color-green);
+  color: var(--global-textcolor);
 }
 
 *,
@@ -89,11 +95,11 @@ h3 {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 p{
@@ -104,10 +110,17 @@ p{
 a {
   color: var(--global-textcolor);
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   text-decoration: none;
 }
 
+input[type=text] {
+  width: 100%;
+  background-color: var(--global-color-red);
+  box-sizing: border-box;
+  border: none;
+  border-bottom: solid 1px var(--global-color-white);
+}
 
 
 /*------------------------------------*\
@@ -124,10 +137,16 @@ a {
   height: 100vh;
   overflow: hidden;
   display: flex;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
 }
 
+.o-row{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
 /*
     Objects: navigation row
@@ -143,12 +162,15 @@ a {
   width: 90%;
   padding: 2rem 0;
 }
+.o-nav > a{
+  color: var(--global-textcolor);
+}
 
 /*
 in case there is a background color that needs white color
 */
 
-.o-nav-white{
+.o-nav-white > a{
   color: var(--global-color-white);
 }
 /*
@@ -183,6 +205,98 @@ in case there is a background color that needs white color
   border: none;
   padding: 0.5rem 2rem;
   border-radius: var(--global-borderRadius);
+  outline: none;
+  cursor: pointer;
+}
+
+.o-button-large{
+  width: 10rem;
+  height: 3rem;
+  background: var(--global-color-white);
+  border: none;
+  padding: 0.5rem 2rem;
+  border-radius: var(--global-borderRadius);
+  outline: none;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--global-textcolor);
+  cursor: pointer;
+}
+
+/*slider input*/
+
+.o-slider{
+  -webkit-appearance: none;
+  width: 100%;
+  height: 1rem;
+  border-radius: var(--global-borderRadius);
+  background-color: var(--global-color-red-dark);
+  outline: none;
+  border: 1px solid #9F3432;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+/*bol in slider*/
+.o-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--global-color-white);
+  cursor: pointer;
+}
+
+.o-slider::-moz-range-thumb {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--global-color-white);
+  cursor: pointer;
+  border: none;
+}
+
+/*voor de value text de bol te doen volgen*/
+.o-slider-wrap{
+  position: relative;
+}
+.o-NumberPlayersValue{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.o-NumberPlayersValue::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+}
+
+/*select*/
+.o-select{
+  margin: 1rem 0 0 0;
+  padding: 0.5rem;
+  font-family: Arial Rounded MT, sans-serif;
+  color: var(--global-textcolor);
+  line-height: 1;
+  border: 0;
+  border-radius: 5px;
+  height: 34px;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right var(--global-color-white);
+  -webkit-appearance: none;
+  background-position-x: 14rem;
+  outline: none
+}
+
+/*footer*/
+
+.o-footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem 1.5rem 0 0;
+  height: 8rem;
+  width: 100%;
 }
 
 /*
@@ -217,7 +331,6 @@ front page
 .c-startpage{
   justify-content: flex-end;
 }
-
 .c-startpage-header{
   height: 25%;
   width: 100%;
@@ -250,21 +363,110 @@ front page
 login page
 */
 
-.c-loginpage{
-  background-color: var(--global-color-red);
-}
 .c-loginpage-main{
-  font-size: 1.5rem;
   color: var(--global-color-white);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
   flex-grow: 0.9;
   width: 90%;
 }
 .c-loginpage-text{
 padding: 1rem 0;
+}
+
+/*qr code page*/
+
+.c-qr-page_main{
+flex-grow: 0.6;
+}
+
+.c-qr-page_scanner{
+  font-size: 1.2rem;
+  width: 14rem;
+  border-radius: var(--global-borderRadius);
+  background-color: var(--global-color-white);
+  margin-bottom: 3rem;
+}
+
+.c-qr-page_text{
+  padding: 1rem 0;
+}
+
+.c-qr-page_button{
+  width: 10rem;
+}
+
+/*aantal spelers page*/
+
+.c-numberPlayers{  
+  font-size: var(--global-font-size-md);
+  color: var(--global-color-white);
+  width: 15rem;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-start;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.c-numberPlayers-slider{
+  padding-top: 1rem;
+  width: 100%;
+}
+
+.c-inputplayer{
+  margin: 1rem 0;
+  color: var(--global-color-white);
+}
+.c-inputplayer::placeholder{
+  opacity: 0.6;
+  padding: 0.2rem;
+  color: var(--global-color-white);
+}
+.c-inputplayer:active, .c-inputplayer:focus{
+  outline: none;
+  color: var(--global-color-white);
+}
+
+#playerfields{
+  padding-top: 1rem;
+  width: 100%;
+}
+
+/*Game Options page*/
+
+.c-SelectGameOptions{
+  flex-grow: 1;
+  width: 16rem;
+  color: var(--global-color-white);
+
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.c-slider{
+  border: 1px solid #519F51;
+  background-color: #5DB25D;
+}
+.c-slider-wrap{
+  padding: 0rem 0rem;
+}
+
+.c-custom-select-label{
+  padding-top: 1rem;
+}
+
+/*transitionpage*/
+.c-waitPage{
+  text-align: center;
+  flex-grow: 1;
+}
+.c-counter{
+  padding-top: 3rem;
+  font-size: 2rem;
+}
+.c-ready{
+  padding-top: 4rem;
 }
 
 /*------------------------------------*\
@@ -289,11 +491,70 @@ padding: 1rem 0;
     Utility classes align text or components
 */
 
-.u-align-center {
+/*horizontaal*/
+
+
+.u-padding-slider{
+  padding: 1rem 0;
+}
+
+.u-justify-center {
   justify-content: center;
 }
-.u-align-bottom {
+.u-justify-bottom {
   justify-content: flex-end;
+}
+
+/*basic flex layout*/
+
+.u-basic-flex-layout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/*basic background colors*/
+
+.u-background-color-blue{
+  background-color: var(--global-color-blue);
+}
+.u-footer-background-color-blue{
+  background-color: var(--global-color-blue-dark);
+}
+.u-footer-border-color-blue{
+  border: 5px solid #2D7FB5;
+  border-bottom: none;
+}
+.u-background-color-red{
+  background-color: var(--global-color-red);
+}
+.u-footer-background-color-red{
+  background-color: var(--global-color-red-dark);
+}
+.u-footer-border-color-red{
+  border: 5px solid #AF3432;
+  border-bottom: none;
+}
+.u-background-color-green{
+  background-color: var(--global-color-green);
+}
+.u-footer-background-color-green{
+  background-color: var(--global-color-green-dark);
+}
+.u-footer-border-color-green{
+  border: 5px solid #5AAA5A;
+  border-bottom: none;
+}
+.u-background-color-yellow{
+  background-color: var(--global-color-yellow);
+}
+.u-footer-background-color-yellow{
+  background-color: var(--global-color-yellow-dark);
+}
+.u-footer-border-color-yellow{
+  border: 5px solid #AEA02E;
+  border-bottom: none;
 }
 
 /*------------------------------------*\
