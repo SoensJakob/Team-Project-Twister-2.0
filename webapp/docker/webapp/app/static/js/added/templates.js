@@ -12,7 +12,7 @@ const Temp_SelectGameOptions = () => {
     document.querySelector('#initgamewindow').innerHTML = `
         <div class="o-container u-background-color-green u-justify-bottom">
             <nav class="o-nav o-nav-white">
-                <a href="index.html" class="o-backbutton o-backbutton_white">
+                <a href="/" class="o-backbutton o-backbutton_white">
                     <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
                     <p>Back</p>
                 </a>
@@ -162,6 +162,35 @@ const Temp_WaitingScreen = (time, player) => {
         `;
     }
     TimerWaitingScreen(time, player);
+}
+
+const Temp_TwisterClassic = (gametimer) => {
+    document.querySelector('#gamewindow').innerHTML = `
+        <div class="o-row">
+            <label id="twistermovelimb"></label>
+        </div>
+        <div class="o-row">
+            <img id="imgtwisterlimb"></label>
+        </div>
+    `;
+    if (gametimer) {
+        document.querySelector('#gamewindow').innerHTML += `
+            <div class="o-row">
+                <p id="progressBarnumber">${gametimer}</p>
+            </div>
+            <div class="o-row">
+                <progress value="0" max="${gametimer}" id="progressBar"></progress>
+            </div>
+        `;
+    }
+    document.querySelector('#gamewindow').innerHTML += `
+        <div class="o-row">
+            <label id="twistermovecolor"></label>
+        </div>
+        <div class="o-row">
+            <label id="currentplayer"></label>
+        </div>
+    `;
 }
 
 /*------------------------------------*\
