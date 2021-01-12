@@ -95,11 +95,11 @@ h3 {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 p{
@@ -458,7 +458,15 @@ flex-grow: 0.6;
 
 /*transitionpage*/
 .c-waitPage{
+  text-align: center;
   flex-grow: 1;
+}
+.c-counter{
+  padding-top: 3rem;
+  font-size: 2rem;
+}
+.c-ready{
+  padding-top: 4rem;
 }
 
 /*------------------------------------*\

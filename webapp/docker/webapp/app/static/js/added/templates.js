@@ -12,7 +12,7 @@ const Temp_SelectGameOptions = () => {
     document.querySelector('#initgamewindow').innerHTML = `
         <div class="o-container u-background-color-green u-justify-bottom">
             <nav class="o-nav o-nav-white">
-                <a href="login.html" class="o-backbutton o-backbutton_white">
+                <a href="index.html" class="o-backbutton o-backbutton_white">
                     <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
                     <p>Back</p>
                 </a>
@@ -107,7 +107,7 @@ const Temp_SelectPlayers = (maxplayers) => {
                     <p>Back</p>
                 </a>
             </nav>
-            <main class="c-numberPlayers u-basic-flex-layout">
+            <main class="c-numberPlayers">
                 <div class="c-numberPlayers-slider">
                     <p>number of players</p>
                     <div class="o-slider-wrap">
@@ -121,10 +121,10 @@ const Temp_SelectPlayers = (maxplayers) => {
                         <input type="text" class="c-inputplayer" placeholder="name..." name="playername">
                     </div> 
                 </div>
-                <div class="o-row">
-                    <button type="button" id="BtnValidatePlayers">Next</button>
-                </div> 
             </main>
+            <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
+                <button type="button" class="o-button-large" id="BtnValidatePlayers">play</button>
+            </footer>
         </div>
     `;
     document.querySelector("#BtnValidatePlayers").addEventListener("click", function() {ValidatePlayers();});
