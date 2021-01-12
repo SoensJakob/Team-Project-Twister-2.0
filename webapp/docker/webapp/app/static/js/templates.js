@@ -117,7 +117,6 @@ const Temp_SelectGameOptions = () => {
 </div>
     `;
     document.querySelector("#BtnGameSettings").addEventListener("click", function() {ValidateGameSettings();});
-    customSelect();
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
         const range = wrap.querySelector(".o-slider");
