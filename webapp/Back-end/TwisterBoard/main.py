@@ -3,11 +3,14 @@ from threading import Thread
 import time
 import paho.mqtt.client as mqtt
 import json
+#from concurrent.futures import ThreadPoolExecutor
+from RPi import GPIO as io
+
 
 
 # Custom imports
 from models.TwisterBoard import TwisterBoard
-
+from models.test_threadpool import myThread
 # MQTT 
 def connect():
     global client
@@ -18,20 +21,32 @@ def connect():
     except:
         print("Not possible")
 
+def setup():
+    io.setwarnings(False)
+    io.setmode(io.BCM)
+    for x in twister._listInputs:
+        io.setup(x, io.IN, pull_up_down=io.PUD_UP)
+
+def cleanup():
+    io.cleanup()
+
 def on_message(client, userdata, msg):
     message = json.loads(str(msg.payload.decode("utf-8")))
-    limb = message["limb"]
-    color = message["color"]
     try:
-        place = message["place"]
-    except Exception as e:
-        place = None
-    print(limb, color[1], place)
-    if place == None:
-        no_place(color, limb )
-    else:
-        w_place(color, place, limb)
+        limb = message["limb"]
+        color = message["color"]
+        try:
+            place = message["place"]
 
+        except Exception as e:
+            place = None
+        print(limb, color[1], place)
+        if place == None:
+            no_place(color, limb )
+        else:
+            w_place(color, place, limb)
+    except Exception as e:
+        pass
 
 def w_place(color, place, limb="1"):
     row_list = twister._color_list[int(color[1])]
@@ -39,12 +54,13 @@ def w_place(color, place, limb="1"):
     twister.createOneListener(color[1], limb)
     print_color(color[0])
 
-    
+list_results = []
 
 def no_place(color, limb=1):
-    for x in twister._color_list[int(color[1])]:
-        twister.createOneListener(x ,limb)
     print_color(color[0])
+    for x in twister._color_list[int(color[1])]:
+        t = myThread(1, f"listen_{x}", x, twister, io, limb)
+        list_results.append(t.start())
 
 
 def print_color(color):
@@ -65,8 +81,8 @@ def print_color(color):
 
 # Main
 try:
-    twister = TwisterBoard()
-    twister.setup()    
+    twister = TwisterBoard(io)
+    setup()    
     twister.removeAllListeners()
 
     client = mqtt.Client()
@@ -75,6 +91,6 @@ try:
     client.subscribe('/mat/01/#')
     client.loop_forever()
 except KeyboardInterrupt as e:
-    twister.cleanup()
+    cleanup()
     client.disconnect()
     print("Closing program")
