@@ -1,0 +1,49 @@
+Vragen Milestone 1
+
+Twister met een twist
+
+Hoeveel meerwaarde is een luidspreker? Scherm in de mat met de acties op. 
+
+Is het nodig dat het spel online staat -> Meerdere matten op verschillende locaties? 
+
+Highscore voor iedere mat? zoals een arcade? 
+
+Verschillende Game modes: Twister met extra acties, Game Mode All together, Memory mode, color mode waar de kleuren van de mat veranderen. 
+
+-> Zijn dit intressante game modes, zijn ze verstaanbaar, zijn er verbeteringen? 
+
+
+Scherm op de mat? waarop de acties worden weergegeven.
+
+
+
+
+
+Concept
+Twister met een twist 
+
+De draaischijf wordt vervangen door de APP.
+Met de app kan je inloggen met een account of als gast spelen. 
+Je kan er verschillende game modes spelen. Je score wordt ook telkens bijgehouden in een highscore
+Bij users die ingelogd zijn kunnen ze die gaan bijhouden en terug ophalen. 
+Door meer game modes toe tevoegen in dezelfde vorm als twister het spel uitgebreider te maken en zo ook leuker. 
+Iedere Game mode kan ook door elkaar worden gebruikt zodat de speler zelf intressante combinaties kan maken. 
+
+
+
+
+Testing
+
+Het concept voorstellen in een paar korte zinnen. 
+
+Vragen stellen aan de docenten. 
+
+Dan UX testing
+
+UX Testing met XD prototype 
+-> adhv. flows 
+
+Hardware Testing door het op te zetten op locatie
+
+Eventueel naarmate mogelijk nadenken hoe het spel wordt gespeeld.
+(Hoe mensen omgaan in normaal twister zodat er geen onnodige fouten worden geregistreerd.)
