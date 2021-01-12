@@ -18,11 +18,7 @@ void detecter(void){
 
 int main (void)
 {
-<<<<<<< HEAD
-  printf ("Raspberry Pi blink %i\n") ;
-=======
   printf ("Raspberry Pi blink\n") ;
->>>>>>> bd7cc85cafe3b52dd592c12784c5e0b91ae2993d
 
   if (wiringPiSetup () == -1)
     return 1 ;
