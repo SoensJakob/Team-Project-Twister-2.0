@@ -75,48 +75,46 @@ const Temp_SelectPlayers = () => {
 const Temp_SelectGameOptions = () => {
     document.querySelector('#gamewindow').innerHTML = `
     <div class="o-container u-background-color-green u-justify-bottom">
-            <nav class="o-nav o-nav-white">
-                <a href="login.html" class="o-backbutton o-backbutton_white">
-                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                    <p>Back</p>
-                </a>
-            </nav>
-            <main class="c-SelectGameOptions">
-                <div class="o-row">
-                    <label class="custom-select-label" for="GameMode">Gamemode:</label>
-                    <div class="custom-select">
-                    <select id="GameMode">
-                        <option value="Twister-Classic" selected>Twister Classic</option>
-                        <option value="Simon-says">Simon Says</option>
-                    </select>
-                    </div>
+    <nav class="o-nav o-nav-white">
+        <a href="login.html" class="o-backbutton o-backbutton_white">
+            <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+            <p>Back</p>
+        </a>
+    </nav>
+    <main class="c-SelectGameOptions">
+        <div class="o-row">
+            <label class="c-custom-select-label" for="GameMode">Gamemode:</label>
+            <select id="GameMode" class="o-select">
+                <option value="Twister-Classic">Twister Classic</option>
+                <option value="Simon-says" >Simon Says</option>
+            </select>
+            </div>
+        
+        <div class="o-row">
+            <label class="c-custom-select-label" for="GameTimer">Timer:</label>
+           
+            <!--slider-->
+            <div class="c-numberPlayers-slider">   
+                <div class="o-slider-wrap">         
+                    <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
+                    <span class="o-NumberPlayersValue"></span>
                 </div>
-                <div class="o-row">
-                    <label class="custom-select-label" for="GameTimer">Timer:</label>
-                   
-                    <!--slider-->
-                    <div class="c-numberPlayers-slider">   
-                        <div class="o-slider-wrap">         
-                            <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
-                            <span class="o-NumberPlayersValue"></span>
-                        </div>
-                    </div> 
-                <div>
-                <div class="o-row">
-                    <label class="custom-select-label" for="GameActions">Actions:</label>
-                    <div class="custom-select">
-                    <select id="GameActions">
-                        <option value="null" selected>None</option>
-                        <option value="ActionList1">ActionList1</option>
-                        <option value="ActionList2">ActionList2</option>
-                    </select>
-                    </div>
-                </div>
-            </main>
-            <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-                <button type="button" id="BtnGameSettings" class="o-button-large" id="BtnValidatePlayers">play</button>
-            </footer>
+            </div> 
+        <div>
+        <div class="o-row">
+            <label class="c-custom-select-label" for="GameActions">Actions:</label>
+            <select id="GameActions" class="o-select">
+                <option value="null" selected>None</option>
+                <option value="ActionList1">ActionList1</option>
+                <option value="ActionList2">ActionList2</option>
+            </select>
+            </div>
         </div>
+    </main>
+    <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
+        <button type="button" id="BtnGameSettings" class="o-button-large" id="BtnValidatePlayers">play</button>
+    </footer>
+</div>
     `;
     document.querySelector("#BtnGameSettings").addEventListener("click", function() {ValidateGameSettings();});
     customSelect();

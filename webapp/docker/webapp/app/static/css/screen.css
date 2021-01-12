@@ -274,7 +274,7 @@ in case there is a background color that needs white color
 
 /*select*/
 .o-select{
-  margin: 1rem 0;
+  margin: 1rem 0 0 0;
   padding: 0.5rem;
   font-family: Arial Rounded MT, sans-serif;
   color: var(--global-textcolor);
@@ -410,6 +410,7 @@ flex-grow: 0.6;
 }
 
 .c-numberPlayers-slider{
+  padding-top: 1rem;
   width: 100%;
 }
 
@@ -451,6 +452,10 @@ flex-grow: 0.6;
   padding: 0rem 0rem;
 }
 
+.c-custom-select-label{
+  padding-top: 1rem;
+}
+
 /*transitionpage*/
 .c-waitPage{
   flex-grow: 1;
@@ -479,6 +484,8 @@ flex-grow: 0.6;
 */
 
 /*horizontaal*/
+
+
 .u-padding-slider{
   padding: 1rem 0;
 }
