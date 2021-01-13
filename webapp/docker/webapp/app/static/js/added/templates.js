@@ -241,19 +241,13 @@ const Temp_EndGame = (player_info) => {
 const Temp_EndGameOverview = (player_info) => {
     document.querySelector('#gamewindow').innerHTML = `
         <div class="o-container u-justify-bottom u-background-color-green">
-            <nav class="o-nav o-nav-white">
-                <a href="#" class="o-backbutton">
-                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                    <p class="o-backbutton">Back</p>
-                </a>
-            </nav> 
             <main class="c-score">
                 <h1>score</h1>
                 <div id="scoreboard">
                 </div>
             </main>
             <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-                <button type="button" class="o-button-large" id="BtnValidatePlayers">continue</button>
+                <button type="button" class="o-button-large" id="">continue</button>
             </footer>
         </div>
     `;
