@@ -195,21 +195,21 @@ const Temp_TwisterClassic = (gametimer, color) => {
         textcolor = "white"
     }
     document.querySelector('#gamewindow').innerHTML = `
-        <div class="o-container u-justify-bottom u-background-color-${color} u-textcolor-${textcolor}">
+        <div class="o-container u-justify-bottom u-background-color-${color}">
             <nav class="o-nav">
                 <a href="#" class="o-backbutton">
-                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                    <p class="o-backbutton_white">Back</p>
+                    <img class="o-backbutton_img" src="../static/img/arrow-${textcolor}.png" alt="arrow back">
+                    <p class="o-backbutton-${textcolor}">Back</p>
                 </a>
             </nav> 
-            <main class="c-gamemode-twister u-color-white">
+            <main class="c-gamemode-twister u-textcolor-${textcolor}">
                 <h1 id="twistermovelimb">right foot</h1>
                 <img class="c-gamemode-twister__image" id="imgtwisterlimb">
                 <div id="timer" class="c-gamemode-twister-info">
                 </div>
                 <p id="twistermovecolor" class="c-gamemode-twister__color"></p>
             </main>
-            <footer class="o-footer u-footer-background-color-${color} u-footer-border-color-${color} c-gamemode-twister__footer">
+            <footer class="o-footer u-footer-background-color-${color} u-footer-border-color-${color} u-textcolor-${textcolor} c-gamemode-twister__footer">
                 <div class="o-row">
                     <p>player: </p>
                     <label class="c-gamemode-twister__name" id="currentplayer"></label>

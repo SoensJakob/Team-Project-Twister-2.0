@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/normalize.css" />
+    <link rel="stylesheet" href="../static/css/screen.css" />
+    
+    <script src="../static/js/testjs.js"></script>
+</head>
+<body>
+    <div class="o-container u-justify-bottom u-background-color-${color}">
+        <nav class="o-nav">
+            <a href="#" class="o-backbutton">
+                <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
+                <p class="o-backbutton">Back</p>
+            </a>
+        </nav> 
+        <main class="c-gamemode-twister u-textcolor-grey">
+            <h1 id="twistermovelimb">right foot</h1>
+            <img class="c-gamemode-twister__image" src="../static/img/arrow-white.png" id="imgtwisterlimb">
+            <div id="timer" class="c-gamemode-twister-info">
+            </div>
+            <p id="twistermovecolor" class="c-gamemode-twister__color"></p>
+        </main>
+        <footer class="o-footer u-footer-background-color-${color} u-footer-border-color-${color} u-textcolor-grey c-gamemode-twister__footer">
+            <div class="o-row">
+                <p>player: </p>
+                <label class="c-gamemode-twister__name" id="currentplayer"></label>
+            </div>
+        </footer>
+    </div>
+</body>

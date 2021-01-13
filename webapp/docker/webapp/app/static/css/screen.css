@@ -182,7 +182,6 @@ the backbutton in the left corner of the navigation
   flex-direction: row;
   align-items: center;
 }
-
 .o-backbutton_img{
   width: 1rem;
   height: 1.5rem;
@@ -193,8 +192,12 @@ the backbutton in the left corner of the navigation
 in case there is a background color that needs white color
 */
 
-.o-backbutton_white{
+.o-backbutton-white{
   color: var(--global-color-white);
+}
+
+.o-backbutton-grey{
+  color: var(--global-color-darkgrey);
 }
 
 /*every button has same witdh and border radius*/
@@ -481,6 +484,7 @@ flex-grow: 0.6;
 .c-gamemode-twister__image{
   height: 10rem;
 }
+
 .c-gamemode-twister-info{
   padding-top: 1rem;
   display: flex;
