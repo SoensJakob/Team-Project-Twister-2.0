@@ -224,23 +224,20 @@ const Temp_TwisterClassic = (gametimer, color) => {
 
 const Temp_EndGame = (player_info) => {
     document.querySelector('#gamewindow').innerHTML = `
-        <table id="scoreboard">
-            <tr>
-                <th>name</th>
-                <th>score</th>
-                <th>place</th>
-            </tr>
-        </table>
+        <div class="o-container u-justify-bottom u-background-color-white"> 
+            <main class="c-victory">
+                <h1>game finished</h1>
+                <img class="c-victory_img" src="../static/img/crown.svg" alt="victory crown">
+                <p class="c-victory_text">player:</p>
+                <p class="c-victory_text-big" id="currentplayer">${player[0].name}</p>
+                <p>won with a score of</p>
+                <p class="c-victory_text-number" id="#">${player[0].score}</p>
+            </main>
+            <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
+                <button type="button" class="o-button-large" id="BtnValidatePlayers">play</button>
+            </footer>
+        </div>
     `;
-    player_info.forEach(player => {
-        document.querySelector('#scoreboard').innerHTML += `
-            <tr>
-                <td>${player.name}</td>
-                <td>${player.score}</td>
-                <td>${player.index}</td>
-            </tr>
-        `;
-    });
 }
 
 /*------------------------------------*\
