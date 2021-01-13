@@ -1,6 +1,6 @@
 'use strict'
 
-const StartGameTimer = 5;
+const StartGameTimer = 3;
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM geladen');
@@ -8,6 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const init = function(){
-    //MQTTconnect();
+    MQTTconnect();
     Temp_WaitingScreen(StartGameTimer);
 }

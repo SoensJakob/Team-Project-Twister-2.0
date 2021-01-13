@@ -45,6 +45,6 @@ const ValidatePlayers = () => {
     if (!boolvalidation) {
         localStorage.setItem("gameplayers", JSON.stringify(gameplayers));
         // nog veranderen in productie
-        window.location.href = "/templates/game.html"; 
+        window.location.href = "/game"; 
     }
 }

@@ -12,7 +12,7 @@ const Temp_SelectGameOptions = () => {
     document.querySelector('#initgamewindow').innerHTML = `
         <div class="o-container u-background-color-green u-justify-bottom">
             <nav class="o-nav o-nav-white">
-                <a href="index.html" class="o-backbutton o-backbutton_white">
+                <a href="/" class="o-backbutton o-backbutton_white">
                     <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
                     <p>Back</p>
                 </a>
@@ -52,6 +52,15 @@ const Temp_SelectGameOptions = () => {
             </footer>
         </div>
     `;
+    const allRanges = document.querySelectorAll(".o-slider-wrap");
+    allRanges.forEach(wrap => {
+        const range = wrap.querySelector(".o-slider");
+        const bubble = wrap.querySelector(".o-NumberTimerValue");
+        range.addEventListener("input", () => {
+            setBubble(range, bubble);
+        });
+        setBubble(range, bubble);
+    });
     document.querySelector("#BtnValidateGameOptions").addEventListener("click", ValidateGameSettings);
     document.querySelector("#GameMode").addEventListener("change", function(){
         switch (this.value) {
@@ -81,7 +90,6 @@ const Temp_SelectGameOptions = () => {
                 allRanges.forEach(wrap => {
                     const range = wrap.querySelector(".o-slider");
                     const bubble = wrap.querySelector(".o-NumberTimerValue");
-
                     range.addEventListener("input", () => {
                         setBubble(range, bubble);
                     });
@@ -127,7 +135,7 @@ const Temp_SelectPlayers = (maxplayers) => {
             </footer>
         </div>
     `;
-    document.querySelector("#BtnValidatePlayers").addEventListener("click", function() {ValidatePlayers();});
+    document.querySelector("#BtnValidatePlayers").addEventListener("click", function() { ValidatePlayers(); });
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
         const range = wrap.querySelector(".o-slider");
@@ -145,23 +153,146 @@ const Temp_SelectPlayers = (maxplayers) => {
 const Temp_WaitingScreen = (time, player) => {
     if (!player) {
         document.querySelector('#gamewindow').innerHTML = `
-        <div class="o-row">
-            <label>Get Ready</label></br>
-            <Label>The game starts in:</label></br>
-            <p id="WaitingCounter">${time}</p>
-        </div>
+            <div class="o-container u-background-color-green u-justify-bottom u-background-color-yellow">
+                <nav class="o-nav">
+                    <a href="#" class="o-backbutton o-backbutton_white">
+                        <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
+                        <p>Back</p>
+                    </a>
+                </nav> 
+                <main class="c-waitPage">
+                    <h1 class="c-ready">Get Ready</h1>
+                    <h2>The game starts in:</h2>
+                    <p class="c-counter" id="WaitingCounter">${time}</p>
+                </main>
+            </div>
         `;
+        TimerWaitingScreen(time);
     }
     else if (player) {
         document.querySelector('#gamewindow').innerHTML = `
-        <div class="o-row">
-            <label>Player ${player} is dead</label></br>
-            <Label>The game continues in:</label></br>
-            <p id="WaitingCounter">${time}</p>
+            <div class="o-container u-justify-bottom u-background-color-white">
+                <main class="c-lose">
+                    <h1>game over</h1>
+                    <p class="c-lose-name" id="currentplayer">for ${player}</p>
+                    <img class="c-victory_img" src="../static/img/to_late.png" alt="victory crown">
+                </main>
+                <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
+                    <button type="button" class="o-button-large" id="ContinueGame">continue</button>
+                </footer>
+            </div>
+        `;
+        document.querySelector('#ContinueGame').addEventListener('click', function() { PlayTwister(); });
+    }
+}
+
+const Temp_TwisterClassic = (gametimer, color) => {
+    let textcolor = "";
+    if (color == "yellow") {
+       textcolor = "grey"; 
+    }
+    else{
+        textcolor = "white"
+    }
+    document.querySelector('#gamewindow').innerHTML = `
+        <div class="o-container u-justify-bottom u-background-color-${color} u-textcolor-${textcolor}">
+            <nav class="o-nav">
+                <a href="#" class="o-backbutton">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p class="o-backbutton_white">Back</p>
+                </a>
+            </nav> 
+            <main class="c-gamemode-twister u-color-white">
+                <h1 id="twistermovelimb">right foot</h1>
+                <img class="c-gamemode-twister__image" id="imgtwisterlimb">
+                <div id="timer" class="c-gamemode-twister-info">
+                </div>
+                <p id="twistermovecolor" class="c-gamemode-twister__color"></p>
+            </main>
+            <footer class="o-footer u-footer-background-color-${color} u-footer-border-color-${color} c-gamemode-twister__footer">
+                <div class="o-row">
+                    <p>player: </p>
+                    <label class="c-gamemode-twister__name" id="currentplayer"></label>
+                </div>
+            </footer>
         </div>
+    `;
+    if (gametimer) {
+        document.querySelector('#timer').innerHTML += `
+            <!--hier komen de seconden value-->
+            <p class="c-gamemode-twister__seconds">seconds left: <span id="progressBarnumber">${gametimer/10}</span></p>
+            <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
         `;
     }
-    TimerWaitingScreen(time, player);
+}
+
+const Temp_EndGame = (player_info) => {
+    document.querySelector('#gamewindow').innerHTML = `
+        <div class="o-container u-justify-bottom u-background-color-white"> 
+            <main class="c-victory">
+                <h1>game finished</h1>
+                <img class="c-victory_img" src="../static/img/crown.svg" alt="victory crown">
+                <p class="c-victory_text">player:</p>
+                <p class="c-victory_text-big" id="currentplayer">${player_info[0].name}</p>
+                <p>won with a score of</p>
+                <p class="c-victory_text-number" id="#">${player_info[0].score}</p>
+            </main>
+            <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
+                <button type="button" class="o-button-large" id="Continue">Next</button>
+            </footer>
+        </div>
+    `;
+    document.querySelector('#Continue').addEventListener('click', function() { Temp_EndGameOverview(player_info); });
+}
+
+const Temp_EndGameOverview = (player_info) => {
+    document.querySelector('#gamewindow').innerHTML = `
+        <div class="o-container u-justify-bottom u-background-color-green">
+            <main class="c-score">
+                <h1>score</h1>
+                <div id="scoreboard">
+                </div>
+            </main>
+            <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
+                <button type="button" class="o-button-large" id="">continue</button>
+            </footer>
+        </div>
+    `;
+    let i = 1;
+    player_info.forEach(player => {
+        if (i == 1) {
+            document.querySelector('#scoreboard').innerHTML += `
+                <div class="c-scoreboard">
+                    <div class="c-place">
+                        <p>${i}</p>
+                    </div>  
+                    <div class="c-nameboard">
+                        <img class="c-nameboard-img" src="../static/img/crown-white.png" alt="crown">
+                        <p class="c-nameboard-name" id="#">${player.name}</p>
+                    </div>  
+                    <div class="c-scorePlayer" id="#">
+                        <p>${player.score}</p>
+                    </div>
+                </div>
+            `;
+        }
+        else {
+            document.querySelector('#scoreboard').innerHTML += `
+                <div class="c-scoreboard">
+                    <div class="c-place">
+                        <p>${i}</p>
+                    </div>  
+                    <div class="c-nameboard">
+                        <p class="c-nameboard-name" id="#">${player.name}</p>
+                    </div>  
+                    <div class="c-scorePlayer" id="#">
+                        <p>${player.score}</p>
+                    </div>
+                </div>
+            `;
+        }
+        i++;
+    });
 }
 
 /*------------------------------------*\
@@ -202,27 +333,21 @@ const AddPlayer = (NumberPlayers) => {
     }
     else{
         let elems = document.getElementsByClassName("o-row");
-        var len = elems.length;
-        var lastelement = len <= 1 ? "" : elems[len-1];
+        let len = elems.length;
+        let lastelement = len <= 1 ? "" : elems[len-1];
         lastelement.remove()
         player_count--;
     }   
 }
 
 //functions voor Temp_WaitingScreen
-const TimerWaitingScreen = (time, player) => {
+const TimerWaitingScreen = (time) => {
     var timeleft = time - 1;
     var game_countdown = setInterval(function(){
         document.querySelector("#WaitingCounter").innerHTML = timeleft;
         if (timeleft == 0) {
-            if (player == null) {
-                 StartGame();
-            }
-            else if (player != null) {
-                Temp_TwisterClassic();
-                PlayTwister();
-            }
             clearInterval(game_countdown);
+            StartGame();
         }
         timeleft -= 1;
     }, 1000);
