@@ -72,15 +72,7 @@ const SetupTwister = (gamesettings) => {
     gametimer = gamesettings.timer;
     colors = ["red", "blue", "yellow", "green"];
     bodyparts = ["left hand", "left foot", "right foot", "right hand"];
-    if (gametimer != 0){
-        gametimer *= 10;
-    }
-    else if (gametimer == 0) {
-        gametimer = null;
-    }
-    else{
-        console.log('')
-    }
+    (gametimer != 0) ? gametimer *= 10 : gametimer = null;
 }
 
 const PlayTwister = () => {
@@ -97,7 +89,7 @@ const PlayTwister = () => {
 
     // set innerhtml/vaslues temp_playtwister
     document.querySelector("#twistermovelimb").innerHTML = randbodypart;
-    document.querySelector("#imgtwisterlimb").src = `../static/img/${arrbodypart[0]}_${arrbodypart[1]}.svg`;
+    document.querySelector("#imgtwisterlimb").src = `../static/img/${arrbodypart[0]}_${arrbodypart[1]}-${(randcolor == "yellow") ? 'grey' : 'white'}.svg`;
     document.querySelector("#twistermovecolor").innerHTML = randcolor;
     document.querySelector("#currentplayer").innerHTML = currentplayer; 
     
