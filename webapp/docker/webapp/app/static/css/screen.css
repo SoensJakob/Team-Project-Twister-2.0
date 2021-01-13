@@ -479,7 +479,7 @@ flex-grow: 0.6;
   color: var(--global-color-white);
 }
 .c-gamemode-twister__image{
-  width: 5rem;
+  height: 10rem;
 }
 .c-gamemode-twister-info{
   padding-top: 1rem;
@@ -635,7 +635,13 @@ flex-grow: 0.6;
   flex-direction: column;
 }
 
-/*basic background colors*/
+/*basic colors*/
+.u-textcolor-grey{
+  color: var(--global-textcolor);
+}
+.u-textcolor-white{
+  color: var(--global-color-white);
+}
 
 .u-background-color-white{
   background-color: var(--global-color-white);

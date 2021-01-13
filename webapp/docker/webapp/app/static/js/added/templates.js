@@ -187,8 +187,15 @@ const Temp_WaitingScreen = (time, player) => {
 }
 
 const Temp_TwisterClassic = (gametimer, color) => {
+    let textcolor = "";
+    if (color == "yellow") {
+       textcolor = "grey"; 
+    }
+    else{
+        textcolor = "white"
+    }
     document.querySelector('#gamewindow').innerHTML = `
-        <div class="o-container u-justify-bottom u-background-color-${color}">
+        <div class="o-container u-justify-bottom u-background-color-${color} u-textcolor-${textcolor}">
             <nav class="o-nav">
                 <a href="#" class="o-backbutton">
                     <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
