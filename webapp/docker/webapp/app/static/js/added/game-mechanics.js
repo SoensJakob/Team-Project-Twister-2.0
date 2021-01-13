@@ -151,10 +151,10 @@ const NextPlayer = (dead) => {
 
 const CheckIfGameIsFinished = function(currentplayer){
     if (currenplayercount == 1) {
-        //localStorage.setItem("EndGame", JSON.stringify(player_info));
         player_info.playerinfo.sort(function (a, b) {
             return  b.score - a.score;
         });
+        console.log(player_info);
         Temp_EndGame(player_info.playerinfo);
     }
     else{

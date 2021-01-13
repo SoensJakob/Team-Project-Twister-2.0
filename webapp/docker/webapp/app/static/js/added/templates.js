@@ -231,7 +231,7 @@ const Temp_EndGame = (player_info) => {
                 <p class="c-victory_text-number" id="#">${player_info[0].score}</p>
             </main>
             <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-                <button type="button" class="o-button-large" id="">Next</button>
+                <button type="button" class="o-button-large" id="Continue">Next</button>
             </footer>
         </div>
     `;
