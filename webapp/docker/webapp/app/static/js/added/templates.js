@@ -135,7 +135,7 @@ const Temp_SelectPlayers = (maxplayers) => {
             </footer>
         </div>
     `;
-    document.querySelector("#BtnValidatePlayers").addEventListener("click", function() {ValidatePlayers();});
+    document.querySelector("#BtnValidatePlayers").addEventListener("click", function() { ValidatePlayers(); });
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
         const range = wrap.querySelector(".o-slider");
@@ -182,11 +182,8 @@ const Temp_WaitingScreen = (time, player) => {
                 </footer>
             </div>
         `;
-        document.querySelector('#ContinueGame').addEventListener('click', function() {
-            PlayTwister();
-        })
+        document.querySelector('#ContinueGame').addEventListener('click', function() { PlayTwister(); });
     }
-    
 }
 
 const Temp_TwisterClassic = (gametimer, color) => {
@@ -229,15 +226,72 @@ const Temp_EndGame = (player_info) => {
                 <h1>game finished</h1>
                 <img class="c-victory_img" src="../static/img/crown.svg" alt="victory crown">
                 <p class="c-victory_text">player:</p>
-                <p class="c-victory_text-big" id="currentplayer">${player[0].name}</p>
+                <p class="c-victory_text-big" id="currentplayer">${player_info[0].name}</p>
                 <p>won with a score of</p>
-                <p class="c-victory_text-number" id="#">${player[0].score}</p>
+                <p class="c-victory_text-number" id="#">${player_info[0].score}</p>
             </main>
             <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-                <button type="button" class="o-button-large" id="BtnValidatePlayers">play</button>
+                <button type="button" class="o-button-large" id="">Next</button>
             </footer>
         </div>
     `;
+    document.querySelector('#Continue').addEventListener('click', function() { Temp_EndGameOverview(player_info); });
+}
+
+const Temp_EndGameOverview = (player_info) => {
+    document.querySelector('#gamewindow').innerHTML = `
+        <div class="o-container u-justify-bottom u-background-color-green">
+            <nav class="o-nav o-nav-white">
+                <a href="#" class="o-backbutton">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p class="o-backbutton">Back</p>
+                </a>
+            </nav> 
+            <main class="c-score">
+                <h1>score</h1>
+                <div id="scoreboard">
+                </div>
+            </main>
+            <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
+                <button type="button" class="o-button-large" id="BtnValidatePlayers">continue</button>
+            </footer>
+        </div>
+    `;
+    let i = 1;
+    player_info.forEach(player => {
+        if (i == 1) {
+            document.querySelector('#scoreboard').innerHTML += `
+                <div class="c-scoreboard">
+                    <div class="c-place">
+                        <p>${i}</p>
+                    </div>  
+                    <div class="c-nameboard">
+                        <img class="c-nameboard-img" src="../static/img/crown-white.png" alt="crown">
+                        <p class="c-nameboard-name" id="#">${player.name}</p>
+                    </div>  
+                    <div class="c-scorePlayer" id="#">
+                        <p>${player.score}</p>
+                    </div>
+                </div>
+            `;
+        }
+        else {
+            document.querySelector('#scoreboard').innerHTML += `
+                <div class="c-scoreboard">
+                    <div class="c-place">
+                        <p>${i}</p>
+                    </div>  
+                    <div class="c-nameboard">
+                        <p class="c-nameboard-name" id="#">${player.name}</p>
+                    </div>  
+                    <div class="c-scorePlayer" id="#">
+                        <p>${player.score}</p>
+                    </div>
+                </div>
+            `;
+        }
+        i++;
+    });
 }
 
 /*------------------------------------*\
