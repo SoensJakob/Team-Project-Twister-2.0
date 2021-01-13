@@ -171,10 +171,15 @@ const Temp_WaitingScreen = (time, player) => {
     }
     else if (player) {
         document.querySelector('#gamewindow').innerHTML = `
-            <div class="o-row">
-                <label>Player ${player} is dead</label></br>
-                <Label>${player} please push button to continue game</label></br>
-                <button id="ContinueGame">Resume game</button>
+            <div class="o-container u-justify-bottom u-background-color-white">
+                <main class="c-lose">
+                    <h1>game over</h1>
+                    <p class="c-lose-name" id="currentplayer">for ${player}</p>
+                    <img class="c-victory_img" src="../static/img/to_late.png" alt="victory crown">
+                </main>
+                <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
+                    <button type="button" class="o-button-large" id="ContinueGame">continue</button>
+                </footer>
             </div>
         `;
         document.querySelector('#ContinueGame').addEventListener('click', function() {
