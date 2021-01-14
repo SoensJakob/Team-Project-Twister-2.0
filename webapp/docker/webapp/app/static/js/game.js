@@ -8,6 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const init = function(){
-    MQTTconnect();
+    //MQTTconnect();
     Temp_WaitingScreen(StartGameTimer);
 }

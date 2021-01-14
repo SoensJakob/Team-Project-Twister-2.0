@@ -31,6 +31,10 @@ body{
    --global-color-yellow-dark: #E4D131;
    --global-color-yellow-darkest: #AEA12F;
 
+   /*global game color*/
+   --global-gamecolor : var(--global-color-green-dark);
+   --global-gamecolor-border : var(--global-color-green-darkest);
+
   /*textcolor*/
   --global-textcolor: #4B4B4B;
 
@@ -122,6 +126,22 @@ input[type=text] {
   border-bottom: solid 1px var(--global-color-white);
 }
 
+/*progress bar*/
+progress {
+  border-radius: 1rem;
+  width: 100%; 
+  height: 0.9rem;
+}
+progress::-webkit-progress-bar {
+  background-color: var(--global-gamecolor);
+  border: solid 1px var(--global-gamecolor-border);
+  border-radius: 2rem;
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--global-color-white);
+  border-radius: 2rem;
+}
 
 /*------------------------------------*\
 #OBJECTS
@@ -474,9 +494,10 @@ flex-grow: 0.6;
 
 /*gamemode twister page*/
 .c-gamemode-twister{
+  width: 15rem;
   padding-top: 2rem;
   display: flex;
- flex-direction: column;
+  flex-direction: column;
   align-items: center;
   flex-grow: 1;
   color: var(--global-color-white);
@@ -486,7 +507,8 @@ flex-grow: 0.6;
 }
 
 .c-gamemode-twister-info{
-  padding-top: 1rem;
+  width: 100%;
+  padding-top: 2rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -577,11 +599,12 @@ flex-grow: 0.6;
 }
 .c-nameboard-img{
   width: 2rem;
+  margin-right: 0.5rem;
 }
 .c-nameboard-name{
-  padding-left: 0.5rem;
   font-size: 1.4rem;
 }
+
 
 .c-scorePlayer{
   margin: 1rem;
