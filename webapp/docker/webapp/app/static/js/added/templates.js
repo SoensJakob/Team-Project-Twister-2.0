@@ -192,7 +192,7 @@ const Temp_TwisterClassic = (gametimer, color) => {
         <div class="o-container u-justify-bottom u-background-color-${color}">
             <nav class="o-nav">
                 <a href="#" class="o-backbutton">
-                    <img class="o-backbutton_img" src="../static/img/arrow-${imgcolor}.png" alt="arrow back">
+                    <img class="o-backbutton_img" src="../static/img/arrow-${textcolor}.png" alt="arrow back">
                     <p class="o-backbutton-${textcolor}">Back</p>
                 </a>
             </nav> 
@@ -209,6 +209,17 @@ const Temp_TwisterClassic = (gametimer, color) => {
                     <label class="c-gamemode-twister__name" id="currentplayer"></label>
                 </div>
             </footer>
+            <script>
+                // Get the root element
+                var r = document.querySelector(':root');
+                // Create a function for setting a variable value
+                function myFunction_set() {
+                // Set the value of variable --blue to another value
+                r.style.setProperty('--global-gamecolor', 'var(--global-color-${color}-dark)');
+                r.style.setProperty('--global-gamecolor-border', 'var(--global-color-${color}-darkest)');
+                }
+                myFunction_set()
+            </script>
         </div>
     `;
     if (gametimer) {
@@ -222,6 +233,12 @@ const Temp_TwisterClassic = (gametimer, color) => {
 
 const Temp_EndGame = (player_info) => {
     document.querySelector('#gamewindow').innerHTML = `
+        <nav class="o-nav">
+            <a href="#" class="o-backbutton">
+                <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
+                <p class="o-backbutton-${textcolor}">Back</p>
+            </a>
+        </nav> 
         <div class="o-container u-justify-bottom u-background-color-white"> 
             <main class="c-victory">
                 <h1>game finished</h1>
@@ -241,6 +258,12 @@ const Temp_EndGame = (player_info) => {
 
 const Temp_EndGameOverview = (player_info) => {
     document.querySelector('#gamewindow').innerHTML = `
+    <nav class="o-nav">
+    <a href="#" class="o-backbutton">
+        <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+        <p class="o-backbutton-white">Back</p>
+    </a>
+    </nav> 
         <div class="o-container u-justify-bottom u-background-color-green">
             <main class="c-score">
                 <h1>score</h1>
