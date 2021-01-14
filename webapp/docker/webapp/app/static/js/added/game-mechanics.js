@@ -18,7 +18,7 @@ let twisterboard = [
     [["",""],["",""],["",""],["",""]],
     [["",""],["",""],["",""],["",""]]
 ]
-let player_info = JSON.parse('{"playerinfo":[]}'); 
+let player_info = JSON.parse('{"gamemode": "", "playerinfo":[]}'); 
 
 const setoutmsg = (out_msg) => {
     //jsonstring twister example: jsonstring = '{ "buttonpressed":[{"place":"1", "color":"green", "limb":"right hand"}]}';
@@ -44,6 +44,7 @@ const setoutmsg = (out_msg) => {
 const StartGame = () => {     
     let gamesettings = JSON.parse(localStorage.getItem('gamesettings'));
     let players = JSON.parse(localStorage.getItem('gameplayers'));
+    player_info['gamemode'] = gamesettings.gamemode;
     for([key, val] of Object.entries(players)) {
         player_info['playerinfo'].push({'name': val, 'score': 0, 'alive':1});
         playercount++;
