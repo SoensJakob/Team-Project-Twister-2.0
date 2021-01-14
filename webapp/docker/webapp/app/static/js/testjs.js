@@ -3,14 +3,15 @@
 const StartGameTimer = 5;
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    
+
+
     console.log('DOM geladen');
     init();
 });
 
 const init = function(){
-    let playerinfo = JSON.parse(localStorage.getItem('EndGame'));
-    console.log(playerinfo);
-    playerinfo[0].forEach(player => {
-        console.log()
-    });
+    let randcolor = "yellow";
+    document.querySelector("#imgtwisterlimb").src = `../static/img/left_foot-${(randcolor == "yellow") ? 'grey' : 'white'}.svg`;
 }

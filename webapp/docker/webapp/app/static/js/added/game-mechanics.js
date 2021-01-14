@@ -32,7 +32,7 @@ const setoutmsg = (out_msg) => {
             break;
     
         default:
-            console.log("game - gamefunctions error: mqttobj error in setoutmsg");
+            console.log("game - game-mechanics error: mqttobj error in setoutmsg");
             break;
     }
 }
@@ -63,7 +63,7 @@ const StartGame = () => {
             break;
 
         default:
-            alert("the chosen gamemode is not available");
+            console.log("game - game-mechanics error: gamemode error in switch");
             Temp_SelectGameOptions();
     }
 }
@@ -72,17 +72,7 @@ const SetupTwister = (gamesettings) => {
     gametimer = gamesettings.timer;
     colors = ["red", "blue", "yellow", "green"];
     bodyparts = ["left hand", "left foot", "right foot", "right hand"];
-    if (gametimer != 0){
-        gametimer *= 10;
-        Temp_TwisterClassic(gametimer);
-    }
-    else if (gametimer == 0) {
-        gametimer = null;
-        Temp_TwisterClassic(gametimer);
-    }
-    else{
-        console.log()
-    }
+    (gametimer != 0) ? gametimer *= 10 : gametimer = null;
 }
 
 const PlayTwister = () => {
@@ -94,9 +84,12 @@ const PlayTwister = () => {
     let randbodypart = bodyparts[Math.floor(Math.random() * bodyparts.length)];
     let arrbodypart = randbodypart.split(" ");
 
+    // load template
+    Temp_TwisterClassic(gametimer, randcolor);
+
     // set innerhtml/vaslues temp_playtwister
     document.querySelector("#twistermovelimb").innerHTML = randbodypart;
-    document.querySelector("#imgtwisterlimb").src = `../static/img/${arrbodypart[0]}_${arrbodypart[1]}.svg`;
+    document.querySelector("#imgtwisterlimb").src = `../static/img/${arrbodypart[0]}_${arrbodypart[1]}-${(randcolor == "yellow") ? 'grey' : 'white'}.svg`;
     document.querySelector("#twistermovecolor").innerHTML = randcolor;
     document.querySelector("#currentplayer").innerHTML = currentplayer; 
     
@@ -116,10 +109,10 @@ const PlayTwister = () => {
             NextPlayer(false);
             PlayTwister();
         }
-        else if (mqttmssg[1].color && mqttmssg.color[1] != randcolor) {
+        else if (mqttmssg[1].color && mqttmssg[1].color != randcolor) {
             clearInterval(TwisterTimer);
-            CheckIfGameIsFinished(currentplayer);
             NextPlayer(true);
+            CheckIfGameIsFinished(currentplayer);
         }
         else if (mqttmssg[0] == "released") {
             console.log('btn released, remove player');
@@ -148,27 +141,13 @@ const NextPlayer = (dead) => {
     }
 }
 
-const SortJson = (key, data, type) => {
-    let ordered = {};
-    let compareFunction = function(a, b) {
-        return data[b][key] - data[a][key];
-    };
-    if (type === "asc") {
-        compareFunction = function(a, b) {
-        return data[a][key] - data[b][key];
-        }
-    }
-    Object.keys(data).sort(compareFunction).forEach(function(key) {
-        ordered[key] = data[key];
-    });
-    return ordered;
-}
-
 const CheckIfGameIsFinished = function(currentplayer){
     if (currenplayercount == 1) {
-        //window.localStorage.setItem("EndGame", JSON.stringify(player_info));
-        player_info = SortJson("score", player_info, 'asc');
-        Temp_EndGame(player_info);
+        player_info.playerinfo.sort(function (a, b) {
+            return  b.score - a.score;
+        });
+        console.log(player_info);
+        Temp_EndGame(player_info.playerinfo);
     }
     else{
         Temp_WaitingScreen((gametimer), currentplayer);

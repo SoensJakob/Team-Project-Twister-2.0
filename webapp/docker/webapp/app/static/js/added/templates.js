@@ -52,6 +52,15 @@ const Temp_SelectGameOptions = () => {
             </footer>
         </div>
     `;
+    const allRanges = document.querySelectorAll(".o-slider-wrap");
+    allRanges.forEach(wrap => {
+        const range = wrap.querySelector(".o-slider");
+        const bubble = wrap.querySelector(".o-NumberTimerValue");
+        range.addEventListener("input", () => {
+            setBubble(range, bubble);
+        });
+        setBubble(range, bubble);
+    });
     document.querySelector("#BtnValidateGameOptions").addEventListener("click", ValidateGameSettings);
     document.querySelector("#GameMode").addEventListener("change", function(){
         switch (this.value) {
@@ -81,7 +90,6 @@ const Temp_SelectGameOptions = () => {
                 allRanges.forEach(wrap => {
                     const range = wrap.querySelector(".o-slider");
                     const bubble = wrap.querySelector(".o-NumberTimerValue");
-
                     range.addEventListener("input", () => {
                         setBubble(range, bubble);
                     });
@@ -127,7 +135,7 @@ const Temp_SelectPlayers = (maxplayers) => {
             </footer>
         </div>
     `;
-    document.querySelector("#BtnValidatePlayers").addEventListener("click", function() {ValidatePlayers();});
+    document.querySelector("#BtnValidatePlayers").addEventListener("click", function() { ValidatePlayers(); });
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
         const range = wrap.querySelector(".o-slider");
@@ -142,99 +150,166 @@ const Temp_SelectPlayers = (maxplayers) => {
     });
 }
 
-
-
-
 const Temp_WaitingScreen = (time, player) => {
     if (!player) {
         document.querySelector('#gamewindow').innerHTML = `
-        <div class="o-container u-background-color-green u-justify-bottom u-background-color-yellow">
-        <nav class="o-nav">
-            <a href="#" class="o-backbutton o-backbutton_white">
-                <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
-                <p>Back</p>
-            </a>
-        </nav> 
-        <main class="c-waitPage">
-          <h1 class="c-ready">Get Ready</h1>
-          <h2>The game starts in:</h2>
-          <p class="c-counter" id="WaitingCounter">${time}</p>
-      </main>
-      </div>
+            <div class="o-container u-background-color-green u-justify-bottom u-background-color-yellow">
+                <nav class="o-nav">
+                    <a href="#" class="o-backbutton o-backbutton_white">
+                        <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
+                        <p>Back</p>
+                    </a>
+                </nav> 
+                <main class="c-waitPage">
+                    <h1 class="c-ready">Get Ready</h1>
+                    <h2>The game starts in:</h2>
+                    <p class="c-counter" id="WaitingCounter">${time}</p>
+                </main>
+            </div>
         `;
         TimerWaitingScreen(time);
     }
     else if (player) {
         document.querySelector('#gamewindow').innerHTML = `
-        <div class="o-row">
-            <label>Player ${player} is dead</label></br>
-            <Label>${player} please push button to continue game</label></br>
-            <button id="ContinueGame">Resume game</button>
-        </div>
+            <div class="o-container u-justify-bottom u-background-color-white">
+                <main class="c-lose">
+                    <h1>game over</h1>
+                    <p class="c-lose-name" id="currentplayer">for ${player}</p>
+                    <img class="c-victory_img" src="../static/img/to_late.png" alt="victory crown">
+                </main>
+                <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
+                    <button type="button" class="o-button-large" id="ContinueGame">continue</button>
+                </footer>
+            </div>
         `;
-        document.querySelector('#ContinueGame').addEventListener('click', function() {
-            Temp_TwisterClassic(time);
-            PlayTwister();
-        })
+        document.querySelector('#ContinueGame').addEventListener('click', function() { PlayTwister(); });
     }
-    
 }
 
-const Temp_TwisterClassic = (gametimer) => {
+const Temp_TwisterClassic = (gametimer, color) => {
+    let textcolor = (color == "yellow") ? 'grey' : 'white';
     document.querySelector('#gamewindow').innerHTML = `
-    <div class="o-container u-justify-bottom u-background-color-blue">
-        <nav class="o-nav">
-            <a href="#" class="o-backbutton">
-                <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                <p class="o-backbutton_white">Back</p>
-            </a>
-        </nav> 
-    
-        <main class="c-gamemode-twister u-color-white">
-        <h1 id="twistermovelimb">right foot</h1>
-        <img class="c-gamemode-twister__image" src="../static/img/right_foot.svg" id="imgtwisterlimb">
-            <div id="timer" class="c-gamemode-twister-info">
-            </div>
-            <p id="twistermovecolor" class="c-gamemode-twister__color">blue</p>
-        </main>
-        <footer class="o-footer u-footer-background-color-blue u-footer-border-color-blue c-gamemode-twister__footer">
-        <div class="o-row">
-            <p>player: </p>
-            <label class="c-gamemode-twister__name" id="currentplayer">nathan</label>
+        <div class="o-container u-justify-bottom u-background-color-${color}">
+            <nav class="o-nav">
+                <a href="#" class="o-backbutton">
+                    <img class="o-backbutton_img" src="../static/img/arrow-${textcolor}.png" alt="arrow back">
+                    <p class="o-backbutton-${textcolor}">Back</p>
+                </a>
+            </nav> 
+            <main class="c-gamemode-twister u-textcolor-${textcolor}">
+                <h1 id="twistermovelimb">right foot</h1>
+                <img class="c-gamemode-twister__image" id="imgtwisterlimb">
+                <div id="timer" class="c-gamemode-twister-info">
+                </div>
+                <p id="twistermovecolor" class="c-gamemode-twister__color"></p>
+            </main>
+            <footer class="o-footer u-footer-background-color-${color} u-footer-border-color-${color} u-textcolor-${textcolor} c-gamemode-twister__footer">
+                <div class="o-row">
+                    <p>player: </p>
+                    <label class="c-gamemode-twister__name" id="currentplayer"></label>
+                </div>
+            </footer>
+            <script>
+                // Get the root element
+                var r = document.querySelector(':root');
+                // Create a function for setting a variable value
+                function myFunction_set() {
+                // Set the value of variable --blue to another value
+                r.style.setProperty('--global-gamecolor', 'var(--global-color-${color}-dark)');
+                r.style.setProperty('--global-gamecolor-border', 'var(--global-color-${color}-darkest)');
+                }
+                myFunction_set()
+            </script>
         </div>
-        </footer>
-        </div>
- `;
- if (gametimer) {
-     document.querySelector('#timer').innerHTML += `
-     <!--hier komen de seconden value-->
-     <p class="c-gamemode-twister__seconds">seconds left: <span id="progressBarnumber">${gametimer/10}</span></p>
-     <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
-     `;
- }
- 
+    `;
+    if (gametimer) {
+        document.querySelector('#timer').innerHTML += `
+            <!--hier komen de seconden value-->
+            <p class="c-gamemode-twister__seconds">seconds left: <span id="progressBarnumber">${gametimer/10}</span></p>
+            <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
+        `;
+    }
 }
 
 const Temp_EndGame = (player_info) => {
     document.querySelector('#gamewindow').innerHTML = `
-        <table id="scoreboard">
-            <tr>
-                <th>name</th>
-                <th>score</th>
-                <th>place</th>
-            </tr>
-        </table>
+        <nav class="o-nav">
+            <a href="#" class="o-backbutton">
+                <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
+                <p class="o-backbutton-${textcolor}">Back</p>
+            </a>
+        </nav> 
+        <div class="o-container u-justify-bottom u-background-color-white"> 
+            <main class="c-victory">
+                <h1>game finished</h1>
+                <img class="c-victory_img" src="../static/img/crown.svg" alt="victory crown">
+                <p class="c-victory_text">player:</p>
+                <p class="c-victory_text-big" id="currentplayer">${player_info[0].name}</p>
+                <p>won with a score of</p>
+                <p class="c-victory_text-number" id="#">${player_info[0].score}</p>
+            </main>
+            <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
+                <button type="button" class="o-button-large" id="Continue">Next</button>
+            </footer>
+        </div>
     `;
-    for (let i = 0; i < player_info.length; i++) {
-        console.log(player_info.playerinfo[i].name);
-        document.querySelector('#scoreboard').innerHTML += `
-            <tr>
-                <td>${player_info.playerinfo[i].name}</td>
-                <td>${player_info.playerinfo[i].score}</td>
-                <td>${player_info.playerinfo[i].index}</td>
-            </tr>
-        `;
-    }
+    document.querySelector('#Continue').addEventListener('click', function() { Temp_EndGameOverview(player_info); });
+}
+
+const Temp_EndGameOverview = (player_info) => {
+    document.querySelector('#gamewindow').innerHTML = `
+    <nav class="o-nav">
+    <a href="#" class="o-backbutton">
+        <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+        <p class="o-backbutton-white">Back</p>
+    </a>
+    </nav> 
+        <div class="o-container u-justify-bottom u-background-color-green">
+            <main class="c-score">
+                <h1>score</h1>
+                <div id="scoreboard">
+                </div>
+            </main>
+            <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
+                <button type="button" class="o-button-large" id="">continue</button>
+            </footer>
+        </div>
+    `;
+    let i = 1;
+    player_info.forEach(player => {
+        if (i == 1) {
+            document.querySelector('#scoreboard').innerHTML += `
+                <div class="c-scoreboard">
+                    <div class="c-place">
+                        <p>${i}</p>
+                    </div>  
+                    <div class="c-nameboard">
+                        <img class="c-nameboard-img" src="../static/img/crown-white.png" alt="crown">
+                        <p class="c-nameboard-name" id="#">${player.name}</p>
+                    </div>  
+                    <div class="c-scorePlayer" id="#">
+                        <p>${player.score}</p>
+                    </div>
+                </div>
+            `;
+        }
+        else {
+            document.querySelector('#scoreboard').innerHTML += `
+                <div class="c-scoreboard">
+                    <div class="c-place">
+                        <p>${i}</p>
+                    </div>  
+                    <div class="c-nameboard">
+                        <p class="c-nameboard-name" id="#">${player.name}</p>
+                    </div>  
+                    <div class="c-scorePlayer" id="#">
+                        <p>${player.score}</p>
+                    </div>
+                </div>
+            `;
+        }
+        i++;
+    });
 }
 
 /*------------------------------------*\
