@@ -4,7 +4,7 @@ import time
 import paho.mqtt.client as mqtt
 import json
 #from concurrent.futures import ThreadPoolExecutor
-from RPi import GPIO as io
+#from RPi import GPIO as io
 
 
 
@@ -16,7 +16,7 @@ def connect():
     global client
     try:
         address = '127.0.0.1'
-        client.connect(address, 1883)
+        client.connect(address, 1883, )
         print("Connected")
     except:
         print("Not possible")
@@ -32,11 +32,11 @@ def cleanup():
 
 def on_message(client, userdata, msg):
     message = json.loads(str(msg.payload.decode("utf-8")))
-    try:
-        for x in message:
-            color = str(x["color"])
-            place = str(x["place"])
-            print(color, place)
+    for x in message:
+        row = str(x["row"])
+        colum = str(x["colum"])
+        color = str(x["color"])
+        print(color, place)
             
 
 def w_place(color, place, limb="1"):
@@ -79,7 +79,7 @@ try:
     client = mqtt.Client()
     client.on_message = on_message
     connect()
-    client.subscribe('/mat/01/#')
+    client.subscribe('/mat/01/#', 2)
     client.loop_forever()
 except KeyboardInterrupt as e:
     cleanup()
