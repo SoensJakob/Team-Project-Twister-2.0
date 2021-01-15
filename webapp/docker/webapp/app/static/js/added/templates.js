@@ -11,12 +11,25 @@ player_count  = 1;
 const Temp_SelectGameOptions = () => {
     document.querySelector('#initgamewindow').innerHTML = `
         <div class="o-container u-background-color-green u-justify-bottom">
-            <nav class="o-nav o-nav-white">
-                <a href="/" class="o-backbutton o-backbutton_white">
-                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                    <p>Back</p>
-                </a>
-            </nav>
+        <nav class="o-nav o-nav-white">
+        <a href="/" class="o-backbutton o-backbutton_white">
+            <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+            <p>Back</p>
+        </a>
+        <div class="c-hamburgerNav">
+        <button id="nav_button">
+            <img src="../static/img/hamburger.svg" alt="navigation"></button>
+        <div id="hidden_nav">
+            <div class="hidden_nav-line hidden_nav-firstline">
+            <a href="#"><p>leaderboards</p></a>
+            <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
+            </div>
+            <div class="hidden_nav-line hidden_nav-lastline">
+                <a href="#">settings</a>
+            </div>
+        </div>
+    </div>
+    </nav>
             <main class="c-SelectGameOptions">
                 <div class="o-row">
                     <label class="c-custom-select-label" for="GameMode">Gamemode:</label>
@@ -52,6 +65,32 @@ const Temp_SelectGameOptions = () => {
             </footer>
         </div>
     `;
+    /*hier komt hamburger js */
+    document.getElementById("HamburgerbuttonBack").addEventListener("click", function(){
+        var hv = document.getElementById("hidden_nav"); 
+        var nb = document.getElementById('nav_button');
+        if(hv.style.display == "flex"){
+            hv.style.display = "none";
+            nb.style.borderRadius = "1rem";
+        }
+        else{
+            hv.style.display = "flex";
+            nb.style.borderRadius = "1rem 1rem 0 0";
+        }
+    })
+    document.getElementById("nav_button").addEventListener("click", function(){
+        var hv = document.getElementById("hidden_nav"); 
+        var nb = document.getElementById('nav_button');
+        if(hv.style.display == "flex"){
+            hv.style.display = "none";
+            nb.style.borderRadius = "1rem";
+        }
+        else{
+            hv.style.display = "flex";
+            nb.style.borderRadius = "1rem 1rem 0 0";
+        }
+    })
+    
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
         const range = wrap.querySelector(".o-slider");
