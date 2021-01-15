@@ -236,7 +236,7 @@ const Temp_EndGame = (player_info) => {
         <nav class="o-nav">
             <a href="#" class="o-backbutton">
                 <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
-                <p class="o-backbutton-${textcolor}">Back</p>
+                <p class="o-backbutton-grey">Back</p>
             </a>
         </nav> 
         <div class="o-container u-justify-bottom u-background-color-white"> 
