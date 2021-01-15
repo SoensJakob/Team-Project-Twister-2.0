@@ -33,20 +33,11 @@ def cleanup():
 def on_message(client, userdata, msg):
     message = json.loads(str(msg.payload.decode("utf-8")))
     try:
-        limb = message["limb"]
-        color = message["color"]
-        try:
-            place = message["place"]
-
-        except Exception as e:
-            place = None
-        print(limb, color[1], place)
-        if place == None:
-            no_place(color, limb )
-        else:
-            w_place(color, place, limb)
-    except Exception as e:
-        pass
+        for x in message:
+            color = str(x["color"])
+            place = str(x["place"])
+            print(color, place)
+            
 
 def w_place(color, place, limb="1"):
     row_list = twister._color_list[int(color[1])]
