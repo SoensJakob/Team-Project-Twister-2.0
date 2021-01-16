@@ -11,25 +11,25 @@ player_count  = 1;
 const Temp_SelectGameOptions = () => {
     document.querySelector('#initgamewindow').innerHTML = `
         <div class="o-container u-background-color-green u-justify-bottom">
-        <nav class="o-nav o-nav-white">
-        <a href="/" class="o-backbutton o-backbutton_white">
-            <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-            <p>Back</p>
-        </a>
-        <div class="c-hamburgerNav">
-        <button id="nav_button">
-            <img src="../static/img/hamburger.svg" alt="navigation"></button>
-        <div id="hidden_nav">
-            <div class="hidden_nav-line hidden_nav-firstline">
-            <a href="#"><p>leaderboards</p></a>
-            <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
-            </div>
-            <div class="hidden_nav-line hidden_nav-lastline">
-                <a href="#">settings</a>
-            </div>
-        </div>
-    </div>
-    </nav>
+            <nav class="o-nav o-nav-white">
+                <a href="/" class="o-backbutton o-backbutton_white">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p>Back</p>
+                </a>
+                <div class="c-hamburgerNav">
+                    <button id="nav_button">
+                    <img src="../static/img/hamburger.svg" alt="navigation"></button>
+                    <div id="hidden_nav">
+                        <div class="hidden_nav-line hidden_nav-firstline">
+                            <a href="#"><p>leaderboards</p></a>
+                            <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
+                        </div>
+                        <div class="hidden_nav-line hidden_nav-lastline">
+                            <a href="#">settings</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
             <main class="c-SelectGameOptions">
                 <div class="o-row">
                     <label class="c-custom-select-label" for="GameMode">Gamemode:</label>
@@ -263,7 +263,6 @@ const Temp_TwisterClassic = (gametimer, color) => {
     `;
     if (gametimer) {
         document.querySelector('#timer').innerHTML += `
-            <!--hier komen de seconden value-->
             <p class="c-gamemode-twister__seconds">seconds left: <span id="progressBarnumber">${gametimer/10}</span></p>
             <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
         `;
