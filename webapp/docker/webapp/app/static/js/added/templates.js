@@ -21,7 +21,7 @@ const Temp_SelectGameOptions = () => {
                     <img src="../static/img/hamburger.svg" alt="navigation"></button>
                     <div id="hidden_nav">
                         <div class="hidden_nav-line hidden_nav-firstline">
-                            <a href="#"><p>leaderboards</p></a>
+                            <a href="leaderboards.html"><p>leaderboards</p></a>
                             <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
                         </div>
                         <div class="hidden_nav-line hidden_nav-lastline">
