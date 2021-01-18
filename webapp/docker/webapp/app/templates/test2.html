@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../static/css/normalize.css" />
     <link rel="stylesheet" href="../static/css/screen.css" />
-    
+    <script src="../static/js/added/templates.js"></script>
     <script src="../static/js/testjs.js"></script>
 </head>
 <body>
@@ -17,32 +17,18 @@
                 <p>Back</p>
             </a>
             <div class="c-hamburgerNav">
-            <button id="nav_button" onclick="nav_drop()">
+                <button id="nav_button">
                 <img src="../static/img/hamburger.svg" alt="navigation"></button>
-            <div id="hidden_nav">
-                <div class="hidden_nav-line hidden_nav-firstline">
-                <a href="#"><p>leaderboards</p></a>
-                <img src="../static/img/nav-back.svg" alt="go back" onclick="nav_drop()">
-                </div>
-                <div class="hidden_nav-line hidden_nav-lastline">
-                    <a href="#">settings</a>
+                <div id="hidden_nav">
+                    <div class="hidden_nav-line hidden_nav-firstline">
+                        <a href="leaderboards.html"><p>leaderboards</p></a>
+                        <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
+                    </div>
+                    <div class="hidden_nav-line hidden_nav-lastline">
+                        <a href="#">settings</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <script> 
-            function nav_drop(){
-                var hv = document.getElementById("hidden_nav"); 
-                var nb = document.getElementById('nav_button');
-                if(hv.style.display == "flex"){
-                    hv.style.display = "none";
-                    nb.style.borderRadius = "1rem";
-                }
-                else{
-                    hv.style.display = "flex";
-                    nb.style.borderRadius = "1rem 1rem 0 0";
-                }
-            }
-        </script>
         </nav>
         <main class="c-SelectGameOptions">
             <div class="o-row">
@@ -58,7 +44,7 @@
                 <div class="c-numberPlayers-slider">   
                     <div class="o-slider-wrap">         
                         <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
-                        <span class="o-NumberTimerValue"></span>
+                        <span class="o-NumberTimerValue" id="slidervalue-timer"></span>
                     </div>
                 </div> 
                 </div> 
@@ -78,4 +64,22 @@
             <button type="button" class="o-button-large" id="BtnValidateGameOptions">play</button>
         </footer>
     </div>
+    <script>
+        let timer = document.getElementById("GameTimer");
+        timer.addEventListener("change", function() {
+            if(timer.value==0){
+                document.getElementById("slidervalue-timer").innerHTML = "off"
+            }
+        })
+
+        const allRanges = document.querySelectorAll(".o-slider-wrap");
+        allRanges.forEach(wrap => {
+            const range = wrap.querySelector(".o-slider");
+            const bubble = wrap.querySelector(".o-NumberTimerValue");
+            range.addEventListener("input", () => {
+            setBubble(range, bubble);
+        });
+        setBubble(range, bubble);
+    });
+    </script>
 </body>

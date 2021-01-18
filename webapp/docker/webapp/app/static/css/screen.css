@@ -294,6 +294,16 @@ in case there is a background color that needs white color
   position: absolute;
   left: 50%;
 }
+.o-NumberTimerValue{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.o-NumberTimerValue::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+}
 
 /*select*/
 .o-select{
@@ -696,6 +706,10 @@ flex-grow: 0.6;
 
 .u-padding-slider{
   padding: 1rem 0;
+}
+
+.u-padding-top{
+  padding-top: 0.5rem;
 }
 
 .u-justify-center {

@@ -40,16 +40,17 @@ const Temp_SelectGameOptions = () => {
                 </div>
                 <div id="GameSettings" class="o-row">
                     <div class="o-row">
-                    <label class="c-custom-select-label" for="GameTimer">Timer:</label>
-                    <div class="c-numberPlayers-slider">   
-                        <div class="o-slider-wrap">         
-                            <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
-                            <span class="o-NumberTimerValue"></span>
-                        </div>
+                        <label class="c-custom-select-label" for="GameTimer">Timer:</label>
+                        <div class="c-numberPlayers-slider">   
+                            <div class="o-slider-wrap">         
+                                <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
+                                <span class="o-NumberTimerValue" id="slidervalue-timer"></span>
+                            </div>
+                        </div> 
                     </div> 
-                    </div> 
+
                     <div>
-                        <div class="o-row">
+                        <div class="o-row u-padding-top">
                             <label class="c-custom-select-label" for="GameActions">Actions:</label>
                             <select id="GameActions" class="o-select">
                                 <option value="null" selected>None</option>
@@ -65,6 +66,14 @@ const Temp_SelectGameOptions = () => {
             </footer>
         </div>
     `;
+    /* code voor timer off */
+    let timer = document.getElementById("GameTimer");
+    timer.addEventListener("change", function() {
+        if(timer.value==0){
+            document.getElementById("slidervalue-timer").innerHTML = "off";
+        }
+    })
+
     /*hier komt hamburger js */
     document.getElementById("HamburgerbuttonBack").addEventListener("click", function(){
         var hv = document.getElementById("hidden_nav"); 
@@ -94,7 +103,9 @@ const Temp_SelectGameOptions = () => {
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
         const range = wrap.querySelector(".o-slider");
+        console.log(range)
         const bubble = wrap.querySelector(".o-NumberTimerValue");
+        console.log(bubble)
         range.addEventListener("input", () => {
             setBubble(range, bubble);
         });
@@ -357,8 +368,9 @@ const Temp_EndGameOverview = (player_info) => {
 // functions voor Temp_SelectPlayers
 const setBubble = (range, bubble) => {
     const val = range.value;
+    console.log(val)
     const min = range.min ? range.min : 1;
-    const max = range.max ? range.max : 4;
+    const max = range.max ? range.max : 30;
     const newVal = Number(((val - min) * 100) / (max - min));
     bubble.innerHTML = val;
     bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
