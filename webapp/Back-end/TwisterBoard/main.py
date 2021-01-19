@@ -4,7 +4,7 @@ import time
 import paho.mqtt.client as mqtt
 import json
 import pyttsx3
-
+import webcolors
 #from concurrent.futures import ThreadPoolExecutor
 from RPi import GPIO as io
 
@@ -39,15 +39,24 @@ def on_message(client, userdata, msg):
         row = message["row"]
         user = message["user"]
         try:
+            color = message["color"]
+        except Exception as e:
+            color = None
+        try:
             column = message["column"]    
 
         except Exception as e:
             place = None
 
         create_sound(user, limb, row, column)
-        create_listeners(user, limb, row, column)            
+        create_listeners(user, limb, row, column)
+        if color != None:
+            create_color(color)            
     except Exception as e:
         pass
+
+def create_color(color):
+    
 
 def create_listeners(user, limb, row, column):
     if row == 0 and column == 0:
