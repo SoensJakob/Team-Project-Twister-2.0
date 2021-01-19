@@ -56,7 +56,7 @@ def on_message(client, userdata, msg):
         pass
 
 def create_color(color):
-    
+    print(color)
 
 def create_listeners(user, limb, row, column):
     if row == 0 and column == 0:

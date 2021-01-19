@@ -118,7 +118,7 @@ const PlayTwister = () => {
     let arrbodypart = randbodypart.split(" ");
     
     //send mqtt mssg to hardware to enable buttons
-    send_message(`[{"row": "${colorindex + 1}", "column": 0, "color": "${colourNameToHex(randcolor)}", "player":"${currentplayer}","limb": "${randbodypart}"}]`);
+    send_message(`{"row": "${colorindex + 1}", "column": 0, "color": "${colourNameToHex(randcolor)}", "player":"${currentplayer}","limb": "${randbodypart}"}`);
 
     // load template
     Temp_TwisterClassic(gametimer, randcolor);
