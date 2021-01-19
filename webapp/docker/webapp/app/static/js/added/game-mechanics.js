@@ -7,9 +7,12 @@ let gametimer = 0;
 let playercount = 0;
 let currenplayercount = 0;
 let currentplayerindex = 0;
-let colors = [];
+let gamecolors = [];
 let bodyparts = [];
-let mqttmssg = ['', JSON.parse('{"place":"", "color":"", "limb":""}')];
+let memoryindex = 0;
+let memorylevel = 1;
+let memoryarr = {"row": [], "col": []};
+let mqttmssg = {"":[{"row": "", "col": ""}]};
 let twisterboard = [
     [["",""],["",""],["",""],["",""],["",""],["",""]],
     [["",""],["",""],["",""],["",""],["",""],["",""]],
@@ -37,7 +40,7 @@ const setoutmsg = (out_msg) => {
 
 function colourNameToHex(colour)
 {
-    var colours = {"aliceblue":"#f0f8ff","antiquewhite":"#faebd7","aqua":"#00ffff","aquamarine":"#7fffd4","azure":"#f0ffff",
+    let colours = {"aliceblue":"#f0f8ff","antiquewhite":"#faebd7","aqua":"#00ffff","aquamarine":"#7fffd4","azure":"#f0ffff",
     "beige":"#f5f5dc","bisque":"#ffe4c4","black":"#000000","blanchedalmond":"#ffebcd","blue":"#0000ff","blueviolet":"#8a2be2","brown":"#a52a2a","burlywood":"#deb887",
     "cadetblue":"#5f9ea0","chartreuse":"#7fff00","chocolate":"#d2691e","coral":"#ff7f50","cornflowerblue":"#6495ed","cornsilk":"#fff8dc","crimson":"#dc143c","cyan":"#00ffff",
     "darkblue":"#00008b","darkcyan":"#008b8b","darkgoldenrod":"#b8860b","darkgray":"#a9a9a9","darkgreen":"#006400","darkkhaki":"#bdb76b","darkmagenta":"#8b008b","darkolivegreen":"#556b2f",
@@ -90,8 +93,9 @@ const StartGame = () => {
             PlayTwister();
             break;
       
-        case "Simon-says":
-            console.log("starting simon says");
+        case "Memory":
+            console.log("starting memory");
+            PlayMemory();
             break;
 
         default:
@@ -102,23 +106,23 @@ const StartGame = () => {
 
 const SetupTwister = (gamesettings) => {
     gametimer = gamesettings.timer;
-    colors = ["red", "blue", "yellow", "green"];
+    gamecolors = ["red", "blue", "yellow", "green"];
     bodyparts = ["left hand", "left foot", "right foot", "right hand"];
     (gametimer != 0) ? gametimer *= 10 : gametimer = null;
 }
 
 const PlayTwister = () => {
     // set variables
-    mqttmssg = ['', JSON.parse('{"place":"", "color":"", "limb":""}')];
+    mqttmssg = ['', JSON.parse('{"row":"", "column":""}')];
     timeleft = gametimer;
     let currentplayer = player_info.playerinfo[currentplayerindex].name;
     let randcolor = GetTwisterColor();
-    let colorindex = colors.indexOf(randcolor);
+    let colorindex = gamecolors.indexOf(randcolor);
     let randbodypart = bodyparts[Math.floor(Math.random() * bodyparts.length)];
     let arrbodypart = randbodypart.split(" ");
     
     //send mqtt mssg to hardware to enable buttons
-    send_message(`[{"row": "${colorindex + 1}", "column": 0, "color": "${colourNameToHex(randcolor)}", "player":"${currentplayer}","limb": "${randbodypart}"}]`);
+    send_message(`{"row": "${colorindex + 1}", "column": 0, "color": "${colourNameToHex(randcolor)}", "player":"${currentplayer}","limb": "${randbodypart}"}`);
 
     // load template
     Temp_TwisterClassic(gametimer, randcolor);
@@ -145,22 +149,49 @@ const PlayTwister = () => {
             NextPlayer(false);
             PlayTwister();
         }
-        // else if (mqttmssg[1].color && mqttmssg[1].color != randcolor) {
-        //     clearInterval(TwisterTimer);
-        //     NextPlayer(true);
-        //     CheckIfGameIsFinished(currentplayer);
-        // }
-        else if (mqttmssg[0] == "released") {
-            console.log('btn released, remove player');
-            // hier kijken welke plaats is ingedrukt en welke naam erop staat om die dan te verwijderen
-            //NextPlayer(true);
-        }
-        
         // if gametimer is set -> countdown
         if (timeleft) {
             timeleft -= 1;
         }
     }, 100);
+}
+
+const PlayMemory = () => {
+    // set variables
+    mqttmssg = ['', JSON.parse('{"row":"", "column":""}')];
+    let currentplayer = player_info.playerinfo[currentplayerindex].name;
+    if (!memoryarr['row'].length) {
+        AddMemoryBtn();
+    }
+
+    //send mqtt mssg to hardware to enable buttons
+    send_message(`{"row": "${memoryarr['row'][memoryindex]}", "column": ${memoryarr['col'][memoryindex]}, "color": "", "player":"${currentplayer}","limb": ""}`);
+    console.log('row:', memoryarr['row'][memoryindex], '  col:', memoryarr['col'][memoryindex]);
+    // load template
+    Temp_Memory(memoryarr['row'][memoryindex], memoryarr['col'][memoryindex], memorylevel);
+
+    timeleft = 300;
+    let MemoryTimer = setInterval(function(){
+        if (timeleft == 0) {
+            clearInterval(MemoryTimer);
+            CheckIfGameIsFinished(currentplayer);
+        }
+        else if (mqttmssg[1].row == memoryarr['row'][memoryindex] && mqttmssg[1].column == memoryarr['col'][memoryindex]) {
+            clearInterval(MemoryTimer);
+            if ((memoryindex + 1) == memoryarr['row'].length) {
+                AddMemoryBtn();
+                memoryindex = 0;
+                player_info.playerinfo[currentplayerindex].score += 1;
+                memorylevel++;
+            }
+            else{
+                memoryindex++;
+            }
+            PlayMemory();
+        }
+        timeleft -= 1;
+    }, 100);
+    
 }
 
 const NextPlayer = (dead) => {
@@ -182,7 +213,6 @@ const CheckIfGameIsFinished = function(currentplayer){
         player_info.playerinfo.sort(function (a, b) {
             return  b.score - a.score;
         });
-        console.log(player_info);
         Temp_EndGame(player_info.playerinfo);
     }
     else{
@@ -192,12 +222,19 @@ const CheckIfGameIsFinished = function(currentplayer){
 
 const GetTwisterColor = () => {
     let countbtnused = 0;
-    let randindex = Math.floor(Math.random() * colors.length)
+    let randindex = Math.floor(Math.random() * gamecolors.length)
     twisterboard.forEach(row => {
         if (row[randindex][0]) {
             countbtnused++;
         }
     });
     if (countbtnused == 6) {GetTwisterColor()}
-    else { return colors[randindex]}
+    else { return gamecolors[randindex]}
+}
+
+const AddMemoryBtn = () => {
+    let randcol = Math.floor(Math.random() * Math.floor(6)) + 1;
+    let randrow = Math.floor(Math.random() * Math.floor(4)) + 1;
+    memoryarr['row'].push(randrow);
+    memoryarr['col'].push(randcol);
 }
