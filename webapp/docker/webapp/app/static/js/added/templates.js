@@ -103,9 +103,7 @@ const Temp_SelectGameOptions = () => {
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
         const range = wrap.querySelector(".o-slider");
-        console.log(range)
         const bubble = wrap.querySelector(".o-NumberTimerValue");
-        console.log(bubble)
         range.addEventListener("input", () => {
             setBubble(range, bubble);
         });
@@ -156,7 +154,7 @@ const Temp_SelectGameOptions = () => {
     });
 }
 
-const Temp_SelectPlayers = (maxplayers) => {
+const Temp_SelectPlayers = (minplayers, maxplayers) => {
     document.querySelector('#initgamewindow').innerHTML = ` 
         <div class="o-container u-background-color-red">
             <nav class="o-nav o-nav-white">
@@ -280,6 +278,20 @@ const Temp_TwisterClassic = (gametimer, color) => {
     }
 }
 
+const Temp_Memory = (row, col, lvl) => {
+    document.querySelector('#gamewindow').innerHTML = `
+        <div>
+            <p>Current row: ${row}</p>
+        </div>
+        <div>
+            <p>Current col: ${col}</p>
+        </div>
+        <div>
+            <p>Current level: ${lvl}</p>
+        </div>
+    `;
+}
+
 const Temp_EndGame = (player_info) => {
     document.querySelector('#gamewindow').innerHTML = `
         <nav class="o-nav">
@@ -368,7 +380,6 @@ const Temp_EndGameOverview = (player_info) => {
 // functions voor Temp_SelectPlayers
 const setBubble = (range, bubble) => {
     const val = range.value;
-    console.log(val)
     const min = range.min ? range.min : 1;
     const max = range.max ? range.max : 30;
     const newVal = Number(((val - min) * 100) / (max - min));
