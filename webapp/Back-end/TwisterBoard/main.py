@@ -3,6 +3,8 @@ from threading import Thread
 import time
 import paho.mqtt.client as mqtt
 import json
+import pyttsx3
+
 #from concurrent.futures import ThreadPoolExecutor
 from RPi import GPIO as io
 
@@ -11,6 +13,12 @@ from RPi import GPIO as io
 # Custom imports
 from models.TwisterBoard import TwisterBoard
 from models.test_threadpool import myThread
+
+def setup():
+    io.setwarnings(False)
+    io.setmode(io.BCM)
+    for x in twister._listInputs:
+        io.setup(x, io.IN, pull_up_down=io.PUD_UP)
 # MQTT 
 def connect():
     global client
@@ -21,12 +29,6 @@ def connect():
     except:
         print("Not possible")
 
-def setup():
-    io.setwarnings(False)
-    io.setmode(io.BCM)
-    for x in twister._listInputs:
-        io.setup(x, io.IN, pull_up_down=io.PUD_UP)
-
 def cleanup():
     io.cleanup()
 
@@ -34,49 +36,50 @@ def on_message(client, userdata, msg):
     message = json.loads(str(msg.payload.decode("utf-8")))
     try:
         limb = message["limb"]
-        color = message["color"]
+        row = message["row"]
+        user = message["user"]
         try:
-            place = message["place"]
+            column = message["column"]    
 
         except Exception as e:
             place = None
-        print(limb, color[1], place)
-        if place == None:
-            no_place(color, limb )
-        else:
-            w_place(color, place, limb)
+
+        create_sound(user, limb, row, column)
+        create_listeners(user, limb, row, column)            
     except Exception as e:
         pass
 
-def w_place(color, place, limb="1"):
-    row_list = twister._color_list[int(color[1])]
-    place = row_list[int(place)]
-    twister.createOneListener(color[1], limb)
-    print_color(color[0])
+def create_listeners(user, limb, row, column):
+    if row == 0 and column == 0:
+        for i in twister.color_list:
+            for u in i:
+                twister.createOneListener(u)
 
-list_results = []
+def create_sound(user, limb, row, column):
+    color = row_to_color(row)
+    engine = pyttsx3.init()
+    engine.say(f"{user} plaats je {limb} op {color}")
+    engine.runAndWait()
 
-def no_place(color, limb=1):
-    print_color(color[0])
-    for x in twister._color_list[int(color[1])]:
-        t = myThread(1, f"listen_{x}", x, twister, io, limb)
-        list_results.append(t.start())
-
-
-def print_color(color):
-    if color == "G":
-        print("Color Green")
+def row_to_color(row):
+    if row == "1":
+        color = "groen"
+        print("Groen")
             
-    elif color == "R":
-        print("Color Red")
+    elif row == "2":
+        color = "rood"
+        print("Rood")
         
-    elif color == "B":
-        print("Color Blue")
+    elif row == "3":
+        color = "blauw"
+        print("Blauw")
 
-    elif color == "Y":
-        print("Color Yellow")
+    elif row == "4":
+        color = "geel"
+        print("Geel")
     else:
-        pass
+        return None
+    return color
 
 
 # Main
