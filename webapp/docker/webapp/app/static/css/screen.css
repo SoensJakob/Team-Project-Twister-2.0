@@ -650,7 +650,6 @@ flex-grow: 0.6;
   background-color: #4e884e;
   border-radius: 0.5rem;
 }
-
 .c-nameboard{
   width: 2rem;
   height: 2rem;
@@ -666,8 +665,6 @@ flex-grow: 0.6;
 .c-nameboard-name{
   font-size: 1.4rem;
 }
-
-
 .c-scorePlayer{
   margin: 1rem;
   width: 2rem;
@@ -677,6 +674,84 @@ flex-grow: 0.6;
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
+}
+/*tutorial pages*/
+.c-tutorial{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  color: var(--global-color-white);
+  flex-grow: 1;
+  align-items: center;
+}
+.c-tutorial-title{
+  padding-top: 6rem;
+  font-size: 1.5rem;
+}
+.c-footer-tutorial{
+  display: flex;
+  justify-content: center;
+  height: 6rem;
+  width: 100%;
+  align-items: center;
+}
+.c-tutorial__text{
+  text-align: center;
+  width: 80%;
+  padding-bottom: 4rem;
+}
+.c-tutorial__text-image{
+  text-align: center;
+  width: 80%;
+  padding-bottom: 1rem;
+}
+.c-footer-navigation{
+  display: flex;
+  justify-content: space-evenly;
+  width: 5rem;
+}
+.c-footer-tutorial_button{
+  padding:0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: none;
+}
+.c-footer-tutorial_button_green{
+  background-color: #5DB25D;
+}
+.c-footer-tutorial_button_red{
+  background-color: var(--global-color-red-dark);
+}
+.c-footer-tutorial_button_blue{
+  background-color: var(--global-color-blue-dark);
+}
+.c-footer-tutorial_button__white{
+  background-color: var(--global-color-white);
+}
+.c-tutorial-image{
+  width: 8rem;
+  padding: 1rem 0;
+}
+.c-tutorial-title_with-image{
+  font-size: 1.5rem;
+  text-align: center;
+}
+.c-tutorial-groupImage{
+  width: 12rem;
+  padding: 2rem 0;
+  fill: white;
+}
+.c-tutorial__text-image_group{
+  text-align: center;
+  width: 80%;
+  padding-bottom: 4rem;
+}
+.c-tutorial-title_with-groupimage{
+  padding-top: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 /*------------------------------------*\
