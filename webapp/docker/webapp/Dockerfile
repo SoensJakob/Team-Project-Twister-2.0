@@ -1,9 +1,10 @@
-FROM tiangolo/uwsgi-nginx-flask:python3.8-alpine
+FROM dan0n/flask-alpine:python3.6
 
 RUN apk add --no-cache linux-headers g++ gcc python3-dev musl-dev
 
 COPY ./requirements.txt .
 
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
+RUN pip install --upgrade pip
 
 COPY ./app /app
