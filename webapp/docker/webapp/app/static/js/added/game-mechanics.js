@@ -31,6 +31,9 @@ const setoutmsg = (out_msg) => {
         case 'buttonreleased':
             mqttmssg = ["released", mqttobj.buttonreleased[0]];
             break;
+        case 'row':
+            mqttmssg = ['', JSON.parse('{"row":"", "column":""}')];
+            break;
     
         default:
             console.log("game - game-mechanics error: mqttobj error in setoutmsg");
@@ -166,7 +169,7 @@ const PlayMemory = () => {
 
     //send mqtt mssg to hardware to enable buttons
     send_message(`{"row": "${memoryarr['row'][memoryindex]}", "column": ${memoryarr['col'][memoryindex]}, "color": "", "player":"${currentplayer}","limb": ""}`);
-    console.log('row:', memoryarr['row'][memoryindex], '  col:', memoryarr['col'][memoryindex]);
+    
     // load template
     Temp_Memory(memoryarr['row'][memoryindex], memoryarr['col'][memoryindex], memorylevel);
 
