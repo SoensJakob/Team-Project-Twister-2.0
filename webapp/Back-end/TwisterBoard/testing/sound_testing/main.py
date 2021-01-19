@@ -1,7 +1,7 @@
 import pyttsx3
 
+""" RATE"""
 engine = pyttsx3.init()
-print("Hoi")
-engine.say("I will speak this text")
-print("Hoi2")
+engine.setProperty('volume', 0.9)
+engine.say(f"Hoiu plaats je Hoi op Hoi")
 engine.runAndWait()
