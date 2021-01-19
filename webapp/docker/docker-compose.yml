@@ -14,4 +14,4 @@ services:
   mqtt:
     image: toke/mosquitto
     ports:
-      - 9001:1883
+      - 9001:9001
