@@ -5,6 +5,5 @@ RUN apk add --no-cache linux-headers g++ gcc python3-dev musl-dev
 COPY ./requirements.txt .
 
 RUN pip3 install -r requirements.txt
-RUN pip install --upgrade pip
 
 COPY ./app /app
