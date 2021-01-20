@@ -119,7 +119,7 @@ const Temp_SelectGameOptions = () => {
                         <div class="c-numberPlayers-slider">   
                             <div class="o-slider-wrap">         
                                 <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
-                                <span class="o-NumberTimerValue"></span>
+                                <span class="o-NumberTimerValue" id="slidervalue-timer"></span>
                             </div>
                         </div> 
                     </div> 
@@ -134,6 +134,12 @@ const Temp_SelectGameOptions = () => {
                         </div>
                     </div>
                 `;
+                let timer = document.getElementById("GameTimer");
+                timer.addEventListener("change", function() {
+                    if(timer.value==0){
+                        document.getElementById("slidervalue-timer").innerHTML = "off";
+                    }
+                })
                 const allRanges = document.querySelectorAll(".o-slider-wrap");
                 allRanges.forEach(wrap => {
                     const range = wrap.querySelector(".o-slider");
@@ -294,13 +300,13 @@ const Temp_Memory = (row, col, lvl) => {
 
 const Temp_EndGame = (player_info) => {
     document.querySelector('#gamewindow').innerHTML = `
-        <nav class="o-nav">
-            <a href="#" class="o-backbutton">
-                <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
-                <p class="o-backbutton-grey">Back</p>
-            </a>
-        </nav> 
         <div class="o-container u-justify-bottom u-background-color-white"> 
+            <nav class="o-nav">
+                <a href="#" class="o-backbutton">
+                    <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
+                    <p class="o-backbutton-grey">Back</p>
+                </a>
+            </nav> 
             <main class="c-victory">
                 <h1>game finished</h1>
                 <img class="c-victory_img" src="../static/img/crown.svg" alt="victory crown">
