@@ -35,14 +35,14 @@ const ValidateGameSettings = () => {
     Temp_SelectPlayers(minplayers, maxplayers);
 }
 
-const ValidatePlayers = () => {
+const ValidatePlayers = (minplayers, maxplayers) => {
     let gameplayers = {};
     let boolvalidation = false;
     let inputplayers = document.getElementsByName("playername");
     for (let i = 0; i < inputplayers.length; i++) {
         if (!inputplayers[i].value) {
             boolvalidation = true;
-            Temp_SelectPlayers(maxplayers);
+            Temp_SelectPlayers(minplayers, maxplayers);
             alert("one or more players name(s) isn't valid");
             break;
         }

@@ -164,7 +164,7 @@ const Temp_SelectPlayers = (minplayers, maxplayers) => {
     document.querySelector('#initgamewindow').innerHTML = ` 
         <div class="o-container u-background-color-red">
             <nav class="o-nav o-nav-white">
-                <a href="login.html" class="o-backbutton o-backbutton_white">
+                <a href="/initgame" class="o-backbutton o-backbutton_white">
                     <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
                     <p>Back</p>
                 </a>
@@ -189,7 +189,7 @@ const Temp_SelectPlayers = (minplayers, maxplayers) => {
             </footer>
         </div>
     `;
-    document.querySelector("#BtnValidatePlayers").addEventListener("click", function() { ValidatePlayers(); });
+    document.querySelector("#BtnValidatePlayers").addEventListener("click", function() { ValidatePlayers(minplayers, maxplayers); });
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
         const range = wrap.querySelector(".o-slider");
@@ -209,7 +209,7 @@ const Temp_WaitingScreen = (time, player) => {
         document.querySelector('#gamewindow').innerHTML = `
             <div class="o-container u-background-color-green u-justify-bottom u-background-color-yellow">
                 <nav class="o-nav">
-                    <a href="#" class="o-backbutton o-backbutton_white">
+                    <a href="/" class="o-backbutton o-backbutton_white">
                         <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
                         <p>Back</p>
                     </a>
@@ -245,7 +245,7 @@ const Temp_TwisterClassic = (gametimer, color) => {
     document.querySelector('#gamewindow').innerHTML = `
         <div class="o-container u-justify-bottom u-background-color-${color}">
             <nav class="o-nav">
-                <a href="#" class="o-backbutton">
+                <a href="/initgame" class="o-backbutton">
                     <img class="o-backbutton_img" src="../static/img/arrow-${textcolor}.png" alt="arrow back">
                     <p class="o-backbutton-${textcolor}">Back</p>
                 </a>
@@ -302,7 +302,7 @@ const Temp_EndGame = (player_info) => {
     document.querySelector('#gamewindow').innerHTML = `
         <div class="o-container u-justify-bottom u-background-color-white"> 
             <nav class="o-nav">
-                <a href="#" class="o-backbutton">
+                <a href="/initgame" class="o-backbutton">
                     <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
                     <p class="o-backbutton-grey">Back</p>
                 </a>
@@ -326,7 +326,7 @@ const Temp_EndGame = (player_info) => {
 const Temp_EndGameOverview = (player_info) => {
     document.querySelector('#gamewindow').innerHTML = `
     <nav class="o-nav">
-    <a href="#" class="o-backbutton">
+    <a href="/initgame" class="o-backbutton">
         <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
         <p class="o-backbutton-white">Back</p>
     </a>
@@ -338,10 +338,11 @@ const Temp_EndGameOverview = (player_info) => {
                 </div>
             </main>
             <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-                <button type="button" class="o-button-large" id="">continue</button>
+                <button type="button" class="o-button-large" id="Continue">continue</button>
             </footer>
         </div>
     `;
+    document.querySelector('#Continue').addEventListener('click', function() {window.location.href='/scores'})
     let i = 1;
     player_info.forEach(player => {
         if (i == 1) {
