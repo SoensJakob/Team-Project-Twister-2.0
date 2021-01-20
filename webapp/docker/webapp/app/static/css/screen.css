@@ -598,8 +598,8 @@ flex-grow: 0.6;
   flex-direction: column;
 }
 .c-victory_img{
-  width: 8rem;
-  padding-top: 2.5rem;
+  width: 10rem;
+  padding-top: 2.2rem;
 }
 .c-victory_text{
   padding-top: 2rem;
@@ -607,9 +607,10 @@ flex-grow: 0.6;
 }
 .c-victory_text-big{
   font-size: 2rem;
+  padding: 0.5rem;
 }
 .c-victory_text-number{
-  padding-top: 2rem;
+  padding-top: 0.5rem;
   font-size: 2.5rem;
 }
 /*lose page*/
