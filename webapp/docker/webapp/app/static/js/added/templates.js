@@ -2,7 +2,7 @@
 #Global variables for templates
 \*------------------------------------*/
 
-player_count  = 1;
+//let player_count  = 1;
 
 /*------------------------------------*\
 #Templates
@@ -189,6 +189,7 @@ const Temp_SelectPlayers = (minplayers, maxplayers) => {
             </footer>
         </div>
     `;
+    let player_count = 1;
     document.querySelector("#BtnValidatePlayers").addEventListener("click", function() { ValidatePlayers(minplayers, maxplayers); });
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
@@ -197,7 +198,7 @@ const Temp_SelectPlayers = (minplayers, maxplayers) => {
 
         range.addEventListener("input", () => {
             setBubble(range, bubble);
-            AddPlayer(bubble.innerHTML)
+            AddPlayer(bubble.innerHTML, player_count)
         });
 
         setBubble(range, bubble);
@@ -394,7 +395,7 @@ const setBubble = (range, bubble) => {
     bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
 }
 
-const AddPlayer = (NumberPlayers) => {
+const AddPlayer = (NumberPlayers, player_count) => {
     if(NumberPlayers > player_count){
         let playerfield = document.getElementById("playerfields");
         //create div element and place it in id
