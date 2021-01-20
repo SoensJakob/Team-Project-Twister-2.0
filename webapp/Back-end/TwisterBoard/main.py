@@ -94,7 +94,9 @@ try:
     client = mqtt.Client()
     client.on_message = on_message
     connect()
-    client.subscribe('/mat/01/#')
+    client.subscribe('/twisterboard')
+    client.subscribe('/twisterspeaker')
+
     client.loop_forever()
 except KeyboardInterrupt as e:
     cleanup()
