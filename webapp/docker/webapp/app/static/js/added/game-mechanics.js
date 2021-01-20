@@ -212,7 +212,7 @@ const NextPlayer = (dead) => {
 }
 
 const CheckIfGameIsFinished = function(currentplayer){
-    if (currenplayercount == 1) {
+    if (currenplayercount == 0) { // 0 wil zeggen hoeveel players er nog mogen overblijven vooraleer game stopt
         player_info.playerinfo.sort(function (a, b) {
             return  b.score - a.score;
         });
