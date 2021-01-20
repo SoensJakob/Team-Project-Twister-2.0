@@ -24,7 +24,7 @@ def connect():
     global client
     try:
         address = '127.0.0.1'
-        client.connect(address, 1883)
+        client.connect(address, 9001)
         print("Connected")
     except:
         print("Not possible")
@@ -33,27 +33,21 @@ def cleanup():
     io.cleanup()
 
 def on_message(client, userdata, msg):
-    message = json.loads(str(msg.payload.decode("utf-8")))
-    try:
-        limb = message["limb"]
-        row = message["row"]
-        user = message["user"]
+    messages = json.loads(str(msg.payload.decode("utf-8")))
+    for message in messages:
         try:
+            limb = message["limb"]
+            row = message["row"]
+            user = message["user"]
             color = message["color"]
-        except Exception as e:
-            color = None
-        try:
-            column = message["column"]    
+            column = message["column"]
 
+            create_sound(user, limb, row, column)
+            create_listeners(user, limb, row, column)
+            if color != None:
+                create_color(color)            
         except Exception as e:
-            place = None
-
-        create_sound(user, limb, row, column)
-        create_listeners(user, limb, row, column)
-        if color != None:
-            create_color(color)            
-    except Exception as e:
-        pass
+            pass
 
 def create_color(color):
     print(color)
@@ -67,7 +61,7 @@ def create_listeners(user, limb, row, column):
 def create_sound(user, limb, row, column):
     color = row_to_color(row)
     engine = pyttsx3.init()
-    engine.say(f"{user} plaats je {limb} op {color}")
+    engine.say(f"speler {user} plaats je {limb} op {color}")
     engine.runAndWait()
 
 def row_to_color(row):
