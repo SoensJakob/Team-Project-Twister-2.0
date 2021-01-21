@@ -36,7 +36,7 @@ def scores(gamemode=None):
             gamemodex = gamemode if gamemode is not None else "twister-classic"
             r = requests.get(f'http://192.168.0.173:5000/scores/{gamemodex}')
             json_resp = r.json()
-            return render_template('scores.html', gamescores=json_resp)
+            return render_template('scores.html', gamemode=gamemodex, gamescores=json_resp)
         except Exception as e:
             print("main - scores error get: ", e)
             return render_template('scores.html')
