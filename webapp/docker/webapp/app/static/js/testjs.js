@@ -17,14 +17,13 @@ let gamemode = "twister";
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    // console.log(twisterboard.length);
-    // let players = iets['playerinfo'];
-    // let randindex = Math.floor(Math.random() * gamecolors.length)
-    // //init();
-    // let newmqqtmssg = setInterval(function name(params) {
-    //     mqttmssg = {"":[{"row": Math.floor(Math.random() * 4) + 1, "col": Math.floor(Math.random() * 6) + 1}]};
-    // }, 1000);
-    console.log(searchplayer("robbe", arraybodypart));
+    let players = iets['playerinfo'];
+    let randindex = Math.floor(Math.random() * gamecolors.length)
+    init();
+    let newmqqtmssg = setInterval(function() {
+        mqttmssg = {"":[{"row": Math.floor(Math.random() * 4) + 1, "col": Math.floor(Math.random() * 6) + 1}]};
+    }, 1000);
+    
 
 });
 
@@ -37,7 +36,8 @@ const init = function(){
     let timeleft = 5;
     let timernextplayer = setInterval(function(){
         if (timernextplayer == 0) {
-            moveplayer(mqttmssg[1], players[currplayerindex], randcolor, arrbodypart);
+            console.log(mqttmssg);
+            moveplayer(mqttmssg[1].row, mqttmssg[1].col, players[currplayerindex], arrbodypart[0], arraybodypart[1]);
             randbodypart = bodyparts[Math.floor(Math.random() * 4)];
             arrbodypart = randbodypart.split(" ");
             randcolor = GetTwisterColor();
@@ -47,20 +47,34 @@ const init = function(){
     }, 1000);
 }
 
-const moveplayer = (mqttmssg, playername, randcolor, arrbodypart) => {
+const moveplayer = (row, col, playername, direction, limb) => {
     let playerexist = searchplayer();
+    if (playerexist != false) {
+        remplayeronfield(row, col);
+    }
+    addplayeronfield(row, col, playername, direction, limb);
+    console.log(twisterboard);
 }
 
-const addplayeronfield = (color, limb) => {
-
+const addplayeronfield = (row, col, playername, direction, limb) => {
+    twisterboard[row - 1][col - 1][0] = playername;
+    twisterboard[row - 1][col - 1][1] = direction;
+    twisterboard[row - 1][col - 1][2] = limb;
 }
 
-const searchplayer = (playername, arraybodypart) =>{
+const remplayeronfield = (row, col) => {
+    twisterboard[row - 1][col - 1][0] = "";
+    twisterboard[row - 1][col - 1][1] = "";
+    twisterboard[row - 1][col - 1][2] = "";
+}
+
+const searchplayer = (playername, direction, limb) =>{
     let isfound = false;
     let returnmsg = [];
     for (let i = 0; i < twisterboard.length; i++) {
         for (let j = 0; j < twisterboard[i].length; j++) {
-            if (playername ==  twisterboard[i][j][0] && arraybodypart[0] == twisterboard[i][j][1] && arraybodypart[1] == twisterboard[i][j][2] ) {
+            if (playername ==  twisterboard[i][j][0] && direction == twisterboard[i][j][1] && limb == twisterboard[i][j][2] ) {
+                // 0=name, 1=direction, 2=limb
                 returnmsg.push(i,j,twisterboard[i][j][0],twisterboard[i][j][1],twisterboard[i][j][2]);
                 isfound = true;
             }

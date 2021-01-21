@@ -144,7 +144,7 @@ const PlayTwister = () => {
         if (timeleft == 0) {
             clearInterval(TwisterTimer);
             NextPlayer(true);
-            CheckIfGameIsFinished(currentplayer);
+            //CheckIfGameIsFinished(currentplayer);
         }
         else if (mqttmssg[1].row == (colorindex + 1)) {
             clearInterval(TwisterTimer);
@@ -201,27 +201,39 @@ const NextPlayer = (dead) => {
     if (dead) {
         player_info.playerinfo[currentplayerindex].alive = 0;
         currenplayercount--;
-    }
-    currentplayerindex++;
-    if (currentplayerindex == playercount) {
-        currentplayerindex = 0;
-    }
-    if (player_info.playerinfo[currentplayerindex].alive == 0) {
-        NextPlayer();
-    }
-}
-
-const CheckIfGameIsFinished = function(currentplayer){
-    if (currenplayercount == 0) { // 0 wil zeggen hoeveel players er nog mogen overblijven vooraleer game stopt
-        player_info.playerinfo.sort(function (a, b) {
-            return  b.score - a.score;
-        });
-        Temp_EndGame(player_info.playerinfo);
+        if (currenplayercount == 0) { // 0 wil zeggen hoeveel players er nog mogen overblijven vooraleer game stopt
+            player_info.playerinfo.sort(function (a, b) {
+                return  b.score - a.score;
+            });
+            Temp_EndGame(player_info.playerinfo);
+        }
+        else{
+            Temp_WaitingScreen((gametimer), player_info.playerinfo[currentplayerindex].name);
+        }
     }
     else{
-        Temp_WaitingScreen((gametimer), currentplayer);
+        currentplayerindex++;
+        if (currentplayerindex == playercount) {
+            currentplayerindex = 0;
+        }
+        if (player_info.playerinfo[currentplayerindex].alive == 0) {
+            NextPlayer(false);
+        }
     }
+    
 }
+
+// const CheckIfGameIsFinished = function(currentplayer){
+//     if (currenplayercount == 0) { // 0 wil zeggen hoeveel players er nog mogen overblijven vooraleer game stopt
+//         player_info.playerinfo.sort(function (a, b) {
+//             return  b.score - a.score;
+//         });
+//         Temp_EndGame(player_info.playerinfo);
+//     }
+//     else{
+//         Temp_WaitingScreen((gametimer), currentplayer);
+//     }
+// }
 
 const GetTwisterColor = () => {
     let countbtnused = 0;
