@@ -11,16 +11,26 @@
 #include <wiringPi.h>
 
 #define INT_PIN 11
+#define PINS_ARRAY [[4, 17,27,22,10,9 ],[11,0, 5, 6, 13,19],[26,21,20,16,12,1 ],[7, 8, 25,24,23,18]]
+
 
 void detecter(void){
-  printf("Released");
+  delay(100);
+  printf("Released ");
+  char String[255];
+  sprintf(String, "gpio edge %d falling", INT_PIN);
+  system(String);
+  printf("Delete listener ");
 }
 
-int main (void)
-{
-  printf ("Raspberry Pi blink\n") ;
+// Acces paramters passed by commandline 
+// Use argv[*]
 
-  if (wiringPiSetup () == -1)
+int main (int argc, char **argv)
+{
+  printf ("Raspberry Pi blink \n") ;
+
+  if (wiringPiSetup () < 0)
     return 1 ;
 
   pinMode (11, INPUT) ;         // aka BCM_GPIO pin 17
@@ -32,9 +42,8 @@ int main (void)
 
   while (1)
   {
-    char value = digitalRead(11);
-    delay(100);
-    printf("%i\n",value);
+    printf("Checking values\n");
+    delay(500);
   }
   return 0 ;
 }

@@ -3,7 +3,6 @@
 \*------------------------------------*/
 
 const TimerStartGame = 5;
-let maxplayers = 0;
 
 /*------------------------------------*\
 #Template Validations
@@ -11,13 +10,21 @@ let maxplayers = 0;
 
 const ValidateGameSettings = () => {
     let gamesettings = {};
+    let minplayers = 0;
+    let maxplayers = 0;
     let gamemode = document.querySelector("#GameMode").value;
     switch (gamemode) {
         case "Twister-Classic":
             gamesettings['gamemode'] = gamemode;
             gamesettings['timer'] = document.querySelector("#GameTimer").value;
             gamesettings['actions'] = document.querySelector("#GameActions").value;
+            minplayers = 2;
             maxplayers = 4;
+            break;
+        case "Memory":
+            gamesettings['gamemode'] = gamemode;
+            minplayers = 1;
+            maxplayers = 1;
             break;
     
         default:
@@ -25,18 +32,17 @@ const ValidateGameSettings = () => {
             break;
     }
     localStorage.setItem("gamesettings", JSON.stringify(gamesettings));
-    Temp_SelectPlayers(maxplayers);
-    console.log('end of validation gamesettings');
+    Temp_SelectPlayers(minplayers, maxplayers);
 }
 
-const ValidatePlayers = () => {
+const ValidatePlayers = (minplayers, maxplayers) => {
     let gameplayers = {};
     let boolvalidation = false;
     let inputplayers = document.getElementsByName("playername");
     for (let i = 0; i < inputplayers.length; i++) {
         if (!inputplayers[i].value) {
             boolvalidation = true;
-            Temp_SelectPlayers(maxplayers);
+            Temp_SelectPlayers(minplayers, maxplayers);
             alert("one or more players name(s) isn't valid");
             break;
         }
@@ -44,7 +50,6 @@ const ValidatePlayers = () => {
     }
     if (!boolvalidation) {
         localStorage.setItem("gameplayers", JSON.stringify(gameplayers));
-        // nog veranderen in productie
         window.location.href = "/game"; 
     }
 }

@@ -31,6 +31,10 @@ body{
    --global-color-yellow-dark: #E4D131;
    --global-color-yellow-darkest: #AEA12F;
 
+   /*global game color*/
+   --global-gamecolor : var(--global-color-green-dark);
+   --global-gamecolor-border : var(--global-color-green-darkest);
+
   /*textcolor*/
   --global-textcolor: #4B4B4B;
 
@@ -122,6 +126,22 @@ input[type=text] {
   border-bottom: solid 1px var(--global-color-white);
 }
 
+/*progress bar*/
+progress {
+  border-radius: 1rem;
+  width: 100%; 
+  height: 0.9rem;
+}
+progress::-webkit-progress-bar {
+  background-color: var(--global-gamecolor);
+  border: solid 1px var(--global-gamecolor-border);
+  border-radius: 2rem;
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--global-color-white);
+  border-radius: 2rem;
+}
 
 /*------------------------------------*\
 #OBJECTS
@@ -182,7 +202,6 @@ the backbutton in the left corner of the navigation
   flex-direction: row;
   align-items: center;
 }
-
 .o-backbutton_img{
   width: 1rem;
   height: 1.5rem;
@@ -193,8 +212,12 @@ the backbutton in the left corner of the navigation
 in case there is a background color that needs white color
 */
 
-.o-backbutton_white{
+.o-backbutton-white{
   color: var(--global-color-white);
+}
+
+.o-backbutton-grey{
+  color: var(--global-color-darkgrey);
 }
 
 /*every button has same witdh and border radius*/
@@ -267,6 +290,16 @@ in case there is a background color that needs white color
   transform: translateX(-50%);
 }
 .o-NumberPlayersValue::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+}
+.o-NumberTimerValue{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.o-NumberTimerValue::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -455,7 +488,59 @@ flex-grow: 0.6;
 .c-custom-select-label{
   padding-top: 1rem;
 }
+/*hamburger navigation*/
 
+.c-hamburgerNav{
+  position: relative;
+}
+
+#nav_button{
+  background-color: var(--global-color-green);
+  width: 2.2rem;
+  height: 2.2rem;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+#hidden_nav{  
+  background-color: var(--global-color-white);
+  width: 12rem;
+  height: 6rem;
+  right: 0em;
+  top: 0rem;
+  border: none;
+  border-radius: 0.2rem;
+  position: absolute;
+  display: none;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.16);
+}
+
+#hidden_nav>div>a{
+  font-size: 1rem;
+  padding-left: 0.5rem;
+}
+.hidden_nav-line{
+  width: 90%;
+  border-bottom: solid 1px #DDDDDD;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.hidden_nav-firstline{
+  padding-top: 0.4rem;
+}
+.hidden_nav-lastline{
+  border-bottom: none;
+}
+.hidden_nav-line>img{
+  width: 1rem;
+  cursor: pointer;
+  padding-right: 0.5rem;
+}
 /*transitionpage*/
 .c-waitPage{
   text-align: center;
@@ -471,9 +556,10 @@ flex-grow: 0.6;
 
 /*gamemode twister page*/
 .c-gamemode-twister{
+  width: 15rem;
   padding-top: 2rem;
   display: flex;
- flex-direction: column;
+  flex-direction: column;
   align-items: center;
   flex-grow: 1;
   color: var(--global-color-white);
@@ -481,8 +567,10 @@ flex-grow: 0.6;
 .c-gamemode-twister__image{
   height: 10rem;
 }
+
 .c-gamemode-twister-info{
-  padding-top: 1rem;
+  width: 100%;
+  padding-top: 2rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -537,9 +625,31 @@ flex-grow: 0.6;
 .c-score{
   flex-grow: 1;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
   color: var(--global-color-white);
+}
+.c-score-filter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--global-color-white);
+}
+.c-score-filter-arrows{
+  width: 1rem;
+  padding: 1rem;
+}
+.c-score-filter-arrows-rotation{
+  transform: rotate(180deg);
+}
+.c-score-filter-button{
+  background-color: var(--global-color-green);
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 .c-scoreboard{
   width: 18rem;
@@ -562,7 +672,6 @@ flex-grow: 0.6;
   background-color: #4e884e;
   border-radius: 0.5rem;
 }
-
 .c-nameboard{
   width: 2rem;
   height: 2rem;
@@ -573,12 +682,11 @@ flex-grow: 0.6;
 }
 .c-nameboard-img{
   width: 2rem;
+  margin-right: 0.5rem;
 }
 .c-nameboard-name{
-  padding-left: 0.5rem;
   font-size: 1.4rem;
 }
-
 .c-scorePlayer{
   margin: 1rem;
   width: 2rem;
@@ -588,6 +696,84 @@ flex-grow: 0.6;
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
+}
+/*tutorial pages*/
+.c-tutorial{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  color: var(--global-color-white);
+  flex-grow: 1;
+  align-items: center;
+}
+.c-tutorial-title{
+  padding-top: 6rem;
+  font-size: 1.5rem;
+}
+.c-footer-tutorial{
+  display: flex;
+  justify-content: center;
+  height: 6rem;
+  width: 100%;
+  align-items: center;
+}
+.c-tutorial__text{
+  text-align: center;
+  width: 80%;
+  padding-bottom: 4rem;
+}
+.c-tutorial__text-image{
+  text-align: center;
+  width: 80%;
+  padding-bottom: 1rem;
+}
+.c-footer-navigation{
+  display: flex;
+  justify-content: space-evenly;
+  width: 5rem;
+}
+.c-footer-tutorial_button{
+  padding:0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: none;
+}
+.c-footer-tutorial_button_green{
+  background-color: #5DB25D;
+}
+.c-footer-tutorial_button_red{
+  background-color: var(--global-color-red-dark);
+}
+.c-footer-tutorial_button_blue{
+  background-color: var(--global-color-blue-dark);
+}
+.c-footer-tutorial_button__white{
+  background-color: var(--global-color-white);
+}
+.c-tutorial-image{
+  width: 8rem;
+  padding: 1rem 0;
+}
+.c-tutorial-title_with-image{
+  font-size: 1.5rem;
+  text-align: center;
+}
+.c-tutorial-groupImage{
+  width: 12rem;
+  padding: 2rem 0;
+  fill: white;
+}
+.c-tutorial__text-image_group{
+  text-align: center;
+  width: 80%;
+  padding-bottom: 4rem;
+}
+.c-tutorial-title_with-groupimage{
+  padding-top: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 /*------------------------------------*\
@@ -617,6 +803,10 @@ flex-grow: 0.6;
 
 .u-padding-slider{
   padding: 1rem 0;
+}
+
+.u-padding-top{
+  padding-top: 0.5rem;
 }
 
 .u-justify-center {

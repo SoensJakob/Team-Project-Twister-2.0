@@ -12,7 +12,7 @@ class TwisterBoard(object):
             [0,0,0,0,0,0],
             [0,0,0,0,0,0],
             [0,0,0,0,0,0]]
-        self._color_list = [
+        self.color_list = [
             [4, 17,27,22,10,9 ], 
             [11,0, 5, 6, 13,19], 
             [26,21,20,16,12,1 ], 
@@ -68,10 +68,9 @@ class TwisterBoard(object):
         for x in self._listInputs:
             self.removeOneListener(x)
 
-    def createOneListener(self, button, limb):  
-        self.limb = limb
+    def createOneListener(self, button):  
         try:
-            channel = self.io.wait_for_edge(button, self.io.RISING, timeout=10000)
+            channel = self.io.add_event_detect(button, self.io.RISING, callback=self.buttonAction)
             if channel == None:
                 #print("NOK")
                 status = "Not pressed in time"
