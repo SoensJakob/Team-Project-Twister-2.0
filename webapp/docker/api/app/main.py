@@ -3,7 +3,8 @@ import sys
 import json
 from json.decoder import JSONDecodeError
 from pydantic import BaseModel
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
+from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 
 # postman scores post json example
@@ -21,15 +22,19 @@ class Score(BaseModel):
 app = FastAPI()
 
 @app.get("/scores/{gamemode}")
-async def get_scores(gamemode: str):
+async def get_scores(gamemode: str = None):
     try:
-        scoreslist = []
+        gamemodex = gamemode if gamemode is not None else "twister-classic"
+        filteredscoreslist = []
+
         with open("scores.json") as f:
             for score in f:
                 scoresdict = json.loads(score)
-                scoreslist.append(scoresdict)
+                if scoresdict["gamemode"] == gamemodex:
+                    for playerscore in scoresdict["playerinfo"]:
+                        filteredscoreslist.append(playerscore)
         f.close()
-        return scoreslist
+        return filteredscoreslist
     except Exception as e:
         print(e)
 

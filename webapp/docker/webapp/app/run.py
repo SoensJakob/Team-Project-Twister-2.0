@@ -1,3 +1,4 @@
+import os
 import time
 import json
 import socket
@@ -9,7 +10,6 @@ from flask import Flask, jsonify, request, render_template
 from flask import url_for, render_template, request, redirect, session, g
 
 app = Flask(__name__)
-
 
 @app.route('/', methods=['GET'])
 def home():
@@ -27,18 +27,26 @@ def initgame():
 def game():
     return render_template('game.html')
 
-@app.route('/scores', methods=['GET', 'POST'])
-def scores():
-    content = request.get_json()
-    print(content)
+@app.route('/scores')
+@app.route('/scores/<gamemode>')
+def scores(gamemode=None):
+    if request.method == 'GET':
+        try:
+            
+            gamemodex = gamemode if gamemode is not None else "twister-classic"
+            r = requests.get(f'http://192.168.0.173:5000/scores/{gamemodex}')
+            json_resp = r.json()
+            return render_template('scores.html', gamescores=json_resp)
+        except Exception as e:
+            print("main - scores error get: ", e)
+            return render_template('scores.html')
+        
     if request.method == 'POST':
         try:
             return render_template('scores.html')
             
         except Exception as e:
-            return  "main - scores error: ", e
-
-    return render_template('scores.html')
+            return  "main - scores error post: ", e
 
 
 if __name__ == '__main__':
