@@ -26,7 +26,6 @@ async def get_scores(gamemode: str = None):
     try:
         gamemodex = gamemode if gamemode is not None else "twister-classic"
         filteredscoreslist = []
-
         with open("scores.json") as f:
             for score in f:
                 scoresdict = json.loads(score)
@@ -34,6 +33,7 @@ async def get_scores(gamemode: str = None):
                     for playerscore in scoresdict["playerinfo"]:
                         filteredscoreslist.append(playerscore)
         f.close()
+        filteredscoreslist = sorted(filteredscoreslist, key=lambda k: k.get('score', 0), reverse=True)
         return filteredscoreslist
     except Exception as e:
         print(e)

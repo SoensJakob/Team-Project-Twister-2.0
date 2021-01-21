@@ -38,6 +38,7 @@ def getfilteredscores():
                 for playerscore in scoresdict["playerinfo"]:
                     filteredscoreslist.append(playerscore)
     f.close()
+    filteredscoreslist = sorted(filteredscoreslist, key=lambda k: k.get('score', 0), reverse=True)
     return filteredscoreslist
 
 def testrequest(gamemode=None):
@@ -46,4 +47,5 @@ def testrequest(gamemode=None):
     json_objs = json.loads(r.text) 
     print(json_objs)
 
-testrequest('memory')
+test = getfilteredscores()
+print(test)
