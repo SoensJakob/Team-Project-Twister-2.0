@@ -205,6 +205,20 @@ const NextPlayer = (dead) => {
             player_info.playerinfo.sort(function (a, b) {
                 return  b.score - a.score;
             });
+            fetch(`/scores/${player_info.gamemode}`, {
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(player_info)
+            }).then(function (response) {
+                return response.text();
+            }).then(function (text) {
+                if (text != "succes") {
+                    alert('scores not saved')
+                    console.log('game - gamemechanics warning: scores are not saved');
+                }
+            });
             Temp_EndGame(player_info.playerinfo);
         }
         else{
