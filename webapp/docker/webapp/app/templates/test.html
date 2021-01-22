@@ -14,5 +14,39 @@
     <script src="../static/js/test2.js"></script>
 </head>
 <body>
+    <div class="o-container u-justify-bottom u-background-color-${color}">
+        <nav class="o-nav">
+            <a href="/initgame" class="o-backbutton">
+                <img class="o-backbutton_img" src="../static/img/arrow-${textcolor}.png" alt="arrow back">
+                <p class="o-backbutton-${textcolor}">Back</p>
+            </a>
+        </nav> 
+        <main class="c-gamemode-twister u-textcolor-${textcolor}">
+            <h1 id="twistermovelimb">right foot</h1>
+            <img class="c-gamemode-twister__image" id="imgtwisterlimb">
+            <div id="timer" class="c-gamemode-twister-info">
+                <p class="c-gamemode-twister__seconds">seconds left: <span id="progressBarnumber">${gametimer/10}</span></p>
+                <progress class="c-progress-bar_green" value="0" max="${gametimer/10}" id="progressBar"></progress>
+            </div>
+            <p id="twistermovecolor" class="c-gamemode-twister__color"></p>
+        </main>
+        <footer class="o-footer u-footer-background-color-${color} u-footer-border-color-${color} u-textcolor-${textcolor} c-gamemode-twister__footer">
+            <div class="o-row">
+                <p>player: </p>
+                <label class="c-gamemode-twister__name" id="currentplayer"></label>
+            </div>
+        </footer>
+        <script>
+            // Get the root element
+            var r = document.querySelector(':root');
+            // Create a function for setting a variable value
+            function myFunction_set() {
+            // Set the value of variable --blue to another value
+            r.style.setProperty('--global-gamecolor', 'var(--global-color-${color}-dark)');
+            r.style.setProperty('--global-gamecolor-border', 'var(--global-color-${color}-darkest)');
+            }
+            myFunction_set()
+        </script>
+    </div>
 </body>
 </html>

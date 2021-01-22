@@ -706,6 +706,21 @@ flex-grow: 0.6;
   font-size: 2rem;
 }
 
+/*progress bar color classes*/
+.c-progress-bar_green{
+  background-color: red;
+}
+progress::-webkit-progress-bar {
+  background-color: var(--global-gamecolor);
+  border: solid 1px var(--global-gamecolor-border);
+  border-radius: 2rem;
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--global-color-white);
+  border-radius: 2rem;
+}
+
 /*victory page*/
 .c-victory{
   flex-grow: 1;
@@ -892,6 +907,73 @@ flex-grow: 0.6;
   text-align: center;
 }
 
+/*memory game page*/
+.c-memory{
+flex-grow: 1;
+color: var(--global-color-white);
+text-align: center;
+}
+.c-memory_mat{
+  padding: 1rem 0.5rem 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  width: 16rem;
+  height: 22rem;
+  background-color: var(--global-color-white);
+}
+.c-memory_mat-row{
+  display: flex;
+  justify-content: space-evenly;
+  height: 3.5rem;
+  align-items: center;
+}
+/*wrap zorgt voor structuur goed te behouden als gekozen bol groter wordt*/
+.c-memory-vakwrap{
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.c-memory_mat-vak{
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  opacity: 0.2;
+}
+.c-memory_mat-vak__color-green{
+  background-color: var(--global-color-green);
+}
+.c-memory_mat-vak__color-yellow{
+  background-color: var(--global-color-yellow);
+}
+.c-memory_mat-vak__color-blue{
+  background-color: var(--global-color-blue);
+}
+.c-memory_mat-vak__color-red{
+  background-color: var(--global-color-red);
+}
+.c-memory-active{
+  opacity: 1;
+  width: 3rem;
+  height: 3rem;
+  transition: all 0.2s ease-in;
+}
+/*einde vakken mat*/
+
+.c-memory-voorkant{
+  color: var(--global-color-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  align-items: center;
+}
+.c-memory-arrow{
+  width: 1rem;
+  height: auto;
+  transform: rotate(90deg);
+}
 /*------------------------------------*\
 #States
 \*------------------------------------*/
