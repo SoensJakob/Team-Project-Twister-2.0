@@ -266,18 +266,46 @@ const Temp_TwisterClassic = (gametimer, color) => {
      myFunction_set(color)
 }
 
-const Temp_Memory = (row, col, lvl) => {
+const Temp_Memory = () => {
     document.querySelector('#gamewindow').innerHTML = `
-        <div>
-            <p>Current row: ${row}</p>
-        </div>
-        <div>
-            <p>Current col: ${col}</p>
-        </div>
-        <div>
-            <p>Current level: ${lvl}</p>
+        <div class="o-container u-background-color-green u-justify-bottom">
+            <nav class="o-nav o-nav-white">
+                <a href="/" class="o-backbutton o-backbutton_white">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p>Back</p>
+                </a>
+            </nav>
+            <main class="c-memory">
+                <h1 id="memory-currplayer">Memory</h1>
+                <div class="c-memory_mat">
+                    <div class="c-memory-buttons" id="buttonfield">
+                    </div>
+                </div>
+                <div class="c-memory-voorkant">
+                    <img class="c-memory-arrow" src="../static/img/arrow-white.png" alt="arrow">
+                    <p>voorkant</p>
+                </div>
+            </main>
         </div>
     `;
+    for (let i = 0; i < 6; i++) {
+        document.querySelector('#buttonfield').innerHTML += `
+            <div class="c-memory_mat-row">
+                <div class="c-memory-vakwrap">
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-green" id="memory-1${i + 1}"></div>
+                </div>
+                <div class="c-memory-vakwrap">
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-yellow" id="memory-2${i + 1}"></div>
+                </div>
+                <div class="c-memory-vakwrap">
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-blue" id="memory-3${i + 1}"></div>
+                </div>
+                <div class="c-memory-vakwrap">
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-red" id="memory-4${i + 1}"></div>
+                </div>
+            </div>
+        `;
+    }
 }
 
 const Temp_EndGame = (player_info) => {

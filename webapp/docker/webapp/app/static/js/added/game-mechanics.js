@@ -10,8 +10,8 @@ let currentplayerindex = 0;
 let gamecolors = [];
 let bodyparts = [];
 let memoryindex = 0;
-let memorylevel = 1;
-let memoryarr = {"row": [], "col": []};
+let memorylevel = 0;
+let memoryseqs = JSON.parse('{"playerseq":[]}'); 
 let mqttmssg = {"":[{"row": "", "col": ""}]};
 let twisterboard = [
     [["",""],["",""],["",""],["",""],["",""],["",""]],
@@ -98,6 +98,7 @@ const StartGame = () => {
       
         case "Memory":
             console.log("starting memory");
+            SetupMemory(players);
             PlayMemory();
             break;
 
@@ -112,6 +113,12 @@ const SetupTwister = (gamesettings) => {
     gamecolors = ["red", "blue", "yellow", "green"];
     bodyparts = ["left hand", "left foot", "right foot", "right hand"];
     (gametimer != 0) ? gametimer *= 10 : gametimer = null;
+}
+
+const Setupmemory = (players) => {
+    for([key, val] of Object.entries(players['playerinfo'])) {
+        memoryseqs['playerseq'].push({'name': val['name'], 'col': [Math.floor(Math.random() * Math.floor(6)) + 1], 'row': [Math.floor(Math.random() * Math.floor(4)) + 1]});
+    }
 }
 
 const PlayTwister = () => {
@@ -163,9 +170,7 @@ const PlayMemory = () => {
     // set variables
     mqttmssg = ['', JSON.parse('{"row":"", "column":""}')];
     let currentplayer = player_info.playerinfo[currentplayerindex].name;
-    if (!memoryarr['row'].length) {
-        AddMemoryBtn();
-    }
+    ShowMemorySeq();
 
     //send mqtt mssg to hardware to enable buttons
     send_message(`{"row": "${memoryarr['row'][memoryindex]}", "column": ${memoryarr['col'][memoryindex]}, "color": "", "player":"${currentplayer}","limb": ""}`);
@@ -235,7 +240,6 @@ const NextPlayer = (dead) => {
             NextPlayer(false);
         }
     }
-    
 }
 
 const GetTwisterColor = () => {
@@ -253,6 +257,24 @@ const GetTwisterColor = () => {
 const AddMemoryBtn = () => {
     let randcol = Math.floor(Math.random() * Math.floor(6)) + 1;
     let randrow = Math.floor(Math.random() * Math.floor(4)) + 1;
-    memoryarr['row'].push(randrow);
-    memoryarr['col'].push(randcol);
+    memoryseqs.playerseq[currentplayerindex]['col'].push(randcol);
+    memoryseqs.playerseq[currentplayerindex]['row'].push(randrow);
+}
+
+const ShowMemorySeq = () => {
+    let seqcol= memoryseqs.playerseq[currentplayerindex]['col'];
+    let segrow = memoryseqs.playerseq[currentplayerindex]['row'];
+    let seqindex = 0; 
+    let timeleft = seqcol.length; 
+    let TempMemoryTimer = setInterval(function(){
+
+        document.querySelector(`#memory-${((seqrow[seqindex] - 1) < 0) ? 0 : seqrow[seqindex] - 1}${((seqcol[seqcolindex] - 1) < 0 ? 0 : seqcol[seqcolindex] - 1)}`).classList.remove("c-memory-active");
+        document.querySelector(`#memory-${seqrow[seqindex]}${seqcol[seqcolindex]}`).classList.add("c-memory-active");
+        if (timeleft == 0) {
+            clearInterval(TempMemoryTimer);
+            
+        }
+        seqindex++;
+        timeleft--;
+    }, 500);
 }
