@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const init = function(){
     currgameindex = gamemodes.indexOf(document.querySelector('#txtgamemodenav').innerHTML);
-    console.log(currgameindex)
     document.querySelector('#BtnNextGamemode').addEventListener('click', ShowNextGamemode);
     document.querySelector('#BtnPrevGamemode').addEventListener('click', ShowPrevGamemode);
 }
@@ -20,7 +19,6 @@ const ShowNextGamemode = () => {
     if (currgameindex == gamemodes.length ) {
         currgameindex = 0;
     }
-    console.log(currgameindex);
     window.location.href = `/scores/${gamemodes[currgameindex]}`
 }
 
@@ -29,6 +27,5 @@ const ShowPrevGamemode = () => {
     if (currgameindex < 0) {
         currgameindex = (gamemodes.length - 1);
     }
-    console.log(currgameindex);
     window.location.href = `/scores/${gamemodes[currgameindex]}`
 }

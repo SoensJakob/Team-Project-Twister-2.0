@@ -1,24 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twister</title>
-    <!-- Stylesheets
-    ============================================= -->
-    <link rel="stylesheet" href="../static/css/normalize.css" />
-    <link rel="stylesheet" href="../static/css/screen.css" />
-    <link rel='shortcut icon' type='image/x-icon' href='../static/img/logo.png'>
-    <!-- Scripts
-    ============================================= -->
+{% extends "base.html" %}
+{% block scripts %}
     <script src="../static/js/lib/paho-mqttws31.js"></script>
     <script src="../static/js/added/mqtt.js"></script>
     <script src="../static/js/added/game-mechanics.js"></script>
     <script src="../static/js/added/templates.js"></script>
     <script src="../static/js/game.js"></script>
-</head>
-<body>
+{% endblock %}
+{% block content %}
     <div id="gamewindow">
     </div>
-</body>
-</html>
+{% endblock %}
