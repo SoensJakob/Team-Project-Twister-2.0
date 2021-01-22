@@ -244,15 +244,7 @@ const Temp_TwisterClassic = (gametimer, color) => {
                 </div>
             </footer>
             <script>
-                // Get the root element
-                var r = document.querySelector(':root');
-                // Create a function for setting a variable value
-                function myFunction_set() {
-                // Set the value of variable --blue to another value
-                r.style.setProperty('--global-gamecolor', 'var(--global-color-${color}-dark)');
-                r.style.setProperty('--global-gamecolor-border', 'var(--global-color-${color}-darkest)');
-                }
-                myFunction_set()
+               
             </script>
         </div>
     `;
@@ -262,6 +254,16 @@ const Temp_TwisterClassic = (gametimer, color) => {
             <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
         `;
     }
+     // Get the root element
+     var r = document.querySelector(':root');
+     // Create a function for setting a variable value
+     function myFunction_set(color) {
+     // Set the value of variable --blue to another value
+     console.log(color)
+     r.style.setProperty('--global-gamecolor', `var(--global-color-${color}-dark)`);
+     r.style.setProperty('--global-gamecolor-border', `var(--global-color-${color}-darkest)`);
+     }
+     myFunction_set(color)
 }
 
 const Temp_Memory = (row, col, lvl) => {
