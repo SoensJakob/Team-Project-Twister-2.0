@@ -181,6 +181,7 @@ progress::-webkit-progress-value {
   align-items: center;
   width: 90%;
   padding: 2rem 0;
+  height: 2.4rem;
 }
 .o-nav > a{
   color: var(--global-textcolor);
@@ -202,10 +203,22 @@ the backbutton in the left corner of the navigation
   flex-direction: row;
   align-items: center;
 }
+
+.o-backbutton:hover, .o-backbutton:hover>.o-backbutton_img{
+  font-size: 1.5rem;
+  width: 1.2rem;
+  transition: all 0.2s ease;
+}
+
 .o-backbutton_img{
   width: 1rem;
-  height: 1.5rem;
+  height: auto;
   padding-right: 0.5rem;
+}
+
+.o-arrow_container{
+  position: relative;
+  width: 2rem;
 }
 
 /*
@@ -220,6 +233,7 @@ in case there is a background color that needs white color
   color: var(--global-color-darkgrey);
 }
 
+
 /*every button has same witdh and border radius*/
 
 .o-button{
@@ -231,7 +245,31 @@ in case there is a background color that needs white color
   outline: none;
   cursor: pointer;
 }
+/*hover effect button*/
+.o-button span {
+  position: relative;
+  transition: 0.5s;
+}
 
+.o-button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  font-size: 1.5rem;
+  top: -0.5rem;
+  right: -1.25rem;
+  transition: 0.5s;
+}
+
+.o-button:hover span {
+  padding-right: 1.5625rem;
+}
+
+.o-button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+/*big button*/
 .o-button-large{
   width: 10rem;
   height: 3rem;
@@ -244,6 +282,29 @@ in case there is a background color that needs white color
   font-weight: 600;
   color: var(--global-textcolor);
   cursor: pointer;
+}
+/*hover effect button-large*/
+.o-button-large span {
+  position: relative;
+  transition: 0.5s;
+}
+
+.o-button-large span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -1.25rem;
+  transition: 0.5s;
+}
+
+.o-button-large:hover span {
+  padding-right: 1.5625rem;
+}
+
+.o-button-large:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 
 /*slider input*/
@@ -282,6 +343,7 @@ in case there is a background color that needs white color
 
 /*voor de value text de bol te doen volgen*/
 .o-slider-wrap{
+  padding-top: 1rem;
   position: relative;
 }
 .o-NumberPlayersValue{
@@ -462,7 +524,7 @@ flex-grow: 0.6;
 }
 
 #playerfields{
-  padding-top: 1rem;
+  padding-top: 1.5rem;
   width: 100%;
 }
 
@@ -502,6 +564,11 @@ flex-grow: 0.6;
   border: none;
   cursor: pointer;
 }
+#nav_button:hover{
+  width: 2.4rem;
+  height: 2.4rem;
+  transition: all 0.2s ease-in-out;
+}
 #hidden_nav{  
   background-color: var(--global-color-white);
   width: 12rem;
@@ -515,11 +582,17 @@ flex-grow: 0.6;
   align-items: center;
   flex-direction: column;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.16);
+  animation-name: navigation;
+  animation-duration: 0.5s;
 }
 
 #hidden_nav>div>a{
   font-size: 1rem;
   padding-left: 0.5rem;
+}
+#hidden_nav>div>a:hover{
+  color: #afafaf;
+  transition: color 0.2s;
 }
 .hidden_nav-line{
   width: 90%;
@@ -529,17 +602,60 @@ flex-grow: 0.6;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  animation-name: navigation-inside;
+  animation-name: navigation-border-bottom ;
+  animation-duration: 0.5s;
+}
+.hidden_nav-line>a, .hidden_nav-lastline>a{
+  animation-name: navigation-inside_a;
+  animation-duration: 0.5s;
 }
 .hidden_nav-firstline{
   padding-top: 0.4rem;
 }
 .hidden_nav-lastline{
   border-bottom: none;
+  width: 90%;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  animation-name: navigation-inside;
+  animation-duration: 0.5s;
 }
 .hidden_nav-line>img{
   width: 1rem;
   cursor: pointer;
   padding-right: 0.5rem;
+  animation-name: hamburgerbuttonback;
+  animation-duration: 0.2s;
+}
+/*nav animation*/
+@keyframes navigation {
+  0%   {width: 0rem;height: 2.1rem;}
+  25%  {width: 12rem;height: 2.1rem;}
+  100%  {width: 12rem;height: 6rem;}
+}
+@keyframes navigation-inside {
+  0%   {height: 0rem;}
+  25%  {height: 0rem;}
+  100%  {height: 2.5rem;}
+}
+@keyframes navigation-border-bottom {
+  0%   {border-bottom: none;}
+  25%  {border-bottom: none;}
+  100%  {border-bottom: solid 1px #DDDDDD;}
+}
+@keyframes navigation-inside_a {
+  0%   {font-size:0rem;color: var(--global-color-white);}
+  25%  {font-size:0rem;color: var(--global-color-white);}
+  100%  {font-size:1rem;color: var(--global-textcolor);}
+}
+@keyframes hamburgerbuttonback {
+  0%   {width: 0;}
+  10%  {width: 0;}
+  100%  {width: 1rem;}
 }
 /*transitionpage*/
 .c-waitPage{
@@ -590,7 +706,7 @@ flex-grow: 0.6;
   font-size: 2rem;
 }
 
-/*victory*/
+/*victory page*/
 .c-victory{
   flex-grow: 1;
   display: flex;
@@ -612,7 +728,7 @@ flex-grow: 0.6;
   padding-top: 2rem;
   font-size: 2.5rem;
 }
-/*lose page*/
+/*lose page page*/
 .c-lose{
   flex-grow: 1;
   display: flex;
