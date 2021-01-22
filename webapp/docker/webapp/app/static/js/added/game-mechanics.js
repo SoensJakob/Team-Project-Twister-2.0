@@ -223,6 +223,7 @@ const NextPlayer = (dead) => {
         }
         else{
             Temp_WaitingScreen((gametimer), player_info.playerinfo[currentplayerindex].name);
+            NextPlayer(false);
         }
     }
     else{
