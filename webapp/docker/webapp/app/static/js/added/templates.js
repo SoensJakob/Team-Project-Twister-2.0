@@ -48,17 +48,6 @@ const Temp_SelectGameOptions = () => {
                             </div>
                         </div> 
                     </div> 
-
-                    <div>
-                        <div class="o-row u-padding-top">
-                            <label class="c-custom-select-label" for="GameActions">Actions:</label>
-                            <select id="GameActions" class="o-select">
-                                <option value="null" selected>None</option>
-                                <option value="ActionList1">ActionList1</option>
-                                <option value="ActionList2">ActionList2</option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
             </main>
             <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
@@ -123,16 +112,6 @@ const Temp_SelectGameOptions = () => {
                             </div>
                         </div> 
                     </div> 
-                    <div>
-                        <div class="o-row">
-                            <label class="c-custom-select-label" for="GameActions">Actions:</label>
-                            <select id="GameActions" class="o-select">
-                                <option value="null" selected>None</option>
-                                <option value="ActionList1">ActionList1</option>
-                                <option value="ActionList2">ActionList2</option>
-                            </select>
-                        </div>
-                    </div>
                 `;
                 let timer = document.getElementById("GameTimer");
                 timer.addEventListener("change", function() {

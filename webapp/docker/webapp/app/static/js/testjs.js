@@ -23,8 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let newmqqtmssg = setInterval(function() {
         mqttmssg = {"":[{"row": Math.floor(Math.random() * 4) + 1, "col": Math.floor(Math.random() * 6) + 1}]};
     }, 1000);
-    
-
 });
 
 const init = function(){
