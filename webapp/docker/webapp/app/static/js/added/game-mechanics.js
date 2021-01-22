@@ -262,19 +262,17 @@ const AddMemoryBtn = () => {
 }
 
 const ShowMemorySeq = () => {
+    let seqindex = 0;
     let seqcol= memoryseqs.playerseq[currentplayerindex]['col'];
-    let segrow = memoryseqs.playerseq[currentplayerindex]['row'];
-    let seqindex = 0; 
-    let timeleft = seqcol.length; 
-    let TempMemoryTimer = setInterval(function(){
-
-        document.querySelector(`#memory-${((seqrow[seqindex] - 1) < 0) ? 0 : seqrow[seqindex] - 1}${((seqcol[seqcolindex] - 1) < 0 ? 0 : seqcol[seqcolindex] - 1)}`).classList.remove("c-memory-active");
-        document.querySelector(`#memory-${seqrow[seqindex]}${seqcol[seqcolindex]}`).classList.add("c-memory-active");
-        if (timeleft == 0) {
+    let seqrow = memoryseqs.playerseq[currentplayerindex]['row'];
+    let TempMemoryTimer = setInterval(function(){ 
+        document.querySelector(`#memory-${seqrow[seqindex]}${seqcol[seqindex]}`).classList.add("c-memory-active");
+        setTimeout(function(){
+          document.querySelector(`#memory-${seqrow[seqindex]}${seqcol[seqindex]}`).classList.remove("c-memory-active");
+          seqindex++;
+        },1000)
+        if (seqindex == (seqcol.length - 1)) {
             clearInterval(TempMemoryTimer);
-            
         }
-        seqindex++;
-        timeleft--;
-    }, 500);
+     },2000);
 }

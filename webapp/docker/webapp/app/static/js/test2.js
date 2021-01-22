@@ -32,7 +32,7 @@ const init = function(){
 
 const Setupmemory = (players) => {
     for([key, val] of Object.entries(players['playerinfo'])) {
-        memoryseqs['playerseq'].push({'name': val['name'], 'col': [1,4,3,6,2,5], 'row': [3,1,4,2,4,1]});
+        memoryseqs['playerseq'].push({'name': val['name'], 'col': [1,4,3,6,2,5], 'row': [3,1,4,2,4,1]}); //'col': [1,4,3,6,2,5], 'row': [3,1,4,2,4,1]
     }
 }
 
@@ -46,24 +46,22 @@ const AddMemoryBtn = () => {
 const ShowMemorySeq = () => {
     let seqcol= memoryseqs.playerseq[currentplayerindex]['col'];
     let seqrow = memoryseqs.playerseq[currentplayerindex]['row'];
-    console.log(seqcol);
-    console.log(seqrow);
-    let seqindex = 0; 
-    let timeleft = seqcol.length - 1; 
-    let TempMemoryTimer = setInterval(function(){
-        if (timeleft == 0) {
-            clearInterval(TempMemoryTimer);
-            
-        }
-        try {
-            document.querySelector(`#memory-${((seqrow[seqindex] - 1) < 0) ? 0 : seqrow[seqindex] - 1}${((seqcol[seqindex] - 1) < 0 ? 0 : seqcol[seqindex] - 1)}`).classList.remove("c-memory-active");
-            console.log('remove succeeded')
-        } catch (error) {
-            //console.log(error);
-        }
-        console.log(`#memory-${(seqrow[seqindex - 1] == null) ? 1 : seqrow[seqindex - 1]}${(seqcol[seqindex - 1] == null ? 1 : seqcol[seqindex - 1])}`);
+    let seqindex = 0;
+    let TempMemoryTimer = setInterval(function(){ 
+        // toggle the class every two second
+        
         document.querySelector(`#memory-${seqrow[seqindex]}${seqcol[seqindex]}`).classList.add("c-memory-active");
-        seqindex++;
-        timeleft--;
-    }, 1000);
+        setTimeout(function(){
+          // toggle back after 1 second 
+          document.querySelector(`#memory-${seqrow[seqindex]}${seqcol[seqindex]}`).classList.remove("c-memory-active");
+          seqindex++;
+        },1000)
+        if (seqindex == (seqcol.length - 1)) {
+            clearInterval(TempMemoryTimer);
+        }
+     },2000);
 }
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
