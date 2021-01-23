@@ -11,6 +11,16 @@ from flask import url_for, render_template, request, redirect, session, g
 
 app = Flask(__name__)
 
+try:
+    from subprocess import check_output
+    ips = check_output(['hostname', '--all-ip-addresses'])
+    ips = ips.decode('utf-8')
+    hostip = ips[:13]
+except:
+    hostip = "192.168.0.173"
+    #r thuis: 192.168.0.173
+    #r school : 172.30.252.7
+
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
@@ -34,7 +44,7 @@ def scores(gamemode=None):
 
     if request.method == 'GET':
         try:
-            r = requests.get(f'http://172.30.252.7:5000/scores/{gamemodex}')
+            r = requests.get(f'http://{hostip}:5000/scores/{gamemodex}')
             json_resp = r.json()
             return render_template('scores.html', gamemode=gamemodex, gamescores=json_resp)
         except Exception as e:
@@ -44,7 +54,7 @@ def scores(gamemode=None):
     if request.method == 'POST':
         try:
             jsonscores = json.loads(request.data) 
-            r = requests.post(f'http://172.30.252.7:5000/scores', json=jsonscores)
+            r = requests.post(f'http://{hostip}:5000/scores', json=jsonscores)
             return "succes"
             
         except Exception as e:
