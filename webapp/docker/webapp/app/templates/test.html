@@ -14,61 +14,22 @@
     <script src="../static/js/test2.js"></script>
 </head>
 <body>
-    <div class="o-container u-background-color-green u-justify-bottom">
-        <nav class="o-nav o-nav-white">
-            <a href="/" class="o-backbutton o-backbutton_white">
-                <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                <p>Back</p>
-            </a>
-            <div class="c-hamburgerNav">
-                <button id="nav_button">
-                <img src="../static/img/hamburger.svg" alt="navigation"></button>
-                <div id="hidden_nav">
-                    <div class="hidden_nav-line hidden_nav-firstline">
-                        <a href="/scores"><p>leaderboards</p></a>
-                        <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
-                    </div>
-                    <div class="hidden_nav-line hidden_nav-lastline">
-                        <a href="#">settings</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <main class="c-SelectGameOptions">
-            <div class="o-row">
-                <label class="c-custom-select-label" for="GameMode">Gamemode:</label>
-                <select id="GameMode" class="o-select">
-                    <option value="Twister-Classic">Twister Classic</option>
-                    <option value="Memory" >Memory</option>
-                </select>
-            </div>
-            <div id="GameSettings" class="o-row">
-                <div class="o-row">
-                    <label class="c-custom-select-label" for="GameTimer">Timer:</label>
-                    <div class="c-numberPlayers-slider">   
-                        <div class="o-slider-wrap">         
-                            <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
-                            <span class="o-NumberTimerValue" id="slidervalue-timer"></span>
-                        </div>
-                    </div> 
-                </div> 
+    <div class="o-container u-justify-bottom u-background-color-green">
+        <nav class="o-nav c-nav-score">
+        <a href="/initgame" class="o-backbutton">
+            <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+            <p class="o-backbutton-white">Back</p>
+        </a>
+        </nav> 
+        <main class="c-score">
+            <h1>score</h1>
+            <div class="c-scoreboard_container" id="scoreboard">
+                <!--hier begint de score-->
             </div>
         </main>
         <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-            <button type="button" class="o-button-large" id="BtnValidateGameOptions"><span>play</span></button>
+            <button type="button" class="o-button-large" id="Continue"><span>continue</span></button>
         </footer>
     </div>
-        <script>
-            // Get the root element
-            var r = document.querySelector('progress');
-            // Create a function for setting a variable value
-            function myFunction_set() {
-            // Set the value of variable --blue to another value
-            r.style.setProperty('--global-gamecolor', 'var(--global-color-${color}-dark)');
-            r.style.setProperty('--global-gamecolor-border', 'var(--global-color-${color}-darkest)');
-            }
-            myFunction_set()
-        </script>
-
 </body>
 </html>

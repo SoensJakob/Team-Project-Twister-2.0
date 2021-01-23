@@ -336,7 +336,7 @@ const Temp_EndGame = (player_info) => {
 const Temp_EndGameOverview = (player_info) => {
     document.querySelector('#gamewindow').innerHTML = `
     <div class="o-container u-justify-bottom u-background-color-green">
-        <nav class="o-nav">
+        <nav class="o-nav c-nav-score">
         <a href="/initgame" class="o-backbutton">
             <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
             <p class="o-backbutton-white">Back</p>
@@ -344,7 +344,8 @@ const Temp_EndGameOverview = (player_info) => {
         </nav> 
         <main class="c-score">
             <h1>score</h1>
-            <div id="scoreboard">
+            <div class="c-scoreboard_container" id="scoreboard">
+                <!--hier begint de score-->
             </div>
         </main>
         <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
