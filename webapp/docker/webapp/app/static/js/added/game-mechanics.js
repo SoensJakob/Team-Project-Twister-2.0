@@ -114,8 +114,8 @@ const SetupTwister = (gamesettings) => {
     (gametimer != 0) ? gametimer *= 10 : gametimer = null;
 }
 
-const Setupmemory = (players) => {
-    for([key, val] of Object.entries(players['playerinfo'])) {
+const SetupMemory = (players) => {
+    for([key, val] of Object.entries(player_info['playerinfo'])) {
         memoryseqs['playerseq'].push({'name': val['name'], 'col': [Math.floor(Math.random() * Math.floor(6)) + 1], 'row': [Math.floor(Math.random() * Math.floor(4)) + 1]});
     }
 }
@@ -169,9 +169,6 @@ const PlayMemory = () => {
     // set variables
     mqttmssg = ['', JSON.parse('{"row":"", "column":""}')];
     currentplayer = player_info.playerinfo[currentplayerindex].name;
-    
-    // load template
-    Temp_Memory();
 
     // set innerhtml/vaslues Temp_Memory
     document.querySelector('#memory-currplayer').innerHTML = currentplayer;
@@ -282,6 +279,6 @@ const ListenMemorySeq = () => {
                 seqindex++;
             }
         }
-        //timeleft -= 1; //uncomment dit om de game maar x tijd te geven om de seq juist te hebben
+        timeleft -= 1; //uncomment dit om de game maar x tijd te geven om de seq juist te hebben
     }, 100);
 }

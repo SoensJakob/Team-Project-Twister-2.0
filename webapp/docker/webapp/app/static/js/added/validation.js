@@ -23,7 +23,7 @@ const ValidateGameSettings = () => {
         case "Memory":
             gamesettings['gamemode'] = gamemode;
             minplayers = 1;
-            maxplayers = 1;
+            maxplayers = 4;
             break;
     
         default:

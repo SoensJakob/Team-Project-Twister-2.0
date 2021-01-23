@@ -60,49 +60,6 @@ const Temp_SelectGameOptions = () => {
         </footer>
     </div>
     `;
-    /* code voor timer off */
-    let timer = document.getElementById("GameTimer");
-    timer.addEventListener("change", function() {
-        if(timer.value==0){
-            document.getElementById("slidervalue-timer").innerHTML = "off";
-        }
-    })
-
-    /*hier komt hamburger js */
-    document.getElementById("HamburgerbuttonBack").addEventListener("click", function(){
-        var hv = document.getElementById("hidden_nav"); 
-        var nb = document.getElementById('nav_button');
-        if(hv.style.display == "flex"){
-            hv.style.display = "none";
-            nb.style.borderRadius = "1rem";
-        }
-        else{
-            hv.style.display = "flex";
-            nb.style.borderRadius = "1rem 1rem 0 0";
-        }
-    })
-    document.getElementById("nav_button").addEventListener("click", function(){
-        var hv = document.getElementById("hidden_nav"); 
-        var nb = document.getElementById('nav_button');
-        if(hv.style.display == "flex"){
-            hv.style.display = "none";
-            nb.style.borderRadius = "1rem";
-        }
-        else{
-            hv.style.display = "flex";
-            nb.style.borderRadius = "1rem 1rem 0 0";
-        }
-    })
-    
-    const allRanges = document.querySelectorAll(".o-slider-wrap");
-    allRanges.forEach(wrap => {
-        const range = wrap.querySelector(".o-slider");
-        const bubble = wrap.querySelector(".o-NumberTimerValue");
-        range.addEventListener("input", () => {
-            setBubble(range, bubble);
-        });
-        setBubble(range, bubble);
-    });
     document.querySelector("#BtnValidateGameOptions").addEventListener("click", ValidateGameSettings);
     document.querySelector("#GameMode").addEventListener("change", function(){
         switch (this.value) {
@@ -142,6 +99,49 @@ const Temp_SelectGameOptions = () => {
                 break;
         }
     });
+    /*hier komt hamburger js */
+    document.getElementById("HamburgerbuttonBack").addEventListener("click", function(){
+        var hv = document.getElementById("hidden_nav"); 
+        var nb = document.getElementById('nav_button');
+        if(hv.style.display == "flex"){
+            hv.style.display = "none";
+            nb.style.borderRadius = "1rem";
+        }
+        else{
+            hv.style.display = "flex";
+            nb.style.borderRadius = "1rem 1rem 0 0";
+        }
+    })
+    document.getElementById("nav_button").addEventListener("click", function(){
+        var hv = document.getElementById("hidden_nav"); 
+        var nb = document.getElementById('nav_button');
+        if(hv.style.display == "flex"){
+            hv.style.display = "none";
+            nb.style.borderRadius = "1rem";
+        }
+        else{
+            hv.style.display = "flex";
+            nb.style.borderRadius = "1rem 1rem 0 0";
+        }
+    })
+    
+    // const allRanges = document.querySelectorAll(".o-slider-wrap");
+    // allRanges.forEach(wrap => {
+    //     const range = wrap.querySelector(".o-slider");
+    //     const bubble = wrap.querySelector(".o-NumberTimerValue");
+    //     range.addEventListener("input", () => {
+    //         setBubble(range, bubble);
+    //     });
+    //     setBubble(range, bubble);
+    // });
+
+    /* code voor timer off */
+    let timer = document.getElementById("GameTimer");
+    timer.addEventListener("change", function() {
+        if(timer.value==0){
+            document.getElementById("slidervalue-timer").innerHTML = "off";
+        }
+    })
 }
 
 const Temp_SelectPlayers = (minplayers, maxplayers) => {
@@ -227,6 +227,7 @@ const Temp_WaitingScreen = (time, player, gamemode) => {
                     PlayTwister();
                     break;
                 case "Memory":
+                    Temp_Memory();
                     PlayMemory();
                     break;
                 default:
