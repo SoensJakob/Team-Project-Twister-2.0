@@ -11,16 +11,16 @@ const init = function(){
         document.querySelector('#buttonfield').innerHTML += `
             <div class="c-memory_mat-row">
                 <div class="c-memory-vakwrap">
-                    <div class="c-memory_mat-vak c-memory_mat-vak__color-green" id="memory-1${i + 1}"></div>
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-green" id="memory-4${i + 1}"></div>
                 </div>
                 <div class="c-memory-vakwrap">
-                    <div class="c-memory_mat-vak c-memory_mat-vak__color-yellow" id="memory-2${i + 1}"></div>
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-yellow" id="memory-3${i + 1}"></div>
                 </div>
                 <div class="c-memory-vakwrap">
-                    <div class="c-memory_mat-vak c-memory_mat-vak__color-blue" id="memory-3${i + 1}"></div>
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-blue" id="memory-2${i + 1}"></div>
                 </div>
                 <div class="c-memory-vakwrap">
-                    <div class="c-memory_mat-vak c-memory_mat-vak__color-red" id="memory-4${i + 1}"></div>
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-red" id="memory-1${i + 1}"></div>
                 </div>
             </div>
         `;
