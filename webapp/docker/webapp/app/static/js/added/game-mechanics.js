@@ -141,7 +141,9 @@ const PlayTwister = () => {
     document.querySelector("#twistermovelimb").innerHTML = randbodypart;
     document.querySelector("#imgtwisterlimb").src = `../static/img/${arrbodypart[0]}_${arrbodypart[1]}-${(randcolor == "yellow") ? 'grey' : 'white'}.svg`;
     document.querySelector("#twistermovecolor").innerHTML = randcolor;
-    document.querySelector("#currentplayer").innerHTML = currentplayer; 
+    document.querySelector("#currentplayer").innerHTML = currentplayer;
+    document.querySelector(':root').style.setProperty('--global-gamecolor', `var(--global-color-${randcolor}-dark)`);
+    document.querySelector(':root').style.setProperty('--global-gamecolor-border', `var(--global-color-${randcolor}-darkest)`);
     
     let TwisterTimer = setInterval(function(){
         if (timeleft) {
@@ -256,10 +258,9 @@ const ShowMemorySeq = () => {
 
 const ListenMemorySeq = () => {
     let seqindex = 0;
-    timeleft = 100;
+    timeleft = 100; // = 10 sec
 
     //send mqtt mssg to hardware to enable buttons
-    console.log(`{"row": "${memoryseqs.playerseq[currentplayerindex]['row'][seqindex]}", "column": ${memoryseqs.playerseq[currentplayerindex]['col'][seqindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
     send_message(`{"row": "${memoryseqs.playerseq[currentplayerindex]['row'][seqindex]}", "column": ${memoryseqs.playerseq[currentplayerindex]['col'][seqindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
     
     let MemoryTimer = setInterval(function(){

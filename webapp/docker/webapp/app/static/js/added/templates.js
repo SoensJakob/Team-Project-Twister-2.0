@@ -158,7 +158,7 @@ const Temp_SelectPlayers = (minplayers, maxplayers) => {
                 <div class="c-numberPlayers-slider">
                     <p>number of players</p>
                     <div class="o-slider-wrap">
-                        <input type="range" min="1" max="${maxplayers}" value="1" class="o-slider" id="myRange">
+                        <input type="range" min="1" max="${maxplayers}" value="1" class="o-slider" id="myRange"  maxlength="10" required>
                         <span class="o-NumberPlayersValue"></span>
                     </div>
                 </div>
