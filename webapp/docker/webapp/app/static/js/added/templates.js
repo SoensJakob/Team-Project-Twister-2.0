@@ -25,9 +25,9 @@ const Temp_SelectGameOptions = () => {
                         <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
                     </div>
                     <div class="hidden_nav-line hidden_nav-lastline">
-                       <p class="c-slider-title-volume">volume</p>
-                       <div class="o-slider-volume c-slider-volume">   
-                        <div class="o-slider-wrap c-slider-wrap-volume">         
+                    <p class="c-slider-title-volume">volume</p>
+                    <div class="c-slider-volume">   
+                        <div class="c-slider-wrap-volume">         
                             <input type="range" min="0" max="100" value="50" class="c-volume-slider" id="volume">
                         </div>
                     </div> 
@@ -125,15 +125,15 @@ const Temp_SelectGameOptions = () => {
         }
     })
     
-    // const allRanges = document.querySelectorAll(".o-slider-wrap");
-    // allRanges.forEach(wrap => {
-    //     const range = wrap.querySelector(".o-slider");
-    //     const bubble = wrap.querySelector(".o-NumberTimerValue");
-    //     range.addEventListener("input", () => {
-    //         setBubble(range, bubble);
-    //     });
-    //     setBubble(range, bubble);
-    // });
+    const allRanges = document.querySelectorAll(".o-slider-wrap");
+    allRanges.forEach(wrap => {
+        const range = wrap.querySelector(".o-slider");
+        const bubble = wrap.querySelector(".o-NumberTimerValue");
+        range.addEventListener("input", () => {
+            setBubble(range, bubble);
+        });
+        setBubble(range, bubble);
+    });
 
     /* code voor timer off */
     let timer = document.getElementById("GameTimer");
