@@ -99,3 +99,4 @@ const GetTwisterColor = () => {
     if (countbtnused == 6) {GetTwisterColor()}
     else { return gamecolors[randindex]}
 }
+

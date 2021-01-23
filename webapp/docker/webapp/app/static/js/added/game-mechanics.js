@@ -9,7 +9,6 @@ let currenplayercount = 0;
 let currentplayerindex = 0;
 let gamecolors = [];
 let bodyparts = [];
-let memoryindex = 0;
 let memorylevel = 0;
 let memoryseqs = JSON.parse('{"playerseq":[]}'); 
 let mqttmssg = {"":[{"row": "", "col": ""}]};
@@ -169,7 +168,7 @@ const PlayTwister = () => {
 const PlayMemory = () => {
     // set variables
     mqttmssg = ['', JSON.parse('{"row":"", "column":""}')];
-    let currentplayer = player_info.playerinfo[currentplayerindex].name;
+    currentplayer = player_info.playerinfo[currentplayerindex].name;
     
     // load template
     Temp_Memory();
@@ -179,33 +178,6 @@ const PlayMemory = () => {
     document.querySelector('#memory-lvl').innerHTML =  `lvl: ${memoryseqs.playerseq[currentplayerindex]['col'].length}`;
 
     ShowMemorySeq();
-
-    // //send mqtt mssg to hardware to enable buttons
-    // send_message(`{"row": "${memoryarr['row'][memoryindex]}", "column": ${memoryarr['col'][memoryindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
-    
-
-    // timeleft = 300;
-    // let MemoryTimer = setInterval(function(){
-    //     if (timeleft == 0) {
-    //         clearInterval(MemoryTimer);
-    //         CheckIfGameIsFinished(currentplayer);
-    //     }
-    //     else if (mqttmssg[1].row == memoryarr['row'][memoryindex] && mqttmssg[1].column == memoryarr['col'][memoryindex]) {
-    //         clearInterval(MemoryTimer);
-    //         if ((memoryindex + 1) == memoryarr['row'].length) {
-    //             AddMemoryBtn();
-    //             memoryindex = 0;
-    //             player_info.playerinfo[currentplayerindex].score += 1;
-    //             memorylevel++;
-    //         }
-    //         else{
-    //             memoryindex++;
-    //         }
-    //         PlayMemory();
-    //     }
-    //     timeleft -= 1;
-    // }, 100);
-    
 }
 
 const NextPlayer = (dead) => {
@@ -233,7 +205,7 @@ const NextPlayer = (dead) => {
             Temp_EndGame(player_info.playerinfo);
         }
         else{
-            Temp_WaitingScreen((gametimer), player_info.playerinfo[currentplayerindex].name);
+            Temp_WaitingScreen(gametimer, player_info.playerinfo[currentplayerindex].name, gamemode);
             NextPlayer(false);
         }
     }
@@ -279,6 +251,37 @@ const ShowMemorySeq = () => {
         },1000)
         if (seqindex == (seqcol.length - 1)) {
             clearInterval(TempMemoryTimer);
+            ListenMemorySeq();
         }
      },2000);
+}
+
+const ListenMemorySeq = () => {
+    let seqindex = 0;
+    timeleft = 1000;
+
+    //send mqtt mssg to hardware to enable buttons
+    console.log(`{"row": "${memoryseqs.playerseq[currentplayerindex]['row'][seqindex]}", "column": ${memoryseqs.playerseq[currentplayerindex]['col'][seqindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
+    send_message(`{"row": "${memoryseqs.playerseq[currentplayerindex]['row'][seqindex]}", "column": ${memoryseqs.playerseq[currentplayerindex]['col'][seqindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
+    
+    let MemoryTimer = setInterval(function(){
+        if (timeleft == 0) {
+            clearInterval(MemoryTimer);
+            NextPlayer(true);
+        }
+        if (mqttmssg[1].row == memoryseqs.playerseq[currentplayerindex]['row'][seqindex] && mqttmssg[1].column == memoryseqs.playerseq[currentplayerindex]['col'][seqindex]) {
+            if ((seqindex + 1) == memoryseqs.playerseq[currentplayerindex]['row'].length) {
+                clearInterval(MemoryTimer);
+                AddMemoryBtn();
+                player_info.playerinfo[currentplayerindex].score += 1;
+                memorylevel++;
+                NextPlayer(false);
+                PlayMemory();
+            }
+            else{
+                seqindex++;
+            }
+        }
+        //timeleft -= 1; //uncomment dit om de game maar x tijd te geven om de seq juist te hebben
+    }, 100);
 }

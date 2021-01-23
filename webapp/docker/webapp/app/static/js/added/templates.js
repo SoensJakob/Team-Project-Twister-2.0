@@ -189,7 +189,7 @@ const Temp_SelectPlayers = (minplayers, maxplayers) => {
     });
 }
 
-const Temp_WaitingScreen = (time, player) => {
+const Temp_WaitingScreen = (time, player, gamemode) => {
     if (!player) {
         document.querySelector('#gamewindow').innerHTML = `
             <div class="o-container u-background-color-green u-justify-bottom u-background-color-yellow">
@@ -221,7 +221,18 @@ const Temp_WaitingScreen = (time, player) => {
                 </footer>
             </div>
         `;
-        document.querySelector('#ContinueGame').addEventListener('click', function() { PlayTwister(); });
+        document.querySelector('#ContinueGame').addEventListener('click', function() { 
+            switch (gamemode) {
+                case "Twister-Classic":
+                    PlayTwister();
+                    break;
+                case "Memory":
+                    PlayMemory();
+                    break;
+                default:
+                    break;
+            }
+         });
     }
 }
 
@@ -281,7 +292,8 @@ const Temp_Memory = () => {
                 </a>
             </nav>
             <main class="c-memory">
-                <h1 id="memory-currplayer">Memory</h1>
+                <h1 id="memory-currplayer"></h1>
+                <p id="memory-lvl"></p>
                 <div class="c-memory_mat">
                     <div class="c-memory-buttons" id="buttonfield">
                     </div>
@@ -297,16 +309,16 @@ const Temp_Memory = () => {
         document.querySelector('#buttonfield').innerHTML += `
             <div class="c-memory_mat-row">
                 <div class="c-memory-vakwrap">
-                    <div class="c-memory_mat-vak c-memory_mat-vak__color-green" id="memory-1${i + 1}"></div>
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-green" id="memory-4${i + 1}"></div>
                 </div>
                 <div class="c-memory-vakwrap">
-                    <div class="c-memory_mat-vak c-memory_mat-vak__color-yellow" id="memory-2${i + 1}"></div>
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-yellow" id="memory-3${i + 1}"></div>
                 </div>
                 <div class="c-memory-vakwrap">
-                    <div class="c-memory_mat-vak c-memory_mat-vak__color-blue" id="memory-3${i + 1}"></div>
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-blue" id="memory-2${i + 1}"></div>
                 </div>
                 <div class="c-memory-vakwrap">
-                    <div class="c-memory_mat-vak c-memory_mat-vak__color-red" id="memory-4${i + 1}"></div>
+                    <div class="c-memory_mat-vak c-memory_mat-vak__color-red" id="memory-1${i + 1}"></div>
                 </div>
             </div>
         `;
