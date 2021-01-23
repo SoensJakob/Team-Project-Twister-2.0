@@ -11,49 +11,54 @@ let player_count  = 1;
 const Temp_SelectGameOptions = () => {
     document.querySelector('#initgamewindow').innerHTML = `
     <div class="o-container u-background-color-green u-justify-bottom">
-    <nav class="o-nav o-nav-white">
-        <a href="/" class="o-backbutton o-backbutton_white">
-            <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-            <p>Back</p>
-        </a>
-        <div class="c-hamburgerNav">
-            <button id="nav_button">
-            <img src="../static/img/hamburger.svg" alt="navigation"></button>
-            <div id="hidden_nav">
-                <div class="hidden_nav-line hidden_nav-firstline">
-                    <a href="/scores"><p>leaderboards</p></a>
-                    <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
-                </div>
-                <div class="hidden_nav-line hidden_nav-lastline">
-                    <a href="#">settings</a>
+        <nav class="o-nav o-nav-white">
+            <a href="/" class="o-backbutton o-backbutton_white">
+                <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                <p>Back</p>
+            </a>
+            <div class="c-hamburgerNav">
+                <button id="nav_button">
+                <img src="../static/img/hamburger.svg" alt="navigation"></button>
+                <div id="hidden_nav">
+                    <div class="hidden_nav-line hidden_nav-firstline">
+                        <a href="/scores"><p>leaderboards</p></a>
+                        <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
+                    </div>
+                    <div class="hidden_nav-line hidden_nav-lastline">
+                       <p class="c-slider-title-volume">volume</p>
+                       <div class="o-slider-volume c-slider-volume">   
+                        <div class="o-slider-wrap c-slider-wrap-volume">         
+                            <input type="range" min="0" max="100" value="50" class="c-volume-slider" id="volume">
+                        </div>
+                    </div> 
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
-    <main class="c-SelectGameOptions">
-        <div class="o-row">
-            <label class="c-custom-select-label" for="GameMode">Gamemode:</label>
-            <select id="GameMode" class="o-select">
-                <option value="Twister-Classic">Twister Classic</option>
-                <option value="Memory" >Memory</option>
-            </select>
-        </div>
-        <div id="GameSettings" class="o-row">
+        </nav>
+        <main class="c-SelectGameOptions">
             <div class="o-row">
-                <label class="c-custom-select-label" for="GameTimer">Timer:</label>
-                <div class="c-numberPlayers-slider">   
-                    <div class="o-slider-wrap">         
-                        <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
-                        <span class="o-NumberTimerValue" id="slidervalue-timer"></span>
-                    </div>
+                <label class="c-custom-select-label" for="GameMode">Gamemode:</label>
+                <select id="GameMode" class="o-select">
+                    <option value="Twister-Classic">Twister Classic</option>
+                    <option value="Memory" >Memory</option>
+                </select>
+            </div>
+            <div id="GameSettings" class="o-row">
+                <div class="o-row">
+                    <label class="c-custom-select-label" for="GameTimer">Timer:</label>
+                    <div class="c-numberPlayers-slider">   
+                        <div class="o-slider-wrap">         
+                            <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
+                            <span class="o-NumberTimerValue" id="slidervalue-timer"></span>
+                        </div>
+                    </div> 
                 </div> 
-            </div> 
-        </div>
-    </main>
-    <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-        <button type="button" class="o-button-large" id="BtnValidateGameOptions"><span>play</span></button>
-    </footer>
-</div>
+            </div>
+        </main>
+        <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
+            <button type="button" class="o-button-large" id="BtnValidateGameOptions"><span>play</span></button>
+        </footer>
+    </div>
     `;
     /* code voor timer off */
     let timer = document.getElementById("GameTimer");
