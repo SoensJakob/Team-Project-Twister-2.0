@@ -118,6 +118,7 @@ const SetupMemory = (players) => {
     for([key, val] of Object.entries(player_info['playerinfo'])) {
         memoryseqs['playerseq'].push({'name': val['name'], 'col': [Math.floor(Math.random() * Math.floor(6)) + 1], 'row': [Math.floor(Math.random() * Math.floor(4)) + 1]});
     }
+    Temp_Memory();
 }
 
 const PlayTwister = () => {
@@ -202,7 +203,7 @@ const NextPlayer = (dead) => {
             Temp_EndGame(player_info.playerinfo);
         }
         else{
-            Temp_WaitingScreen(gametimer, player_info.playerinfo[currentplayerindex].name, gamemode);
+            Temp_WaitingScreen(gametimer, player_info.playerinfo[currentplayerindex].name, player_info.gamemode);
             NextPlayer(false);
         }
     }
@@ -255,7 +256,7 @@ const ShowMemorySeq = () => {
 
 const ListenMemorySeq = () => {
     let seqindex = 0;
-    timeleft = 1000;
+    timeleft = 100;
 
     //send mqtt mssg to hardware to enable buttons
     console.log(`{"row": "${memoryseqs.playerseq[currentplayerindex]['row'][seqindex]}", "column": ${memoryseqs.playerseq[currentplayerindex]['col'][seqindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
@@ -264,6 +265,7 @@ const ListenMemorySeq = () => {
     let MemoryTimer = setInterval(function(){
         if (timeleft == 0) {
             clearInterval(MemoryTimer);
+            console.log('player dead');
             NextPlayer(true);
         }
         if (mqttmssg[1].row == memoryseqs.playerseq[currentplayerindex]['row'][seqindex] && mqttmssg[1].column == memoryseqs.playerseq[currentplayerindex]['col'][seqindex]) {
