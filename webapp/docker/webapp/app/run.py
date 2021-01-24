@@ -11,6 +11,17 @@ from flask import url_for, render_template, request, redirect, session, g
 
 app = Flask(__name__)
 
+try:
+    from subprocess import check_output
+    ips = check_output(['hostname', '--all-ip-addresses'])
+    ips = ips.decode('utf-8')
+    hostip = ips[:13]
+except:
+    hostip = "192.168.0.25"
+    #r thuis: 192.168.0.173
+    #r school : 172.30.252.7
+    #edd : 192.168.0.25
+
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
@@ -27,26 +38,33 @@ def initgame():
 def game():
     return render_template('game.html')
 
-@app.route('/scores')
-@app.route('/scores/<gamemode>')
+@app.route('/scores', methods=['GET'])
+@app.route('/scores/<gamemode>', methods=['GET', 'POST'])
 def scores(gamemode=None):
+    gamemodex = gamemode if gamemode is not None else "twister-classic"
+
     if request.method == 'GET':
         try:
-            
-            gamemodex = gamemode if gamemode is not None else "twister-classic"
-            r = requests.get(f'http://192.168.0.173:5000/scores/{gamemodex}')
+            r = requests.get(f'http://{hostip}:5000/scores/{gamemodex}')
             json_resp = r.json()
-            return render_template('scores.html', gamescores=json_resp)
+            return render_template('scores.html', gamemode=gamemodex, gamescores=json_resp)
         except Exception as e:
             print("main - scores error get: ", e)
             return render_template('scores.html')
         
     if request.method == 'POST':
         try:
-            return render_template('scores.html')
+            jsonscores = json.loads(request.data) 
+            r = requests.post(f'http://{hostip}:5000/scores', json=jsonscores)
+            return "succes"
             
         except Exception as e:
-            return  "main - scores error post: ", e
+            print("main - scores error post: ", e)
+            return "failed"
+
+@app.route('/test', methods=['GET'])
+def test():
+    return render_template('test.html')
 
 
 if __name__ == '__main__':

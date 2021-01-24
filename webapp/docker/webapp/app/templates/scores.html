@@ -1,45 +1,46 @@
 {% extends "base.html" %}
 {% block scripts %}
     <script src="../static/js/scores.js"></script>
+    <link rel='shortcut icon' type='image/x-icon' href='../static/img/logo.png'>
 {% endblock %}
 {% block content %}
-<div class="o-container u-justify-bottom u-background-color-green">
-    <nav class="o-nav o-nav-white">
-        <a href="/" class="o-backbutton">
-            <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-            <p class="o-backbutton">Back</p>
-        </a>
-    </nav> 
-    <main class="c-score">
-        <h1>leaderboards</h1>
-        <div class="c-score-filter">
-            <button class="c-score-filter-button">
-                <img class="c-score-filter-arrows" src="../static/img/arrow-white.png" alt="arrow left">
-            </button>
-            <p>twister classic</p>
-            <button class="c-score-filter-button">
-                <img class="c-score-filter-arrows c-score-filter-arrows-rotation" src="../static/img/arrow-white.png" alt="arrow left">
-            </button>
-        </div>
-        {% for score in gamescores %}
-            <div class="c-scoreboard">
-                <div class="c-place">
-                    <p>{{loop.index}}</p>
-                </div>  
-                <div class="c-nameboard">
-                    {% if loop.index == 1 %}
-                        <img class="c-nameboard-img" src="../static/img/crown-white.png" alt="crown">
-                    {% endif %}
-                    <p class="c-nameboard-name">{{score.name}}</p>
-                </div>  
-                <div class="c-scorePlayer" id="#">
-                    <p>{{score.score}}</p>
-                </div>
+    <div class="o-container u-justify-bottom u-background-color-green">
+        <nav class="o-nav o-nav-white">
+            <a href="/" class="o-backbutton">
+                <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                <p class="o-backbutton">Back</p>
+            </a>
+        </nav> 
+        <main class="c-score">
+            <h1>leaderboards</h1>
+            <div class="c-score-filter">
+                <button class="c-score-filter-button" id="BtnPrevGamemode">
+                    <img class="c-score-filter-arrows" src="../static/img/arrow-white.png" alt="arrow left">
+                </button>
+                <p id="txtgamemodenav">{{gamemode}}</p>
+                <button class="c-score-filter-button" id="BtnNextGamemode">
+                    <img class="c-score-filter-arrows c-score-filter-arrows-rotation" src="../static/img/arrow-white.png" alt="arrow left">
+                </button>
             </div>
-        {% endfor %}
-    </main>
-    <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-        <button type="button" class="o-button-large" id="BtnValidatePlayers">continue</button>
-    </footer>
-</div>
+            {% for score in gamescores %}
+                <div class="c-scoreboard">
+                    <div class="c-place">
+                        <p>{{loop.index}}</p>
+                    </div>  
+                    <div class="c-nameboard">
+                        {% if loop.index == 1 %}
+                            <img class="c-nameboard-img" src="../static/img/crown-white.png" alt="crown">
+                        {% endif %}
+                        <p class="c-nameboard-name">{{score.name}}</p>
+                    </div>  
+                    <div class="c-scorePlayer" id="#">
+                        <p>{{score.score}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </main>
+        <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
+            <button type="button" class="o-button-large" id="BtnScoresHome">Home</button>
+        </footer>
+    </div>
 {% endblock %}

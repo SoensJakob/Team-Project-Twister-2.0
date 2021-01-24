@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twister</title>
-    <!-- Stylesheets
-    ============================================= -->
-    <link rel="stylesheet" href="../static/css/normalize.css" />
-    <link rel="stylesheet" href="../static/css/screen.css" />
-    
-    <!-- Scripts
-    ============================================= -->
+{% extends "base.html" %}
+{% block scripts %}
     <script src="../static/js/added/validation.js"></script>
     <script src="../static/js/added/templates.js"></script>
     <script src="../static/js/initgame.js"></script>
-</head>
-<body>
+{% endblock %}
+{% block content %}
     <div id="initgamewindow">
     </div>
-</body>
-</html>
+{% endblock %}
