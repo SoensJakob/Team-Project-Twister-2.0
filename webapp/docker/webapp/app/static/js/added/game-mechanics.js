@@ -147,13 +147,12 @@ const PlayTwister = () => {
     
     let TwisterTimer = setInterval(function(){
         if (timeleft) {
-            document.querySelector("#progressBar").value =  Math.ceil(timeleft / 10);
+            document.querySelector("#progressBar").value =  timeleft / 10;
             document.querySelector("#progressBarnumber").innerHTML =  Math.ceil(timeleft / 10);
         }
         if (timeleft == 0) {
             clearInterval(TwisterTimer);
             NextPlayer(true);
-            //CheckIfGameIsFinished(currentplayer);
         }
         else if (mqttmssg[1].row == (colorindex + 1)) {
             clearInterval(TwisterTimer);
@@ -280,6 +279,7 @@ const ListenMemorySeq = () => {
             }
             else{
                 seqindex++;
+                send_message(`{"row": "${memoryseqs.playerseq[currentplayerindex]['row'][seqindex]}", "column": ${memoryseqs.playerseq[currentplayerindex]['col'][seqindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
             }
         }
         timeleft -= 1; //uncomment dit om de game maar x tijd te geven om de seq juist te hebben
