@@ -131,16 +131,23 @@ progress {
   border-radius: 1rem;
   width: 100%; 
   height: 0.9rem;
+  border: none;
+  background-color: var(--global-color-white);
 }
 progress::-webkit-progress-bar {
   background-color: var(--global-gamecolor);
   border: solid 1px var(--global-gamecolor-border);
   border-radius: 2rem;
 }
-
+progress::-moz-progress-bar {
+  background-color: var(--global-gamecolor);
+  border: solid 1px var(--global-gamecolor-border);
+  border-radius: 2rem;
+}
 progress::-webkit-progress-value {
   background-color: var(--global-color-white);
   border-radius: 2rem;
+  border: none;
 }
 
 /*------------------------------------*\
@@ -181,7 +188,7 @@ progress::-webkit-progress-value {
   align-items: center;
   width: 90%;
   padding: 2rem 0;
-  
+  height: 2rem;
 }
 .o-nav > a{
   color: var(--global-textcolor);
@@ -978,6 +985,28 @@ text-align: center;
   height: 3.5rem;
   align-items: center;
 }
+.c-nav-memory{
+  padding: 2rem 0 1rem 0;
+}
+.c-gamemode-memory-info{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+#memory-lvl{
+  padding: 0 0 0.5rem 0;
+}
+#memory-currplayer{
+  margin: 0 0 0.5rem 0;
+}
+.c-button-memory{
+  height: 2rem;
+  font-size: 1.5rem;
+}
+.c-footer-memory{
+  padding: 1rem;
+}
 /*wrap zorgt voor structuur goed te behouden als gekozen bol groter wordt*/
 .c-memory-vakwrap{
   width: 3rem;
@@ -1017,7 +1046,7 @@ text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1rem 0;
+  padding: 1rem 0 0 0;
   font-size: 1.5rem;
   align-items: center;
 }

@@ -286,15 +286,15 @@ const Temp_TwisterClassic = (gametimer, color) => {
 const Temp_Memory = () => {
     document.querySelector('#gamewindow').innerHTML = `
         <div class="o-container u-background-color-green u-justify-bottom">
-            <nav class="o-nav o-nav-white">
+            <nav class="o-nav o-nav-white c-nav-memory">
                 <a href="/" class="o-backbutton o-backbutton_white">
                     <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
                     <p>Back</p>
                 </a>
             </nav>
             <main class="c-memory">
-                <h1 id="memory-currplayer"></h1>
-                <p id="memory-lvl"></p>
+                <h1 id="memory-currplayer">bobby</h1>
+                <p id="memory-lvl">lvl: 3</p>
                 <div class="c-memory_mat">
                     <div class="c-memory-buttons" id="buttonfield">
                     </div>
@@ -303,6 +303,17 @@ const Temp_Memory = () => {
                     <img class="c-memory-arrow" src="../static/img/arrow-white.png" alt="arrow">
                     <p>voorkant</p>
                 </div>
+                <footer class="c-footer-memory">
+                    <!--button voor als de persoon geen timer heeft aangeduid
+                    <button type="button" class="o-button-large c-button-memory" id="BtnValidatePlayers"><span>play</span></button>
+                    -->
+
+                    <div id="timer" class="c-gamemode-memory-info">
+                        <p class="c-gamemode-twister__seconds">seconden: <span id="progressBarnumber">${gametimer/10}</span></p>
+                        <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
+                    </div>
+
+                </footer>
             </main>
         </div>
     `;

@@ -15,87 +15,35 @@
 </head>
 <body>
     <div class="o-container u-background-color-green u-justify-bottom">
-        <nav class="o-nav o-nav-white">
+        <nav class="o-nav o-nav-white c-nav-memory">
             <a href="/" class="o-backbutton o-backbutton_white">
                 <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
                 <p>Back</p>
             </a>
-            <div class="c-hamburgerNav">
-                <button id="nav_button">
-                <img src="../static/img/hamburger.svg" alt="navigation"></button>
-                <div id="hidden_nav">
-                    <div class="hidden_nav-line hidden_nav-firstline">
-                        <a href="/scores"><p>leaderboards</p></a>
-                        <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
-                    </div>
-                    <div class="hidden_nav-line hidden_nav-lastline">
-                       <p class="c-slider-title-volume">volume</p>
-                       <div class="c-slider-volume">   
-                        <div class="c-slider-wrap-volume">         
-                            <input type="range" min="0" max="100" value="50" class="c-volume-slider" id="volume">
-                        </div>
-                    </div> 
-                    </div>
+        </nav>
+        <main class="c-memory">
+            <h1 id="memory-currplayer">bobby</h1>
+            <p id="memory-lvl">lvl: 3</p>
+            <div class="c-memory_mat">
+                <div class="c-memory-buttons" id="buttonfield">
                 </div>
             </div>
-        </nav>
-        <main class="c-SelectGameOptions">
-            <div class="o-row">
-                <label class="c-custom-select-label" for="GameMode">Gamemode:</label>
-                <select id="GameMode" class="o-select">
-                    <option value="Twister-Classic">Twister Classic</option>
-                    <option value="Memory" >Memory</option>
-                </select>
+            <div class="c-memory-voorkant">
+                <img class="c-memory-arrow" src="../static/img/arrow-white.png" alt="arrow">
+                <p>voorkant</p>
             </div>
-            <div id="GameSettings" class="o-row">
-                <div class="o-row">
-                    <label class="c-custom-select-label" for="GameTimer">Timer:</label>
-                    <div class="c-numberPlayers-slider">   
-                        <div class="o-slider-wrap">         
-                            <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
-                            <span class="o-NumberTimerValue" id="slidervalue-timer"></span>
-                        </div>
-                    </div> 
-                </div> 
-            </div>
-        </main>
-        <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-            <button type="button" class="o-button-large" id="BtnValidateGameOptions"><span>play</span></button>
-        </footer>
-    </div>
-    <script>
-        let timer = document.getElementById("GameTimer");
-    timer.addEventListener("change", function() {
-        if(timer.value==0){
-            document.getElementById("slidervalue-timer").innerHTML = "off";
-        }
-    })
+            <footer class="c-footer-memory">
+                <!--button voor als de persoon geen timer heeft aangeduid
+                <button type="button" class="o-button-large c-button-memory" id="BtnValidatePlayers"><span>play</span></button>
+                -->
 
-    /*hier komt hamburger js */
-    document.getElementById("HamburgerbuttonBack").addEventListener("click", function(){
-        var hv = document.getElementById("hidden_nav"); 
-        var nb = document.getElementById('nav_button');
-        if(hv.style.display == "flex"){
-            hv.style.display = "none";
-            nb.style.borderRadius = "1rem";
-        }
-        else{
-            hv.style.display = "flex";
-            nb.style.borderRadius = "1rem 1rem 0 0";
-        }
-    })
-    document.getElementById("nav_button").addEventListener("click", function(){
-        var hv = document.getElementById("hidden_nav"); 
-        var nb = document.getElementById('nav_button');
-        if(hv.style.display == "flex"){
-            hv.style.display = "none";
-            nb.style.borderRadius = "1rem";
-        }
-        else{
-            hv.style.display = "flex";
-            nb.style.borderRadius = "1rem 1rem 0 0";
-        }
-    })
-    </script>
+                <div id="timer" class="c-gamemode-memory-info">
+                    <p class="c-gamemode-twister__seconds">seconden: <span id="progressBarnumber">${gametimer/10}</span></p>
+                    <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
+                </div>
+
+            </footer>
+        </main>
+    </div>
 </body>
 </html>
