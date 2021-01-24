@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const init = function(){
+    document.querySelector('#BtnScoresHome').addEventListener('click', function () {window.location.href = "/"});
     currgameindex = gamemodes.indexOf(document.querySelector('#txtgamemodenav').innerHTML);
     document.querySelector('#BtnNextGamemode').addEventListener('click', ShowNextGamemode);
     document.querySelector('#BtnPrevGamemode').addEventListener('click', ShowPrevGamemode);

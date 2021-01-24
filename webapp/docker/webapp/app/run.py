@@ -17,9 +17,10 @@ try:
     ips = ips.decode('utf-8')
     hostip = ips[:13]
 except:
-    hostip = "192.168.0.173"
+    hostip = "192.168.0.25"
     #r thuis: 192.168.0.173
     #r school : 172.30.252.7
+    #edd : 192.168.0.25
 
 @app.route('/', methods=['GET'])
 def home():

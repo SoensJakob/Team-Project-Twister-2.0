@@ -97,7 +97,7 @@ const StartGame = () => {
       
         case "Memory":
             console.log("starting memory");
-            SetupMemory(players);
+            SetupMemory(players, gamesettings);
             PlayMemory();
             break;
 
@@ -109,14 +109,16 @@ const StartGame = () => {
 
 const SetupTwister = (gamesettings) => {
     gametimer = gamesettings.timer;
+    (gametimer != 0) ? gametimer *= 10 : gametimer = null;
     gamecolors = ["red", "blue", "yellow", "green"];
     bodyparts = ["left hand", "left foot", "right foot", "right hand"];
-    (gametimer != 0) ? gametimer *= 10 : gametimer = null;
 }
 
-const SetupMemory = (players) => {
-    for([key, val] of Object.entries(player_info['playerinfo'])) {
-        memoryseqs['playerseq'].push({'name': val['name'], 'col': [Math.floor(Math.random() * Math.floor(6)) + 1], 'row': [Math.floor(Math.random() * Math.floor(4)) + 1]});
+const SetupMemory = (players, gamesettings) => {
+    gametimer = gamesettings.timer;
+    (gametimer != 0) ? gametimer *= 10 : gametimer = null;
+    for([key, val] of Object.entries(players)) {
+        memoryseqs['playerseq'].push({'name': val, 'col': [Math.floor(Math.random() * Math.floor(6)) + 1], 'row': [Math.floor(Math.random() * Math.floor(4)) + 1]});
     }
     Temp_Memory();
 }
@@ -184,27 +186,10 @@ const NextPlayer = (dead) => {
         player_info.playerinfo[currentplayerindex].alive = 0;
         currenplayercount--;
         if (currenplayercount == 0) { // 0 wil zeggen hoeveel players er nog mogen overblijven vooraleer game stopt
-            player_info.playerinfo.sort(function (a, b) {
-                return  b.score - a.score;
-            });
-            fetch(`/scores/${player_info.gamemode}`, {
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify(player_info)
-            }).then(function (response) {
-                return response.text();
-            }).then(function (text) {
-                if (text != "succes") {
-                    alert('scores not saved')
-                    console.log('game - gamemechanics warning: scores are not saved');
-                }
-            });
-            Temp_EndGame(player_info.playerinfo);
+            EndGame();
         }
         else{
-            Temp_WaitingScreen(gametimer, player_info.playerinfo[currentplayerindex].name, player_info.gamemode);
+            Temp_WaitingScreen(gametimer, player_info.playerinfo[currentplayerindex].name, player_info.gamemode, gametimer);
             NextPlayer(false);
         }
     }
@@ -217,6 +202,27 @@ const NextPlayer = (dead) => {
             NextPlayer(false);
         }
     }
+}
+
+const EndGame = () => {
+    player_info.playerinfo.sort(function (a, b) {
+        return  b.score - a.score;
+    });
+    fetch(`/scores/${player_info.gamemode}`, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(player_info)
+    }).then(function (response) {
+        return response.text();
+    }).then(function (text) {
+        if (text != "succes") {
+            alert('scores not saved')
+            console.log('game - gamemechanics warning: scores are not saved');
+        }
+    });
+    Temp_EndGame(player_info.playerinfo);
 }
 
 const GetTwisterColor = () => {
@@ -257,12 +263,16 @@ const ShowMemorySeq = () => {
 
 const ListenMemorySeq = () => {
     let seqindex = 0;
-    timeleft = 100; // = 10 sec
+    timeleft = gametimer; // = 10 sec
 
     //send mqtt mssg to hardware to enable buttons
     send_message(`{"row": "${memoryseqs.playerseq[currentplayerindex]['row'][seqindex]}", "column": ${memoryseqs.playerseq[currentplayerindex]['col'][seqindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
     
     let MemoryTimer = setInterval(function(){
+        if (timeleft) {
+            document.querySelector("#progressBar").value =  timeleft / 10;
+            document.querySelector("#progressBarnumber").innerHTML =  Math.ceil(timeleft / 10);
+        }
         if (timeleft == 0) {
             clearInterval(MemoryTimer);
             console.log('player dead');
@@ -282,6 +292,9 @@ const ListenMemorySeq = () => {
                 send_message(`{"row": "${memoryseqs.playerseq[currentplayerindex]['row'][seqindex]}", "column": ${memoryseqs.playerseq[currentplayerindex]['col'][seqindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
             }
         }
-        timeleft -= 1; //uncomment dit om de game maar x tijd te geven om de seq juist te hebben
+        // if gametimer is set -> countdown
+        if (timeleft) {
+            timeleft -= 1;
+        }
     }, 100);
 }

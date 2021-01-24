@@ -22,6 +22,7 @@ const ValidateGameSettings = () => {
             break;
         case "Memory":
             gamesettings['gamemode'] = gamemode;
+            gamesettings['timer'] = document.querySelector("#GameTimer").value;
             minplayers = 1;
             maxplayers = 4;
             break;

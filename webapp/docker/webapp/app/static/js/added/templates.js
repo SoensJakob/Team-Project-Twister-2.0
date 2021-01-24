@@ -61,44 +61,6 @@ const Temp_SelectGameOptions = () => {
     </div>
     `;
     document.querySelector("#BtnValidateGameOptions").addEventListener("click", ValidateGameSettings);
-    document.querySelector("#GameMode").addEventListener("change", function(){
-        switch (this.value) {
-            case "Twister-Classic":
-                document.querySelector('#GameSettings').innerHTML = `
-                    <div class="o-row">
-                        <label class="c-custom-select-label" for="GameTimer">Timer:</label>
-                        <div class="c-numberPlayers-slider">   
-                            <div class="o-slider-wrap">         
-                                <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
-                                <span class="o-NumberTimerValue" id="slidervalue-timer"></span>
-                            </div>
-                        </div> 
-                    </div> 
-                `;
-                let timer = document.getElementById("GameTimer");
-                timer.addEventListener("change", function() {
-                    if(timer.value==0){
-                        document.getElementById("slidervalue-timer").innerHTML = "off";
-                    }
-                })
-                const allRanges = document.querySelectorAll(".o-slider-wrap");
-                allRanges.forEach(wrap => {
-                    const range = wrap.querySelector(".o-slider");
-                    const bubble = wrap.querySelector(".o-NumberTimerValue");
-                    range.addEventListener("input", () => {
-                        setBubble(range, bubble);
-                    });
-                    setBubble(range, bubble);
-                });
-                break;
-            case "Memory":
-                document.querySelector('#GameSettings').innerHTML = ``;
-                break;
-            default:
-                console.log('initgame - template error: switch selectgamneoptions');
-                break;
-        }
-    });
     /*hier komt hamburger js */
     document.getElementById("HamburgerbuttonBack").addEventListener("click", function(){
         var hv = document.getElementById("hidden_nav"); 
@@ -189,7 +151,7 @@ const Temp_SelectPlayers = (minplayers, maxplayers) => {
     });
 }
 
-const Temp_WaitingScreen = (time, player, gamemode) => {
+const Temp_WaitingScreen = (time, player, gamemode, gametimer) => {
     if (!player) {
         document.querySelector('#gamewindow').innerHTML = `
             <div class="o-container u-background-color-green u-justify-bottom u-background-color-yellow">
@@ -227,7 +189,7 @@ const Temp_WaitingScreen = (time, player, gamemode) => {
                     PlayTwister();
                     break;
                 case "Memory":
-                    Temp_Memory();
+                    Temp_Memory(gametimer);
                     PlayMemory();
                     break;
                 default:
@@ -283,7 +245,7 @@ const Temp_TwisterClassic = (gametimer, color) => {
      myFunction_set(color)
 }
 
-const Temp_Memory = () => {
+const Temp_Memory = (gametimer) => {
     document.querySelector('#gamewindow').innerHTML = `
         <div class="o-container u-background-color-green u-justify-bottom">
             <nav class="o-nav o-nav-white c-nav-memory">
@@ -303,16 +265,9 @@ const Temp_Memory = () => {
                     <img class="c-memory-arrow" src="../static/img/arrow-white.png" alt="arrow">
                     <p>voorkant</p>
                 </div>
-                <footer class="c-footer-memory">
-                    <!--button voor als de persoon geen timer heeft aangeduid
-                    <button type="button" class="o-button-large c-button-memory" id="BtnValidatePlayers"><span>play</span></button>
-                    -->
-
-                    <div id="timer" class="c-gamemode-memory-info">
-                        <p class="c-gamemode-twister__seconds">seconden: <span id="progressBarnumber">${gametimer/10}</span></p>
-                        <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
-                    </div>
-
+                <footer class="c-footer-memory" id="memoryfooter">
+                    <button type="button" class="o-button-large c-button-memory" id="BtnMemoryStop"><span>Stop Game</span></button>
+                    <button type="button" class="o-button-large c-button-memory" id="BtnMemoryNextPlayer"><span>Next Player</span></button>
                 </footer>
             </main>
         </div>
@@ -334,6 +289,28 @@ const Temp_Memory = () => {
                 </div>
             </div>
         `;
+    }
+    if (gametimer) {
+        document.querySelector('#memoryfooter').innerHTML = `
+            <div id="timer" class="c-gamemode-memory-info">
+                <p class="c-gamemode-twister__seconds">seconden: <span id="progressBarnumber">${gametimer/10}</span></p>
+                <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
+            </div>
+        `;
+    }
+    else{
+        document.querySelector('#BtnMemoryStop').addEventListener('click', function() {
+            try {
+                clearInterval(MemoryTimer);
+            } catch (error) {
+                console.log('templates - memory error: one or more timers not found');
+            }
+            
+            EndGame();
+        });
+        document.querySelector('#BtnMemoryNextPlayer').addEventListener('click', function() {
+            NextPlayer(true);
+        });
     }
 }
 
