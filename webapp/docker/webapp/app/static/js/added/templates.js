@@ -156,7 +156,10 @@ const Temp_SelectGameOptions = () => {
         </nav>
         <main class="c-SelectGameOptions">
             <div class="o-row">
-                <label class="c-custom-select-label" for="GameMode">Gamemode:</label>
+                <div class="c-label-wrap">
+                    <label class="c-custom-select-label" for="GameMode">Gamemode:</label>
+                    <a id="linkInfo" href="infopageTwister.html"><button class="c-info_button" onclick=""><img class="c-info_image" src="../static/img/info.png" alt="info"></button></a>
+                </div>
                 <select id="GameMode" class="o-select">
                     <option value="Twister-Classic">Twister Classic</option>
                     <option value="Memory" >Memory</option>
@@ -205,7 +208,19 @@ const Temp_SelectGameOptions = () => {
             nb.style.borderRadius = "1rem 1rem 0 0";
         }
     })
-    
+    /* juiste link info page*/
+    document.querySelector("#GameMode").addEventListener("change", function(){
+        switch (this.value) {
+            case "Twister-Classic":
+                let linktwister = document.getElementById("linkInfo");
+                linktwister.setAttribute("href", "infopageTwister.html");
+                break;
+            case "Memory":
+                let linkmemory = document.getElementById("linkInfo");
+                linkmemory.setAttribute("href", "infopageMemory.html");
+        }
+    });
+
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
         const range = wrap.querySelector(".o-slider");
