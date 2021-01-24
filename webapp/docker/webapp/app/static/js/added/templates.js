@@ -365,7 +365,7 @@ const Temp_TwisterClassic = (gametimer, color) => {
 }
 
 const Temp_Memory = (gametimer) => {
-    let memorybtnvalue = (playercount > 1) ? "Next Player" : "Stop Game";
+    let memorybtnvalue = (currenplayercount >  1) ? "Next Player" : "Stop Game";
     document.querySelector('#gamewindow').innerHTML = `
         <div class="o-container u-background-color-green u-justify-bottom">
             <nav class="o-nav o-nav-white c-nav-memory">
@@ -419,7 +419,7 @@ const Temp_Memory = (gametimer) => {
     else{
         document.querySelector('#BtnMemoryStop').addEventListener('click', function() {
             StopMemoryTimers();
-            NextPlayer();
+            NextPlayer(true);
         });
     }
 }

@@ -120,7 +120,7 @@ const SetupMemory = (players, gamesettings) => {
     for([key, val] of Object.entries(players)) {
         memoryseqs['playerseq'].push({'name': val, 'col': [Math.floor(Math.random() * Math.floor(6)) + 1], 'row': [Math.floor(Math.random() * Math.floor(4)) + 1]});
     }
-    Temp_Memory(gamesettings.timer);
+    Temp_Memory(gametimer);
 }
 
 const PlayTwister = () => {
