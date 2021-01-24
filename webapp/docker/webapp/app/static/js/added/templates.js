@@ -8,6 +8,125 @@ let player_count  = 1;
 #Templates
 \*------------------------------------*/
 
+const Temp_TutorialPage1 = () => {
+    document.querySelector('#indexpage').innerHTML = `
+        <div class="o-container u-background-color-green">
+            <nav class="o-nav o-nav-white">
+                <a class="o-backbutton o-backbutton_white">
+                    <!--empty item for space-between (only tutorial)-->
+                </a>
+                <a class="o-backbutton o-backbutton_white" id="BtnTutSkip">
+                    skip
+                </a>
+            </nav>
+            <main class="c-tutorial">
+                <h1 class="c-tutorial-title">Welcome to Twister 2.0</h1>
+                <p class="c-tutorial__text">The digital version of twister where you 
+                    and your friends can play multiple 
+                    unique game modes!</p>
+                <button class="o-button" id="BtnTutNext">continue</button>
+            </main>
+            <footer class="c-footer-tutorial">
+                <div class="c-footer-navigation">
+                        <button class="c-footer-tutorial_button c-footer-tutorial_button_green c-footer-tutorial_button__white" id="BtnTutPage1"></button>
+                        <button class="c-footer-tutorial_button c-footer-tutorial_button_green" id="BtnTutPage2"></button>
+                        <button class="c-footer-tutorial_button c-footer-tutorial_button_green" id="BtnTutPage3"></button>
+                </div>
+            </footer>
+        </div>
+    `;
+    document.querySelector('#BtnTutSkip').addEventListener('click', function (){ localStorage.setItem('TutSkipped', true); Temp_Index()});
+    document.querySelector('#BtnTutNext').addEventListener('click', function (){ Temp_TutorialPage2() });
+    document.querySelector('#BtnTutPage1').addEventListener('click', function (){ Temp_TutorialPage1() });
+    document.querySelector('#BtnTutPage2').addEventListener('click', function (){ Temp_TutorialPage2() });
+    document.querySelector('#BtnTutPage3').addEventListener('click', function (){ Temp_TutorialPage3() });
+}
+
+const Temp_TutorialPage2 = () => {
+    document.querySelector('#indexpage').innerHTML = `
+    <div class="o-container u-background-color-red">
+        <nav class="o-nav o-nav-white">
+            <a class="o-backbutton o-backbutton_white">
+                <!--empty item for space-between (only tutorial)-->
+            </a>
+            <a class="o-backbutton o-backbutton_white" id="BtnTutSkip">
+                skip
+            </a>
+        </nav>
+        <main class="c-tutorial">
+            <h1 class="c-tutorial-title_with-image">First select a gamemode</h1>
+            <img class="c-tutorial-image" src="../static/img/phone.png" alt="phone">
+            <p class="c-tutorial__text-image">Twister 2.0 has a wide variety of unique
+                gamemodes that you can play with
+                your friends! </p>
+            <button class="o-button" id="BtnTutNext">continue</button>
+        </main>
+        <footer class="c-footer-tutorial">
+        <div class="c-footer-navigation">
+            <button class="c-footer-tutorial_button c-footer-tutorial_button_red" id="BtnTutPage1"></button>
+            <button class="c-footer-tutorial_button c-footer-tutorial_button_red c-footer-tutorial_button__white" id="BtnTutPage2"></button>
+            <button class="c-footer-tutorial_button c-footer-tutorial_button_red" id="BtnTutPage3"></button>
+        </div>
+        </footer>
+    </div>
+    `;
+    document.querySelector('#BtnTutSkip').addEventListener('click', function (){ localStorage.setItem('TutSkipped', true); Temp_Index()});
+    document.querySelector('#BtnTutNext').addEventListener('click', function (){ Temp_TutorialPage3() });
+    document.querySelector('#BtnTutPage1').addEventListener('click', function (){ Temp_TutorialPage1() });
+    document.querySelector('#BtnTutPage2').addEventListener('click', function (){ Temp_TutorialPage2() });
+    document.querySelector('#BtnTutPage3').addEventListener('click', function (){ Temp_TutorialPage3() });
+}
+
+const Temp_TutorialPage3 = () => {
+    document.querySelector('#indexpage').innerHTML = `
+    <div class="o-container u-background-color-blue">
+        <nav class="o-nav o-nav-white">
+            <a class="o-backbutton o-backbutton_white">
+                <!--empty item for space-between (only tutorial)-->
+            </a>
+            <a class="o-backbutton o-backbutton_white" id="BtnTutSkip">
+                skip
+            </a>
+        </nav>
+        <main class="c-tutorial">
+            <h1 class="c-tutorial-title_with-groupimage">choose the amount of players</h1>
+            <img class="c-tutorial-groupImage" src="../static/img/group.svg" alt="phone">
+            <p class="c-tutorial__text-image_group">Choose the amount of players
+                and play the game!</p>
+            <button class="o-button" id="BtnTutNext">continue</button>
+        </main>
+        <footer class="c-footer-tutorial">
+        <div class="c-footer-navigation">
+            <button class="c-footer-tutorial_button c-footer-tutorial_button_blue" id="BtnTutPage1"></button>
+            <button class="c-footer-tutorial_button c-footer-tutorial_button_blue" id="BtnTutPage2"></button>
+            <button class="c-footer-tutorial_button c-footer-tutorial_button_blue c-footer-tutorial_button__white" id="BtnTutPage3"></button>
+        </div>
+        </footer>
+    </div>
+    `;
+    document.querySelector('#BtnTutSkip').addEventListener('click', function (){ localStorage.setItem('TutSkipped', true); Temp_Index()});
+    document.querySelector('#BtnTutNext').addEventListener('click', function (){ Temp_Index() });
+    document.querySelector('#BtnTutPage1').addEventListener('click', function (){ Temp_TutorialPage1() });
+    document.querySelector('#BtnTutPage2').addEventListener('click', function (){ Temp_TutorialPage2() });
+    document.querySelector('#BtnTutPage3').addEventListener('click', function (){ Temp_TutorialPage3() });
+}
+
+const Temp_Index = () => {
+    document.querySelector('#indexpage').innerHTML = `
+        <div id="indexpage"></div>
+            <div class="o-container u-justify-bottom">
+                <header class="c-startpage-header">
+                    <h1>Twister Name</h1>
+                </header>
+                <main class="c-startpage-main">
+                    <img class="c-startpage-image" src="../static/img/logo.png" alt="logo Twister">
+                    <a href="/initgame"><button class="o-button c-startpage-button"><span>start</span></button></a>
+                </main>
+            </div>
+        </div>
+    `;
+}
+
 const Temp_SelectGameOptions = () => {
     document.querySelector('#initgamewindow').innerHTML = `
     <div class="o-container u-background-color-green u-justify-bottom">

@@ -1,8 +1,10 @@
-let players = JSON.parse(localStorage.getItem('gameplayers'));
-let memoryseqs = JSON.parse('{"playerseq":[]}'); 
+document.addEventListener('DOMContentLoaded', function() {
+    init();
+});
 
-for([key, val] of Object.entries(players)) {
-    memoryseqs['playerseq'].push({'name': val, 'col': [Math.floor(Math.random() * Math.floor(6)) + 1], 'row': [Math.floor(Math.random() * Math.floor(4)) + 1]});
+const init = function(){
+    if (localStorage.getItem('startup')) {
+        console.log('startup skipped');
+    }
+    console.log('statrup staring')
 }
-
-console.log(memoryseqs);
