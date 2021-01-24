@@ -246,6 +246,7 @@ const Temp_TwisterClassic = (gametimer, color) => {
 }
 
 const Temp_Memory = (gametimer) => {
+    let memorybtnvalue = (playercount > 1) ? "Next Player" : "Stop Game";
     document.querySelector('#gamewindow').innerHTML = `
         <div class="o-container u-background-color-green u-justify-bottom">
             <nav class="o-nav o-nav-white c-nav-memory">
@@ -266,8 +267,7 @@ const Temp_Memory = (gametimer) => {
                     <p>voorkant</p>
                 </div>
                 <footer class="c-footer-memory" id="memoryfooter">
-                    <button type="button" class="o-button-large c-button-memory" id="BtnMemoryStop"><span>Stop Game</span></button>
-                    <button type="button" class="o-button-large c-button-memory" id="BtnMemoryNextPlayer"><span>Next Player</span></button>
+                    <button type="button" class="o-button-large c-button-memory" id="BtnMemoryStop"><span>${memorybtnvalue}</span></button>
                 </footer>
             </main>
         </div>
@@ -293,23 +293,14 @@ const Temp_Memory = (gametimer) => {
     if (gametimer) {
         document.querySelector('#memoryfooter').innerHTML = `
             <div id="timer" class="c-gamemode-memory-info">
-                <p class="c-gamemode-twister__seconds">seconden: <span id="progressBarnumber">${gametimer/10}</span></p>
-                <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
+                <p class="c-gamemode-twister__seconds">Tijd resterend: <span id="progressBarnumber"></span></p>
             </div>
         `;
     }
     else{
         document.querySelector('#BtnMemoryStop').addEventListener('click', function() {
-            try {
-                clearInterval(MemoryTimer);
-            } catch (error) {
-                console.log('templates - memory error: one or more timers not found');
-            }
-            
-            EndGame();
-        });
-        document.querySelector('#BtnMemoryNextPlayer').addEventListener('click', function() {
-            NextPlayer(true);
+            StopMemoryTimers();
+            NextPlayer();
         });
     }
 }

@@ -120,7 +120,7 @@ const SetupMemory = (players, gamesettings) => {
     for([key, val] of Object.entries(players)) {
         memoryseqs['playerseq'].push({'name': val, 'col': [Math.floor(Math.random() * Math.floor(6)) + 1], 'row': [Math.floor(Math.random() * Math.floor(4)) + 1]});
     }
-    Temp_Memory();
+    Temp_Memory(gamesettings.timer);
 }
 
 const PlayTwister = () => {
@@ -163,9 +163,7 @@ const PlayTwister = () => {
             PlayTwister();
         }
         // if gametimer is set -> countdown
-        if (timeleft) {
-            timeleft -= 1;
-        }
+        if (timeleft) { timeleft--; }
     }, 100);
 }
 
@@ -267,10 +265,8 @@ const ListenMemorySeq = () => {
 
     //send mqtt mssg to hardware to enable buttons
     send_message(`{"row": "${memoryseqs.playerseq[currentplayerindex]['row'][seqindex]}", "column": ${memoryseqs.playerseq[currentplayerindex]['col'][seqindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
-    
     let MemoryTimer = setInterval(function(){
         if (timeleft) {
-            document.querySelector("#progressBar").value =  timeleft / 10;
             document.querySelector("#progressBarnumber").innerHTML =  Math.ceil(timeleft / 10);
         }
         if (timeleft == 0) {
@@ -281,6 +277,8 @@ const ListenMemorySeq = () => {
         if (mqttmssg[1].row == memoryseqs.playerseq[currentplayerindex]['row'][seqindex] && mqttmssg[1].column == memoryseqs.playerseq[currentplayerindex]['col'][seqindex]) {
             if ((seqindex + 1) == memoryseqs.playerseq[currentplayerindex]['row'].length) {
                 clearInterval(MemoryTimer);
+                console.log('memory - correct hit');
+                document.querySelector("#progressBarnumber").innerHTML =  "";
                 AddMemoryBtn();
                 player_info.playerinfo[currentplayerindex].score += 1;
                 memorylevel++;
@@ -293,8 +291,19 @@ const ListenMemorySeq = () => {
             }
         }
         // if gametimer is set -> countdown
-        if (timeleft) {
-            timeleft -= 1;
-        }
+        if (timeleft) { timeleft--; }
     }, 100);
+}
+
+const StopMemoryTimers = () => {
+    try {
+        clearInterval(TempMemoryTimer);
+    } catch (error) {
+    }
+    try {
+        clearInterval(MemoryTimer);
+    } catch (error) {
+        
+    }
+    
 }
