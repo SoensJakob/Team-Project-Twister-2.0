@@ -20,7 +20,7 @@ class Score(BaseModel):
     gamemode: str
     playerinfo: list=[Player]
 
-scorespath = "/var/lib/docker/volumes/project-api/scores.json"   # /var/lib/docker/volumes/project-api/
+scorespath = "./data/scores.json"
 
 app = FastAPI()
 
@@ -55,3 +55,4 @@ async def add_scores(score: Score):
         print('api error in post scores:', e)
         return "failed"
     
+

@@ -37,7 +37,6 @@ const Temp_TutorialPage1 = () => {
     `;
     document.querySelector('#BtnTutSkip').addEventListener('click', function (){ localStorage.setItem('TutSkipped', true); Temp_Index()});
     document.querySelector('#BtnTutNext').addEventListener('click', function (){ Temp_TutorialPage2() });
-    document.querySelector('#BtnTutPage1').addEventListener('click', function (){ Temp_TutorialPage1() });
     document.querySelector('#BtnTutPage2').addEventListener('click', function (){ Temp_TutorialPage2() });
     document.querySelector('#BtnTutPage3').addEventListener('click', function (){ Temp_TutorialPage3() });
 }
@@ -73,7 +72,6 @@ const Temp_TutorialPage2 = () => {
     document.querySelector('#BtnTutSkip').addEventListener('click', function (){ localStorage.setItem('TutSkipped', true); Temp_Index()});
     document.querySelector('#BtnTutNext').addEventListener('click', function (){ Temp_TutorialPage3() });
     document.querySelector('#BtnTutPage1').addEventListener('click', function (){ Temp_TutorialPage1() });
-    document.querySelector('#BtnTutPage2').addEventListener('click', function (){ Temp_TutorialPage2() });
     document.querySelector('#BtnTutPage3').addEventListener('click', function (){ Temp_TutorialPage3() });
 }
 
@@ -108,7 +106,6 @@ const Temp_TutorialPage3 = () => {
     document.querySelector('#BtnTutNext').addEventListener('click', function (){ Temp_Index() });
     document.querySelector('#BtnTutPage1').addEventListener('click', function (){ Temp_TutorialPage1() });
     document.querySelector('#BtnTutPage2').addEventListener('click', function (){ Temp_TutorialPage2() });
-    document.querySelector('#BtnTutPage3').addEventListener('click', function (){ Temp_TutorialPage3() });
 }
 
 const Temp_Index = () => {
@@ -125,6 +122,86 @@ const Temp_Index = () => {
             </div>
         </div>
     `;
+}
+
+const Temp_InfoTwister = () => {
+    document.querySelector('#initgamewindow').innerHTML = ``;
+    document.querySelector('#initgamewindow').innerHTML = `
+        <div class="o-container u-background-color-green">
+            <nav class="o-nav o-nav-white c-nav_info">
+                <a href="/initgame" class="o-backbutton o-backbutton_white">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p>Back</p>
+                </a>
+            </nav>
+            <main class="c-info">
+                <h1>Twister</h1>
+                <img class="c-info-image" src="../static/img/twistermat.png" alt="twistermat">
+                <h2>Hoe speel je het?</h2>
+                <p class="c-info-text">
+                    Iedere speler krijgt om de beurt een actie.
+                    Een actie bestaat uit een kleur en een lichaamsdeel.
+                    De speler moet dan deze actie uitvoeren op de twistermat.
+                </p>
+                <div class="c-info_maxPlayers">
+                    <h3 class="c-info-maxPlayers_text">max players: 4</h3>
+                    <div class="c-info-maxPlayers_icons">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                    </div>
+                </div>
+            </main>
+            <footer class="c-footer-tutorial">
+                <div class="c-footer-navigation">
+                    <button class="c-footer-tutorial_button c-footer-tutorial_button_green c-footer-tutorial_button__white" id="InfoTwister"></button>
+                    <button class="c-footer-tutorial_button c-footer-tutorial_button_green" id="InfoMemory"></button>
+                </div>
+            </footer>
+        </div>
+    `;
+    document.querySelector('#InfoMemory').addEventListener('click', function() { Temp_InfoMemory(); });
+}
+
+const Temp_InfoMemory = () => {
+    document.querySelector('#initgamewindow').innerHTML = ``;
+    document.querySelector('#initgamewindow').innerHTML = `
+        <div class="o-container u-background-color-green">
+            <nav class="o-nav o-nav-white c-nav_info">
+                <a href="/initgame" class="o-backbutton o-backbutton_white">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p>Back</p>
+                </a>
+            </nav>
+            <main class="c-info">
+                <h1>Memory</h1>
+                <img class="c-info-image" src="../static/img/twistermat.png" alt="twistermat">
+                <h2>Hoe speel je het?</h2>
+                <p class="c-info-text">
+                    Iedere speler krijgt een volgorde van platen die oplichten.
+                    Het is de bedoeling dat de speler deze volgorde op de mat nabootst.
+                    Elke keer een volgorde succesvol is nagebootst wordt het spel moeilijker!
+                </p>
+                <div class="c-info_maxPlayers">
+                    <h3 class="c-info-maxPlayers_text">max players: 4</h3>
+                    <div class="c-info-maxPlayers_icons">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                    </div>
+                </div>
+            </main>
+            <footer class="c-footer-tutorial">
+                <div class="c-footer-navigation">
+                    <button class="c-footer-tutorial_button c-footer-tutorial_button_green" id="InfoTwister"></button>
+                    <button class="c-footer-tutorial_button c-footer-tutorial_button_green c-footer-tutorial_button__white" id="InfoMemory"></button>
+                </div>
+            </footer>
+        </div>
+    `;
+    document.querySelector('#InfoTwister').addEventListener('click', function() { Temp_InfoTwister(); });
 }
 
 const Temp_SelectGameOptions = () => {
@@ -158,7 +235,7 @@ const Temp_SelectGameOptions = () => {
             <div class="o-row">
                 <div class="c-label-wrap">
                     <label class="c-custom-select-label" for="GameMode">Gamemode:</label>
-                    <a id="linkInfo" href="infopageTwister.html"><button class="c-info_button" onclick=""><img class="c-info_image" src="../static/img/info.png" alt="info"></button></a>
+                    <a id="linkInfo"><button class="c-info_button" id="BtnShowInfo"><img class="c-info_image" src="../static/img/info.png" alt="info"></button></a>
                 </div>
                 <select id="GameMode" class="o-select">
                     <option value="Twister-Classic">Twister Classic</option>
@@ -182,6 +259,22 @@ const Temp_SelectGameOptions = () => {
         </footer>
     </div>
     `;
+    document.querySelector("#BtnShowInfo").addEventListener('click', function () {
+        let gamemode = document.querySelector("#GameMode").value;
+        console.log(gamemode);
+        switch (gamemode) {
+            case "Twister-Classic":
+                Temp_InfoTwister();
+                break;
+            case "Memory":
+                Temp_InfoMemory();
+                break;
+        
+            default:
+                console.log('failed to show infopage - wrong gamemode selected');
+                break;
+        }
+    })
     document.querySelector("#BtnValidateGameOptions").addEventListener("click", ValidateGameSettings);
     /*hier komt hamburger js */
     document.getElementById("HamburgerbuttonBack").addEventListener("click", function(){
@@ -208,18 +301,6 @@ const Temp_SelectGameOptions = () => {
             nb.style.borderRadius = "1rem 1rem 0 0";
         }
     })
-    /* juiste link info page*/
-    document.querySelector("#GameMode").addEventListener("change", function(){
-        switch (this.value) {
-            case "Twister-Classic":
-                let linktwister = document.getElementById("linkInfo");
-                linktwister.setAttribute("href", "infopageTwister.html");
-                break;
-            case "Memory":
-                let linkmemory = document.getElementById("linkInfo");
-                linkmemory.setAttribute("href", "infopageMemory.html");
-        }
-    });
 
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
