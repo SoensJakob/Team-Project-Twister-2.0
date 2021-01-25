@@ -1,29 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Twister</title>
-    <!-- Stylesheets
-    ============================================= -->
-    <link rel="stylesheet" href="../static/css/normalize.css" />
-    <link rel="stylesheet" href="../static/css/screen.css" />
-    
-    <!-- Scripts
-    ============================================= -->
-    <script src="../static/js/main.js"></script>
-  </head>
-  <body>
-    <div class="o-container u-justify-bottom">
-    <header class="c-startpage-header">
-      <h1>
-        Twister Name
-      </h1>
-    </header>
-    <main class="c-startpage-main">
-      <img class="c-startpage-image" src="../static/img/logo.png" alt="logo Twister">
-      <button class="o-button c-startpage-button"><a href="/initgame">start</a></button>
-    </main>
+{% extends "base.html" %}
+{% block scripts %}
+  <script src="../static/js/added/templates.js"></script>
+  <script src="../static/js/main.js"></script>
+{% endblock %}
+{% block content %}
+  <div id="indexpage"></div>
   </div>
-  </body>
-</html>
+{% endblock %}

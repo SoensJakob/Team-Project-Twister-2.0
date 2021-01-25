@@ -17,14 +17,14 @@ const ValidateGameSettings = () => {
         case "Twister-Classic":
             gamesettings['gamemode'] = gamemode;
             gamesettings['timer'] = document.querySelector("#GameTimer").value;
-            gamesettings['actions'] = document.querySelector("#GameActions").value;
             minplayers = 2;
             maxplayers = 4;
             break;
         case "Memory":
             gamesettings['gamemode'] = gamemode;
+            gamesettings['timer'] = document.querySelector("#GameTimer").value;
             minplayers = 1;
-            maxplayers = 1;
+            maxplayers = 4;
             break;
     
         default:

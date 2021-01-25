@@ -9,9 +9,8 @@ let currenplayercount = 0;
 let currentplayerindex = 0;
 let gamecolors = [];
 let bodyparts = [];
-let memoryindex = 0;
-let memorylevel = 1;
-let memoryarr = {"row": [], "col": []};
+let memorylevel = 0;
+let memoryseqs = JSON.parse('{"playerseq":[]}'); 
 let mqttmssg = {"":[{"row": "", "col": ""}]};
 let twisterboard = [
     [["",""],["",""],["",""],["",""],["",""],["",""]],
@@ -41,9 +40,9 @@ const setoutmsg = (out_msg) => {
     }
 }
 
-function colourNameToHex(colour)
+function colourNameToHex(color)
 {
-    let colours = {"aliceblue":"#f0f8ff","antiquewhite":"#faebd7","aqua":"#00ffff","aquamarine":"#7fffd4","azure":"#f0ffff",
+    let colors = {"aliceblue":"#f0f8ff","antiquewhite":"#faebd7","aqua":"#00ffff","aquamarine":"#7fffd4","azure":"#f0ffff",
     "beige":"#f5f5dc","bisque":"#ffe4c4","black":"#000000","blanchedalmond":"#ffebcd","blue":"#0000ff","blueviolet":"#8a2be2","brown":"#a52a2a","burlywood":"#deb887",
     "cadetblue":"#5f9ea0","chartreuse":"#7fff00","chocolate":"#d2691e","coral":"#ff7f50","cornflowerblue":"#6495ed","cornsilk":"#fff8dc","crimson":"#dc143c","cyan":"#00ffff",
     "darkblue":"#00008b","darkcyan":"#008b8b","darkgoldenrod":"#b8860b","darkgray":"#a9a9a9","darkgreen":"#006400","darkkhaki":"#bdb76b","darkmagenta":"#8b008b","darkolivegreen":"#556b2f",
@@ -68,8 +67,8 @@ function colourNameToHex(colour)
     "wheat":"#f5deb3","white":"#ffffff","whitesmoke":"#f5f5f5",
     "yellow":"#ffff00","yellowgreen":"#9acd32"};
 
-    if (typeof colours[colour.toLowerCase()] != 'undefined')
-        return colours[colour.toLowerCase()];
+    if (typeof colors[color.toLowerCase()] != 'undefined')
+        return colors[color.toLowerCase()];
 
     return false;
 }
@@ -98,6 +97,7 @@ const StartGame = () => {
       
         case "Memory":
             console.log("starting memory");
+            SetupMemory(players, gamesettings);
             PlayMemory();
             break;
 
@@ -109,9 +109,18 @@ const StartGame = () => {
 
 const SetupTwister = (gamesettings) => {
     gametimer = gamesettings.timer;
+    (gametimer != 0) ? gametimer *= 10 : gametimer = null;
     gamecolors = ["red", "blue", "yellow", "green"];
     bodyparts = ["left hand", "left foot", "right foot", "right hand"];
+}
+
+const SetupMemory = (players, gamesettings) => {
+    gametimer = gamesettings.timer;
     (gametimer != 0) ? gametimer *= 10 : gametimer = null;
+    for([key, val] of Object.entries(players)) {
+        memoryseqs['playerseq'].push({'name': val, 'col': [Math.floor(Math.random() * Math.floor(6)) + 1], 'row': [Math.floor(Math.random() * Math.floor(4)) + 1]});
+    }
+    Temp_Memory(gametimer);
 }
 
 const PlayTwister = () => {
@@ -134,17 +143,18 @@ const PlayTwister = () => {
     document.querySelector("#twistermovelimb").innerHTML = randbodypart;
     document.querySelector("#imgtwisterlimb").src = `../static/img/${arrbodypart[0]}_${arrbodypart[1]}-${(randcolor == "yellow") ? 'grey' : 'white'}.svg`;
     document.querySelector("#twistermovecolor").innerHTML = randcolor;
-    document.querySelector("#currentplayer").innerHTML = currentplayer; 
+    document.querySelector("#currentplayer").innerHTML = currentplayer;
+    document.querySelector(':root').style.setProperty('--global-gamecolor', `var(--global-color-${randcolor}-dark)`);
+    document.querySelector(':root').style.setProperty('--global-gamecolor-border', `var(--global-color-${randcolor}-darkest)`);
     
     let TwisterTimer = setInterval(function(){
         if (timeleft) {
-            document.querySelector("#progressBar").value =  Math.ceil(timeleft / 10);
+            document.querySelector("#progressBar").value =  timeleft / 10;
             document.querySelector("#progressBarnumber").innerHTML =  Math.ceil(timeleft / 10);
         }
         if (timeleft == 0) {
             clearInterval(TwisterTimer);
             NextPlayer(true);
-            CheckIfGameIsFinished(currentplayer);
         }
         else if (mqttmssg[1].row == (colorindex + 1)) {
             clearInterval(TwisterTimer);
@@ -153,74 +163,64 @@ const PlayTwister = () => {
             PlayTwister();
         }
         // if gametimer is set -> countdown
-        if (timeleft) {
-            timeleft -= 1;
-        }
+        if (timeleft) { timeleft--; }
     }, 100);
 }
 
 const PlayMemory = () => {
     // set variables
     mqttmssg = ['', JSON.parse('{"row":"", "column":""}')];
-    let currentplayer = player_info.playerinfo[currentplayerindex].name;
-    if (!memoryarr['row'].length) {
-        AddMemoryBtn();
-    }
+    currentplayer = player_info.playerinfo[currentplayerindex].name;
 
-    //send mqtt mssg to hardware to enable buttons
-    send_message(`{"row": "${memoryarr['row'][memoryindex]}", "column": ${memoryarr['col'][memoryindex]}, "color": "", "player":"${currentplayer}","limb": ""}`);
-    
-    // load template
-    Temp_Memory(memoryarr['row'][memoryindex], memoryarr['col'][memoryindex], memorylevel);
+    // set innerhtml/vaslues Temp_Memory
+    document.querySelector('#memory-currplayer').innerHTML = currentplayer;
+    document.querySelector('#memory-lvl').innerHTML =  `lvl: ${memoryseqs.playerseq[currentplayerindex]['col'].length}`;
 
-    timeleft = 300;
-    let MemoryTimer = setInterval(function(){
-        if (timeleft == 0) {
-            clearInterval(MemoryTimer);
-            CheckIfGameIsFinished(currentplayer);
-        }
-        else if (mqttmssg[1].row == memoryarr['row'][memoryindex] && mqttmssg[1].column == memoryarr['col'][memoryindex]) {
-            clearInterval(MemoryTimer);
-            if ((memoryindex + 1) == memoryarr['row'].length) {
-                AddMemoryBtn();
-                memoryindex = 0;
-                player_info.playerinfo[currentplayerindex].score += 1;
-                memorylevel++;
-            }
-            else{
-                memoryindex++;
-            }
-            PlayMemory();
-        }
-        timeleft -= 1;
-    }, 100);
-    
+    ShowMemorySeq();
 }
 
 const NextPlayer = (dead) => {
     if (dead) {
         player_info.playerinfo[currentplayerindex].alive = 0;
         currenplayercount--;
+        if (currenplayercount == 0) { // 0 wil zeggen hoeveel players er nog mogen overblijven vooraleer game stopt
+            EndGame();
+        }
+        else{
+            Temp_WaitingScreen(gametimer, player_info.playerinfo[currentplayerindex].name, player_info.gamemode, gametimer);
+            NextPlayer(false);
+        }
     }
-    currentplayerindex++;
-    if (currentplayerindex == playercount) {
-        currentplayerindex = 0;
-    }
-    if (player_info.playerinfo[currentplayerindex].alive == 0) {
-        NextPlayer();
+    else{
+        currentplayerindex++;
+        if (currentplayerindex == playercount) {
+            currentplayerindex = 0;
+        }
+        if (player_info.playerinfo[currentplayerindex].alive == 0) {
+            NextPlayer(false);
+        }
     }
 }
 
-const CheckIfGameIsFinished = function(currentplayer){
-    if (currenplayercount == 0) { // 0 wil zeggen hoeveel players er nog mogen overblijven vooraleer game stopt
-        player_info.playerinfo.sort(function (a, b) {
-            return  b.score - a.score;
-        });
-        Temp_EndGame(player_info.playerinfo);
-    }
-    else{
-        Temp_WaitingScreen((gametimer), currentplayer);
-    }
+const EndGame = () => {
+    player_info.playerinfo.sort(function (a, b) {
+        return  b.score - a.score;
+    });
+    fetch(`/scores/${player_info.gamemode}`, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(player_info)
+    }).then(function (response) {
+        return response.text();
+    }).then(function (text) {
+        if (text != "succes") {
+            alert('scores not saved')
+            console.log('game - gamemechanics warning: scores are not saved');
+        }
+    });
+    Temp_EndGame(player_info.playerinfo);
 }
 
 const GetTwisterColor = () => {
@@ -238,6 +238,72 @@ const GetTwisterColor = () => {
 const AddMemoryBtn = () => {
     let randcol = Math.floor(Math.random() * Math.floor(6)) + 1;
     let randrow = Math.floor(Math.random() * Math.floor(4)) + 1;
-    memoryarr['row'].push(randrow);
-    memoryarr['col'].push(randcol);
+    memoryseqs.playerseq[currentplayerindex]['col'].push(randcol);
+    memoryseqs.playerseq[currentplayerindex]['row'].push(randrow);
+}
+
+const ShowMemorySeq = () => {
+    let seqindex = 0;
+    let seqcol= memoryseqs.playerseq[currentplayerindex]['col'];
+    let seqrow = memoryseqs.playerseq[currentplayerindex]['row'];
+    let TempMemoryTimer = setInterval(function(){ 
+        document.querySelector(`#memory-${seqrow[seqindex]}${seqcol[seqindex]}`).classList.add("c-memory-active");
+        setTimeout(function(){
+          document.querySelector(`#memory-${seqrow[seqindex]}${seqcol[seqindex]}`).classList.remove("c-memory-active");
+          seqindex++;
+        },1000)
+        if (seqindex == (seqcol.length - 1)) {
+            clearInterval(TempMemoryTimer);
+            ListenMemorySeq();
+        }
+     },2000);
+}
+
+const ListenMemorySeq = () => {
+    let seqindex = 0;
+    timeleft = gametimer; // = 10 sec
+
+    //send mqtt mssg to hardware to enable buttons
+    send_message(`{"row": "${memoryseqs.playerseq[currentplayerindex]['row'][seqindex]}", "column": ${memoryseqs.playerseq[currentplayerindex]['col'][seqindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
+    let MemoryTimer = setInterval(function(){
+        if (timeleft) {
+            document.querySelector("#progressBarnumber").innerHTML =  Math.ceil(timeleft / 10);
+        }
+        if (timeleft == 0) {
+            clearInterval(MemoryTimer);
+            console.log('player dead');
+            NextPlayer(true);
+        }
+        if (mqttmssg[1].row == memoryseqs.playerseq[currentplayerindex]['row'][seqindex] && mqttmssg[1].column == memoryseqs.playerseq[currentplayerindex]['col'][seqindex]) {
+            if ((seqindex + 1) == memoryseqs.playerseq[currentplayerindex]['row'].length) {
+                clearInterval(MemoryTimer);
+                console.log('memory - correct hit');
+                document.querySelector("#progressBarnumber").innerHTML =  "";
+                AddMemoryBtn();
+                player_info.playerinfo[currentplayerindex].score += 1;
+                memorylevel++;
+                NextPlayer(false);
+                PlayMemory();
+            }
+            else{
+                seqindex++;
+                send_message(`{"row": "${memoryseqs.playerseq[currentplayerindex]['row'][seqindex]}", "column": ${memoryseqs.playerseq[currentplayerindex]['col'][seqindex]}, "color": null, "player":"${currentplayer}","limb": null}`);
+            }
+        }
+        // if gametimer is set -> countdown
+        if (timeleft) { timeleft--; }
+    }, 100);
+}
+
+const StopMemoryTimers = () => {
+    try {
+        clearInterval(TempMemoryTimer);
+    } catch (error) {
+    }
+    try {
+        clearInterval(MemoryTimer);
+    } catch (error) {
+        
+    }
+    
 }

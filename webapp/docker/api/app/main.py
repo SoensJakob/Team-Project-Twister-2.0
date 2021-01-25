@@ -3,7 +3,8 @@ import sys
 import json
 from json.decoder import JSONDecodeError
 from pydantic import BaseModel
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
+from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 
 # postman scores post json example
@@ -21,19 +22,24 @@ class Score(BaseModel):
 app = FastAPI()
 
 @app.get("/scores/{gamemode}")
-async def get_scores(gamemode: str):
+async def get_scores(gamemode: str = None):
     try:
-        scoreslist = []
+        gamemodex = gamemode if gamemode is not None else "twister-classic"
+        filteredscoreslist = []
         with open("scores.json") as f:
             for score in f:
                 scoresdict = json.loads(score)
-                scoreslist.append(scoresdict)
+                if scoresdict["gamemode"] == gamemodex:
+                    for playerscore in scoresdict["playerinfo"]:
+                        filteredscoreslist.append(playerscore)
         f.close()
-        return scoreslist
+        filteredscoreslist = sorted(filteredscoreslist, key=lambda k: k.get('score', 0), reverse=True)
+        return filteredscoreslist
     except Exception as e:
-        print(e)
+        print('api error in get scores:', e)
+        return "failed"
 
-@app.post("/scores")
+@app.post("/scores") # werkt maar scores.json moet nog in volume, docker maakt snapchot bij opstart en kan geen txt files editn
 async def add_scores(score: Score):
     try:
         jsonobj = json.dumps(jsonable_encoder(score))
@@ -42,6 +48,7 @@ async def add_scores(score: Score):
             f.write("\n")
         f.close()
         return "succes"
-    except:
+    except Exception as e:
+        print('api error in post scores:', e)
         return "failed"
     

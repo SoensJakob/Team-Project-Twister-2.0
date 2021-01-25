@@ -131,16 +131,23 @@ progress {
   border-radius: 1rem;
   width: 100%; 
   height: 0.9rem;
+  border: none;
+  background-color: var(--global-color-white);
 }
 progress::-webkit-progress-bar {
   background-color: var(--global-gamecolor);
   border: solid 1px var(--global-gamecolor-border);
   border-radius: 2rem;
 }
-
+progress::-moz-progress-bar {
+  background-color: var(--global-gamecolor);
+  border: solid 1px var(--global-gamecolor-border);
+  border-radius: 2rem;
+}
 progress::-webkit-progress-value {
   background-color: var(--global-color-white);
   border-radius: 2rem;
+  border: none;
 }
 
 /*------------------------------------*\
@@ -181,6 +188,7 @@ progress::-webkit-progress-value {
   align-items: center;
   width: 90%;
   padding: 2rem 0;
+  height: 2rem;
 }
 .o-nav > a{
   color: var(--global-textcolor);
@@ -202,10 +210,22 @@ the backbutton in the left corner of the navigation
   flex-direction: row;
   align-items: center;
 }
+
+.o-backbutton:hover, .o-backbutton:hover>.o-backbutton_img{
+  font-size: 1.4rem;
+  width: 1.1rem;
+  transition: all 0.2s ease;
+}
+
 .o-backbutton_img{
   width: 1rem;
-  height: 1.5rem;
+  height: auto;
   padding-right: 0.5rem;
+}
+
+.o-arrow_container{
+  position: relative;
+  width: 2rem;
 }
 
 /*
@@ -220,6 +240,7 @@ in case there is a background color that needs white color
   color: var(--global-color-darkgrey);
 }
 
+
 /*every button has same witdh and border radius*/
 
 .o-button{
@@ -230,8 +251,37 @@ in case there is a background color that needs white color
   border-radius: var(--global-borderRadius);
   outline: none;
   cursor: pointer;
+
+  color: var(--global-textcolor);
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+/*hover effect button*/
+.o-button span {
+  position: relative;
+  transition: 0.5s;
 }
 
+.o-button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  font-size: 1.5rem;
+  top: -0.1rem;
+  right: -1.25rem;
+  transition: 0.5s;
+}
+
+.o-button:hover span {
+  padding-right: 1.5625rem;
+}
+
+.o-button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+/*big button*/
 .o-button-large{
   width: 10rem;
   height: 3rem;
@@ -244,6 +294,29 @@ in case there is a background color that needs white color
   font-weight: 600;
   color: var(--global-textcolor);
   cursor: pointer;
+}
+/*hover effect button-large*/
+.o-button-large span {
+  position: relative;
+  transition: 0.5s;
+}
+
+.o-button-large span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: -0.1rem;
+  right: -1.25rem;
+  transition: 0.5s;
+}
+
+.o-button-large:hover span {
+  padding-right: 1.5625rem;
+}
+
+.o-button-large:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 
 /*slider input*/
@@ -282,6 +355,7 @@ in case there is a background color that needs white color
 
 /*voor de value text de bol te doen volgen*/
 .o-slider-wrap{
+  padding-top: 1rem;
   position: relative;
 }
 .o-NumberPlayersValue{
@@ -462,7 +536,7 @@ flex-grow: 0.6;
 }
 
 #playerfields{
-  padding-top: 1rem;
+  padding-top: 1.5rem;
   width: 100%;
 }
 
@@ -488,6 +562,26 @@ flex-grow: 0.6;
 .c-custom-select-label{
   padding-top: 1rem;
 }
+.c-label-wrap{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+.c-info_button{
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--global-color-green);
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.c-info_image{
+  width: 1.5rem;
+  height: 1.5rem;
+}
 /*hamburger navigation*/
 
 .c-hamburgerNav{
@@ -497,7 +591,6 @@ flex-grow: 0.6;
 #nav_button{
   background-color: var(--global-color-green);
   width: 2.2rem;
-  height: 2.2rem;
   outline: none;
   border: none;
   cursor: pointer;
@@ -505,7 +598,7 @@ flex-grow: 0.6;
 #hidden_nav{  
   background-color: var(--global-color-white);
   width: 12rem;
-  height: 6rem;
+  height: 8rem;
   right: 0em;
   top: 0rem;
   border: none;
@@ -515,11 +608,17 @@ flex-grow: 0.6;
   align-items: center;
   flex-direction: column;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.16);
+  animation-name: navigation;
+  animation-duration: 0.5s;
 }
 
 #hidden_nav>div>a{
   font-size: 1rem;
   padding-left: 0.5rem;
+}
+#hidden_nav>div>a:hover{
+  color: #6d6d6d;
+  transition: color 0.2s;
 }
 .hidden_nav-line{
   width: 90%;
@@ -529,17 +628,110 @@ flex-grow: 0.6;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  animation-name: navigation-inside;
+  animation-name: navigation-border-bottom ;
+  animation-duration: 0.5s;
+}
+.hidden_nav-line>a, .hidden_nav-lastline>a{
+  animation-name: navigation-inside_a;
+  animation-duration: 0.5s;
 }
 .hidden_nav-firstline{
   padding-top: 0.4rem;
 }
 .hidden_nav-lastline{
   border-bottom: none;
+  width: 90%;
+  height: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  animation-name: navigation-inside;
+  animation-duration: 0.5s;
+}
+.c-slider-wrap-volume{
+  padding-top: 0.5rem;
+}
+
+.c-slider-title-volume{
+  animation-name: navigation-inside_a;
+  animation-duration: 0.5s;
+}
+.c-volume-slider{
+  -webkit-appearance: none;
+  width: 100%;
+  height: 1rem;
+  border-radius: var(--global-borderRadius);
+  outline: none;
+  background-color: var(--global-color-green);
+  border: 1px solid var(--global-color-green-darkest);
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  animation-name: navigation-volume-slider;
+  animation-duration: 0.5s;
+}
+.c-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--global-color-white);
+  cursor: pointer;
+  animation-name: navigation-volume-slider-thumb;
+  animation-duration: 0.5s;
+}
+.c-volume-slider::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--global-color-white);
+  cursor: pointer;
+  border: none;
+  animation-name: navigation-volume-slider-thumb;
+  animation-duration: 0.5s;
+}
+
+.hidden_nav-lastline>p,.hidden_nav-lastline>div{
+  padding-left: 0.5rem;
+}
+.c-slider-volume{
+  width: 10.2rem;
 }
 .hidden_nav-line>img{
   width: 1rem;
   cursor: pointer;
   padding-right: 0.5rem;
+  animation-name: hamburgerbuttonback;
+  animation-duration: 0.2s;
+}
+/*nav animation*/
+@keyframes navigation {
+  0%   {width: 0rem;height: 2rem;}
+  25%  {width: 12rem;height: 2rem;}
+  100%  {width: 12rem;height: 8rem;}
+}
+@keyframes navigation-inside {
+  0%   {height: 0rem;}
+  25%  {height: 0rem;}
+  100%  {height: 4rem;}
+}
+
+@keyframes navigation-inside_a {
+  0%   {opacity: 0;}
+  25%  {opacity: 0;}
+  100%  {opacity: 1;}
+}
+@keyframes navigation-volume-slider {
+  0%   {opacity: 0;}
+  25%  {opacity: 0;}
+  100%  {opacity: 1;}
+}
+@keyframes hamburgerbuttonback {
+  0%   {width: 0;}
+  25%  {width: 0;}
+  100%  {width: 1rem;}
 }
 /*transitionpage*/
 .c-waitPage{
@@ -590,7 +782,7 @@ flex-grow: 0.6;
   font-size: 2rem;
 }
 
-/*victory*/
+/*victory page*/
 .c-victory{
   flex-grow: 1;
   display: flex;
@@ -612,7 +804,7 @@ flex-grow: 0.6;
   padding-top: 2rem;
   font-size: 2.5rem;
 }
-/*lose page*/
+/*lose page page*/
 .c-lose{
   flex-grow: 1;
   display: flex;
@@ -628,6 +820,24 @@ flex-grow: 0.6;
   align-items: center;
   flex-direction: column;
   color: var(--global-color-white);
+}
+.c-nav-score{
+  padding: 2rem 0 0 0;
+}
+.c-scoreboard_container{
+  height: 24.5rem;
+  overflow-y: scroll;
+  margin: 0 0 1rem 0;
+}
+
+.c-scoreboard_container::-webkit-scrollbar {
+  width: 1rem;
+}
+
+.c-scoreboard_container::-webkit-scrollbar-thumb {
+  border-radius: 0.25rem;
+  background-color: var(--global-color-green-darkest);
+  border: 1px solid #4e884e;
 }
 .c-score-filter{
   display: flex;
@@ -739,6 +949,8 @@ flex-grow: 0.6;
   height: 1rem;
   border-radius: 50%;
   border: none;
+  outline: none;
+  cursor: pointer;
 }
 .c-footer-tutorial_button_green{
   background-color: #5DB25D;
@@ -774,6 +986,138 @@ flex-grow: 0.6;
   padding-top: 2rem;
   font-size: 1.5rem;
   text-align: center;
+}
+
+/*memory game page*/
+.c-memory{
+flex-grow: 1;
+color: var(--global-color-white);
+text-align: center;
+}
+.c-memory_mat{
+  padding: 1rem 0.5rem 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  width: 16rem;
+  height: 22rem;
+  background-color: var(--global-color-white);
+}
+.c-memory_mat-row{
+  display: flex;
+  justify-content: space-evenly;
+  height: 3.5rem;
+  align-items: center;
+}
+.c-nav-memory{
+  padding: 2rem 0 1rem 0;
+}
+.c-gamemode-memory-info{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+#memory-lvl{
+  padding: 0 0 0.5rem 0;
+}
+#memory-currplayer{
+  margin: 0 0 0.5rem 0;
+}
+.c-button-memory{
+  height: 2rem;
+  font-size: 1.5rem;
+}
+.c-footer-memory{
+  padding: 1rem;
+}
+/*wrap zorgt voor structuur goed te behouden als gekozen bol groter wordt*/
+.c-memory-vakwrap{
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.c-memory_mat-vak{
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  opacity: 0.2;
+}
+.c-memory_mat-vak__color-green{
+  background-color: var(--global-color-green);
+}
+.c-memory_mat-vak__color-yellow{
+  background-color: var(--global-color-yellow);
+}
+.c-memory_mat-vak__color-blue{
+  background-color: var(--global-color-blue);
+}
+.c-memory_mat-vak__color-red{
+  background-color: var(--global-color-red);
+}
+.c-memory-active{
+  opacity: 1;
+  width: 3rem;
+  height: 3rem;
+  transition: all 0.1s ease-in;
+}
+/*einde vakken mat*/
+
+.c-memory-voorkant{
+  color: var(--global-color-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 0 0 0;
+  font-size: 1.5rem;
+  align-items: center;
+}
+.c-memory-arrow{
+  width: 1rem;
+  height: auto;
+  transform: rotate(90deg);
+}
+
+/*info pages gamemodes*/
+.c-info{
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: var(--global-color-white);
+  text-align: center;
+}
+.c-info-image{
+  width: 8rem;
+}
+.c-info-text{
+  width: 90%;
+  font-size: 0.9rem;
+}
+.c-info_maxPlayers{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.c-info-maxPlayers_icons{
+
+}
+.c-info-maxPlayers_icon{
+  width: 1rem;
+  height: auto;
+}
+.c-info-maxPlayers_text{
+  margin: 1rem 0 0.5rem 0;
+}
+.c-nav_info{
+  padding: 2rem 0 0 0;
+}
+
+
+.c-info_footer{
+  display: flex;
+  justify-content: center;
 }
 
 /*------------------------------------*\
