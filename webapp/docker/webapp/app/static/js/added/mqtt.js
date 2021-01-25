@@ -1,6 +1,6 @@
 // mqtt client, user and device details
 var mqtt;
-var serverUrl   = "127.0.0.1";
+var serverUrl   = '{{ hostip }}';
 var port        = 9001;
 var clientId    = "clientID-" + parseInt(Math.random() * 100);  
 var device_name = "bobbie-pc";

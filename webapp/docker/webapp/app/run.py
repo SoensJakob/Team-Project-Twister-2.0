@@ -36,7 +36,7 @@ def initgame():
 
 @app.route('/game', methods=['GET'])
 def game():
-    return render_template('game.html')
+    return render_template('game.html', mqttip=hostip)
 
 @app.route('/scores', methods=['GET'])
 @app.route('/scores/<gamemode>', methods=['GET', 'POST'])
