@@ -1,6 +1,6 @@
 // mqtt client, user and device details
 var mqtt;
-var serverUrl   = "127.0.0.1";
+var serverUrl   = "";
 var port        = 9001;
 var clientId    = "clientID-" + parseInt(Math.random() * 100);  
 var device_name = "bobbie-pc";
@@ -11,7 +11,7 @@ var topic       = "/twisterboard";
 var out_msg     = "";
 var sqos        = 2;
 
-var reconnectTimeout    = 2000
+var reconnectTimeout    = 2000;
 var connected_flag      = 0;
 var undeliveredMessages = [];
 var clean_sessions      = true;
@@ -47,7 +47,7 @@ const onConnected = function(recon, url){
 	console.log(" in onConnected " + reconn);
 }
 
-function onConnect() {
+function onConnect(serverUrl) {
     connected_flag=1;
     console.log("Connected to " + serverUrl + ":" + port + " with clientid: " + clientId + "clean session= "+ clean_sessions)
     sub_topics();
