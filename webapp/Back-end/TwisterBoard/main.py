@@ -33,21 +33,20 @@ def cleanup():
     io.cleanup()
 
 def on_message(client, userdata, msg):
-    messages = json.loads(str(msg.payload.decode("utf-8")))
-    for message in messages:
-        try:
-            limb = message["limb"]
-            row = message["row"]
-            user = message["user"]
-            color = message["color"]
-            column = message["column"]
+    message = json.loads(str(msg.payload.decode("utf-8")))
+    try:
+        limb = message["limb"]
+        row = message["row"]
+        user = message["user"]
+        color = message["color"]
+        column = message["column"]
 
-            create_sound(user, limb, row, column)
-            create_listeners(user, limb, row, column)
-            if color != None:
-                create_color(color)            
-        except Exception as e:
-            pass
+        create_sound(user, limb, row, column)
+        create_listeners(user, limb, row, column)
+        if color != None:
+            create_color(color)            
+    except Exception as e:
+        pass
 
 def create_color(color):
     print(color)
@@ -63,6 +62,9 @@ def create_sound(user, limb, row, column):
     engine = pyttsx3.init()
     engine.say(f"speler {user} plaats je {limb} op {color}")
     engine.runAndWait()
+
+def change_volume(volume):
+    ngine.setProperty('volume',volume)
 
 def row_to_color(row):
     if row == "1":
@@ -96,6 +98,8 @@ try:
     connect()
     client.subscribe('/twisterboard')
     client.subscribe('/twisterspeaker')
+    engine = pyttsx3.init()
+
 
     client.loop_forever()
 except KeyboardInterrupt as e:
