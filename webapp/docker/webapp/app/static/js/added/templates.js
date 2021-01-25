@@ -8,6 +8,10 @@ let player_count  = 1;
 #Templates
 \*------------------------------------*/
 
+//--------------------------------------
+// Onboarding pages
+//--------------------------------------
+
 const Temp_TutorialPage1 = () => {
     document.querySelector('#indexpage').innerHTML = `
         <div class="o-container u-background-color-green">
@@ -103,6 +107,10 @@ const Temp_TutorialPage3 = () => {
     document.querySelector('#BtnTutPage2').addEventListener('click', function (){ Temp_TutorialPage2() });
 }
 
+//--------------------------------------
+// index page
+//--------------------------------------
+
 const Temp_Index = () => {
     document.querySelector('#indexpage').innerHTML = `
         <div id="indexpage"></div>
@@ -159,6 +167,10 @@ const Temp_InfoTwister = () => {
     document.querySelector('#InfoMemory').addEventListener('click', function() { Temp_InfoMemory(); });
 }
 
+//--------------------------------------
+// game info pages
+//--------------------------------------
+
 const Temp_InfoMemory = () => {
     document.querySelector('#initgamewindow').innerHTML = ``;
     document.querySelector('#initgamewindow').innerHTML = `
@@ -198,6 +210,10 @@ const Temp_InfoMemory = () => {
     `;
     document.querySelector('#InfoTwister').addEventListener('click', function() { Temp_InfoTwister(); });
 }
+
+//--------------------------------------
+// game initiliaze pages
+//--------------------------------------
 
 const Temp_SelectGameOptions = () => {
     document.querySelector('#initgamewindow').innerHTML = `
@@ -360,6 +376,11 @@ const Temp_SelectPlayers = (minplayers, maxplayers) => {
         setBubble(range, bubble);
     });
 }
+
+
+//--------------------------------------
+// game pages
+//--------------------------------------
 
 const Temp_WaitingScreen = (time, player, gamemode, gametimer) => {
     if (!player) {
