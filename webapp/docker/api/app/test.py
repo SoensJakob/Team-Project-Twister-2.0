@@ -20,7 +20,7 @@ def getscores():
 def savescores(par_scoresdict):
     try:
         jsonobj = json.dumps(par_scoresdict)
-        with open("./api/app/scores.json", "a") as f:
+        with open("C:/Project/api/scores.json", "a") as f:
             f.write(jsonobj)
             f.write("\n")
         f.close()
@@ -47,5 +47,3 @@ def testrequest(gamemode=None):
     json_objs = json.loads(r.text) 
     print(json_objs)
 
-test = getfilteredscores()
-print(test)
