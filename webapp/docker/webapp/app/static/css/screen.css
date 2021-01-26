@@ -448,6 +448,10 @@ front page
   align-items: center;
   justify-content: center;
 }
+.c-title-index{
+  padding: 0 0 2rem 0;
+  font-size: 2.2rem;
+}
 .c-startpage-main{
   display: flex;
   align-items: center;
@@ -820,6 +824,9 @@ flex-grow: 0.6;
 .c-lose-name{
   font-size: 1.5rem;
 }
+.c-lose-footer{
+  font-size: 1.6rem;
+}
 .c-score{
   flex-grow: 1;
   display: flex;
@@ -834,6 +841,21 @@ flex-grow: 0.6;
   height: 24.5rem;
   overflow-y: scroll;
   margin: 0 0 1rem 0;
+}
+
+.c-footer-score{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 1.5rem 1.5rem 0 0;
+  height: 8rem;
+  width: 100%;
+}
+.c-footer-score_button{
+  margin: 0.2rem;
+  font-size: 1.35rem;
+  height: 1.5rem;
 }
 
 .c-scoreboard_container::-webkit-scrollbar {

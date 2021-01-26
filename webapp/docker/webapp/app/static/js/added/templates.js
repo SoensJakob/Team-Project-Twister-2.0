@@ -120,17 +120,40 @@ const Temp_TutorialPage3 = () => {
 
 const Temp_Index = () => {
     document.querySelector('#indexpage').innerHTML = `
-        <div id="indexpage"></div>
-            <div class="o-container u-justify-bottom">
-                <header class="c-startpage-header">
-                    <h1>Twister 2.0</h1>
-                </header>
-                <main class="c-startpage-main">
-                    <img class="c-startpage-image" src="../static/img/logo.png" alt="logo Twister">
-                    <a href="/initgame"><button class="o-button c-startpage-button"><span>start</span></button></a>
-                </main>
+    <div id="indexpage"></div>
+    <div class="o-container u-justify-bottom">
+        <nav class="o-nav o-nav-white">
+            <!--nav item dat leeg is om hamburger structuur te behouden-->
+            <a>  
+            </a>
+            <div class="c-hamburgerNav">
+                <button id="nav_button">
+                <img src="../static/img/hamburger.svg" alt="navigation"></button>
+                <div id="hidden_nav">
+                    <div class="hidden_nav-line hidden_nav-firstline">
+                        <a href="/scores"><p>scoreborden</p></a>
+                        <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
+                    </div>
+                    <div class="hidden_nav-line hidden_nav-lastline">
+                    <p class="c-slider-title-volume">volume</p>
+                    <div class="c-slider-volume">   
+                        <div class="c-slider-wrap-volume">         
+                            <input type="range" min="0" max="100" value="50" class="c-volume-slider" id="volume">
+                        </div>
+                    </div> 
+                    </div>
+                </div>
             </div>
-        </div>
+        </nav>
+        <header class="c-startpage-header">
+            <h1 class="c-title-index">Twister 2.0</h1>
+        </header>
+        <main class="c-startpage-main">
+            <img class="c-startpage-image" src="../static/img/logo.png" alt="logo Twister">
+            <a href="/initgame"><button class="o-button c-startpage-button"><span>start</span></button></a>
+        </main>
+    </div>
+    </div>
     `;
 }
 
@@ -410,13 +433,16 @@ const Temp_WaitingScreen = (time, player, gamemode, gametimer) => {
     else if (player) {
         document.querySelector('#gamewindow').innerHTML = `
             <div class="o-container u-justify-bottom u-background-color-white">
+                <!--lege nav voor zelfde padding op elke pagina te hebben-->
+                <nav class="o-nav">
+                </nav>
                 <main class="c-lose">
                     <h1>game over</h1>
                     <p class="c-lose-name" id="currentplayer">voor ${player}</p>
                     <img class="c-victory_img" src="../static/img/to_late.png" alt="victory crown">
                 </main>
                 <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
-                    <button type="button" class="o-button-large" id="ContinueGame"><span>Doorgaan</span></button>
+                    <button type="button" class="o-button-large c-lose-footer" id="ContinueGame"><span>spelpagina</span></button>
                 </footer>
             </div>
         `;
@@ -589,8 +615,10 @@ const Temp_EndGameOverview = (player_info) => {
                 <!--hier begint de score-->
             </div>
         </main>
-        <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-            <button type="button" class="o-button-large" id="Continue"><span>Doorgaan</span></button>
+        <!--nieuwe knoppen-->
+        <footer class="c-footer-score u-footer-background-color-green u-footer-border-color-green">
+            <button type="button" class="o-button-large c-footer-score_button" id="Spelpagina"><span>Spelpagina</span></button>
+            <button type="button" class="o-button-large c-footer-score_button" id="scoreborden"><span>scoreborden</span></button>
         </footer>
     </div>
     `;
