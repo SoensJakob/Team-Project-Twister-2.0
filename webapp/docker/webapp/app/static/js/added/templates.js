@@ -587,7 +587,6 @@ const Temp_EndGameOverview = (player_info) => {
         </footer>
     </div>
     `;
-    document.querySelector('#Continue').addEventListener('click', function() {window.location.href='/scores'})
     let i = 1;
     player_info.forEach(player => {
         if (i == 1) {
@@ -623,6 +622,7 @@ const Temp_EndGameOverview = (player_info) => {
         }
         i++;
     });
+    document.querySelector('#Continue').addEventListener('click', function() {window.location.href='/initgames'});
 }
 
 /*------------------------------------*\
