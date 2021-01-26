@@ -43,7 +43,7 @@ def cleanup():
 
 def on_message(client, userdata, msg):
     message = json.loads(str(msg.payload.decode("utf-8")))
-    if msg.topic == '/twisterboard':
+    if str(msg.topic.decode("utf-8")) == '/twisterboard':
         try:
             limb = message["limb"]
             row = message["row"]
@@ -77,6 +77,16 @@ def get_row_column(button):
 
 def create_color(color):
     print(color)
+
+def listen_to_color(row):
+    i = True
+    while(i):
+        sleep(interval/4)
+        for x in buttons[row]:
+            y = io.input(x)
+            if y == 0:
+                checkable_buttons.append(x)
+                i = False
 
 def check_buttons():
     while(True):
@@ -127,9 +137,6 @@ try:
     connect()
     client.subscribe('/twisterboard')
     client.subscribe('/twisterspeaker')
-    engine = pyttsx3.init()
-
-
     client.loop_forever()
 
     x = Thread(target=check_buttons)
