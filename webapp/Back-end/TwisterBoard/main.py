@@ -84,7 +84,7 @@ def listen_to_color(row):
         sleep(interval/4)
         for x in buttons[row]:
             y = io.input(x)
-            if y == 0 and x not in check_buttons:
+            if y == 0 and x not in checkable_buttons:
                 checkable_buttons.append(x)
                 i = False
 
