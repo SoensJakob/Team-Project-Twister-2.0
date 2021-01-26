@@ -1,11 +1,13 @@
 import qrcode
+import tkinter as tk
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import subprocess
 from time import sleep
 from PIL import Image
 
-img = qrcode.make(192.168.4.1)
-img.save('./code_qr.png')
+img = qrcode.make('Hoi')
 
-im = Image.open("code_qr.jpg")
+im = Image.open("test.png")
 im.show()
 sleep(5)
