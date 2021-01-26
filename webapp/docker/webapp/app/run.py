@@ -40,8 +40,9 @@ def scores(gamemode=None):
 
     if request.method == 'GET':
         try:
-            r = requests.get(f'http://{hostip}:5000/scores/{gamemodex}')
-            json_resp = r.json()
+            resp = getscores(gamemodex)
+            print("-- get -- ", resp)
+            json_resp = json.loads(json.dumps(resp))
             return render_template('scores.html', gamemode=gamemodex, gamescores=json_resp)
         except Exception as e:
             print("main - scores error get: ", e)
@@ -50,16 +51,44 @@ def scores(gamemode=None):
     if request.method == 'POST':
         try:
             jsonscores = json.loads(request.data) 
-            r = requests.post(f'http://{hostip}:5000/scores', json=jsonscores)
+            print("-- post -- ", jsonscores)
+            savescores(jsonscores)
             return "succes"
             
         except Exception as e:
             print("main - scores error post: ", e)
             return "failed"
 
-@app.route('/test', methods=['GET'])
-def test():
-    return render_template('test.html')
+def getscores(gamemode):
+    try:
+        gamemodex = gamemode if gamemode is not None else "twister-classic"
+        filteredscoreslist = []
+        with open("./data/scores.json") as f:
+            for score in f:
+                scoresdict = json.loads(score)
+                if scoresdict["gamemode"] == gamemodex:
+                    for playerscore in scoresdict["playerinfo"]:
+                        filteredscoreslist.append(playerscore)
+        f.close()
+        filteredscoreslist = sorted(filteredscoreslist, key=lambda k: k.get('score', 0), reverse=True)
+        return filteredscoreslist
+    except Exception as e:
+        print('api error in get scores:', e)
+        return "failed"
+
+def savescores(score):
+    try:
+        jsonobj = json.dumps(score)
+        with open("./data/scores.json", "a") as f:
+            f.write(jsonobj)
+            f.write("\n")
+        f.close()
+        return "succes"
+    except Exception as e:
+        print('flask error in savescore:', e)
+        return "failed"
+
+    
 
 
 if __name__ == '__main__':
