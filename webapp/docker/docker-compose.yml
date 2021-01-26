@@ -15,8 +15,3 @@ services:
     restart: always
     depends_on: 
       - mqtt 
-  mqtt:
-    image: toke/mosquitto
-    ports:
-      - 9001:9001
-    restart: always
