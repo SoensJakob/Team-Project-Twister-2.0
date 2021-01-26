@@ -44,16 +44,17 @@ def cleanup():
 def on_message(client, userdata, msg):
     message = json.loads(str(msg.payload.decode("utf-8")))
     topic = msg.topic
-    print(topic)
+    print(message)
     if topic == '/twisterboard':
         try:
             limb = message["limb"]
-            row = message["row"]
-            user = message["user"]
+            row = int(message["row"])
+            user = message["player"]
             color = message["color"]
             column = message["column"]
-
-            create_sound(user, limb, row, column)
+            Thread(target=create_sound, args=(user, limb, row, column,)).start()
+            if column == 0: 
+                listen_to_color(row)
             button = get_button(row, column)
             checkable_buttons.append(button)
             if color != None:
@@ -67,6 +68,7 @@ def on_message(client, userdata, msg):
 def get_button(row, column):
     list_row = buttons[row]
     button = list_row[column]
+    print(button)
     return button
 
 def get_row_column(button):
@@ -87,8 +89,11 @@ def listen_to_color(row):
         sleep(interval/4)
         for x in buttons[row]:
             y = io.input(x)
-            if y == 0:
+            if y == 0 and (x not in checkable_buttons):
                 checkable_buttons.append(x)
+                places = get_row_column(x)
+                msg = json.dumps({"buttonpressed":[{"row":int(places[0]), "column":int(places[1])}]})
+                client.publish('/twisterboard', msg, 2)
                 i = False
 
 def check_buttons():
@@ -99,7 +104,7 @@ def check_buttons():
             if y == 1:
                 checkable_buttons.remove(y)
                 places = get_row_column(y)
-                msg = json.dumps({'buttonreleased':[{"row":int(places[0]), "column":int(places[1])}]})
+                msg = json.dumps({"buttonreleased":[{"row":int(places[0]), "column":int(places[1])}]})
                 client.publish('/twisterboard', msg, 2)
     
 
@@ -138,8 +143,8 @@ try:
     client = mqtt.Client(transport="websockets")
     client.on_message = on_message
     connect()
-    client.subscribe('/twisterboard')
-    client.subscribe('/twisterspeaker')
+    client.subscribe('/twisterboard', 2)
+    client.subscribe('/twisterspeaker', 2)
     client.loop_forever()
 
     x = Thread(target=check_buttons)
