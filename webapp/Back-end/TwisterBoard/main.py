@@ -42,6 +42,7 @@ def cleanup():
     io.cleanup()
 
 def on_message(client, userdata, msg):
+    global volume
     message = json.loads(str(msg.payload.decode("utf-8")))
     topic = msg.topic
     print(message)
