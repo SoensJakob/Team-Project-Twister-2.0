@@ -843,6 +843,21 @@ flex-grow: 0.6;
   margin: 0 0 1rem 0;
 }
 
+.c-footer-score{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 1.5rem 1.5rem 0 0;
+  height: 8rem;
+  width: 100%;
+}
+.c-footer-score_button{
+  margin: 0.2rem;
+  font-size: 1.35rem;
+  height: 1.5rem;
+}
+
 .c-scoreboard_container::-webkit-scrollbar {
   width: 1rem;
 }

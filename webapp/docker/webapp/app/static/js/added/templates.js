@@ -632,8 +632,10 @@ const Temp_EndGameOverview = (player_info) => {
                 <!--hier begint de score-->
             </div>
         </main>
-        <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-            <button type="button" class="o-button-large" id="Continue"><span>Doorgaan</span></button>
+        <!--nieuwe knoppen-->
+        <footer class="c-footer-score u-footer-background-color-green u-footer-border-color-green">
+            <button type="button" class="o-button-large c-footer-score_button" id="Spelpagina"><span>Spelpagina</span></button>
+            <button type="button" class="o-button-large c-footer-score_button" id="scoreborden"><span>scoreborden</span></button>
         </footer>
     </div>
     `;
