@@ -448,6 +448,10 @@ front page
   align-items: center;
   justify-content: center;
 }
+.c-title-index{
+  padding: 0 0 2rem 0;
+  font-size: 2.2rem;
+}
 .c-startpage-main{
   display: flex;
   align-items: center;
@@ -819,6 +823,9 @@ flex-grow: 0.6;
 }
 .c-lose-name{
   font-size: 1.5rem;
+}
+.c-lose-footer{
+  font-size: 1.6rem;
 }
 .c-score{
   flex-grow: 1;
