@@ -1,9 +1,8 @@
 import os
 import sys
 import json
-from sys import platform
-from pydantic import BaseModel
 from json.decoder import JSONDecodeError
+from pydantic import BaseModel
 from fastapi import FastAPI, Response
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
@@ -20,8 +19,6 @@ class Score(BaseModel):
     gamemode: str
     playerinfo: list=[Player]
 
-scorespath = "./data/scores.json"
-
 app = FastAPI()
 
 @app.get("/scores/{gamemode}")
@@ -29,7 +26,7 @@ async def get_scores(gamemode: str = None):
     try:
         gamemodex = gamemode if gamemode is not None else "twister-classic"
         filteredscoreslist = []
-        with open(scorespath, "r") as f:
+        with open("scores.json") as f:
             for score in f:
                 scoresdict = json.loads(score)
                 if scoresdict["gamemode"] == gamemodex:
@@ -46,7 +43,7 @@ async def get_scores(gamemode: str = None):
 async def add_scores(score: Score):
     try:
         jsonobj = json.dumps(jsonable_encoder(score))
-        with open(scorespath, "a") as f:
+        with open("scores.json", "a") as f:
             f.write(jsonobj)
             f.write("\n")
         f.close()
@@ -55,4 +52,3 @@ async def add_scores(score: Score):
         print('api error in post scores:', e)
         return "failed"
     
-

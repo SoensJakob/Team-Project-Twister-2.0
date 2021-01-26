@@ -220,6 +220,7 @@ const EndGame = () => {
             console.log('game - gamemechanics warning: scores are not saved');
         }
     });
+    Temp_EndGame(player_info.playerinfo);
 }
 
 const GetTwisterColor = () => {
