@@ -121,7 +121,7 @@ const Temp_Index = () => {
         <div id="indexpage"></div>
             <div class="o-container u-justify-bottom">
                 <header class="c-startpage-header">
-                    <h1>Twister Name</h1>
+                    <h1>Twister 2.0</h1>
                 </header>
                 <main class="c-startpage-main">
                     <img class="c-startpage-image" src="../static/img/logo.png" alt="logo Twister">
@@ -318,7 +318,7 @@ const Temp_WaitingScreen = (time, player, gamemode, gametimer) => {
                     <img class="c-victory_img" src="../static/img/to_late.png" alt="victory crown">
                 </main>
                 <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
-                    <button type="button" class="o-button-large" id="ContinueGame"><span>continue</span></button>
+                    <button type="button" class="o-button-large" id="ContinueGame"><span>doorgaan</span></button>
                 </footer>
             </div>
         `;
