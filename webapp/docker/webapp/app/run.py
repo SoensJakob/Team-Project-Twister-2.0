@@ -11,11 +11,16 @@ from flask import url_for, render_template, request, redirect, session, g
 
 app = Flask(__name__)
 
-hostip = "192.168.0.173"
-# rpi static : 192.168.3.1
-# r thuis: 192.168.0.173
-# r school: 172.30.252.7
-# edd : 192.168.0.25
+try:
+    from subprocess import check_output
+    ips = check_output(['hostname', '--all-ip-addresses'])
+    ips = ips.decode('utf-8')
+    hostip = ips[:13]
+except:
+    hostip = "192.168.0.25"
+    #r thuis: 192.168.0.173
+    #r school : 172.30.252.7
+    #edd : 192.168.0.25
 
 @app.route('/', methods=['GET'])
 def home():
@@ -31,7 +36,7 @@ def initgame():
 
 @app.route('/game', methods=['GET'])
 def game():
-    return render_template('game.html', mqttip=hostip)
+    return render_template('game.html')
 
 @app.route('/scores', methods=['GET'])
 @app.route('/scores/<gamemode>', methods=['GET', 'POST'])
