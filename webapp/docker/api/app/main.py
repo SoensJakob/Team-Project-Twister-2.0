@@ -29,7 +29,7 @@ async def get_scores(gamemode: str = None):
     try:
         gamemodex = gamemode if gamemode is not None else "twister-classic"
         filteredscoreslist = []
-        with open(scorespath, "r") as f:
+        with open(scorespath) as f:
             for score in f:
                 scoresdict = json.loads(score)
                 if scoresdict["gamemode"] == gamemodex:
@@ -37,15 +37,19 @@ async def get_scores(gamemode: str = None):
                         filteredscoreslist.append(playerscore)
         f.close()
         filteredscoreslist = sorted(filteredscoreslist, key=lambda k: k.get('score', 0), reverse=True)
+        print("--api--")
+        print(filteredscoreslist)
         return filteredscoreslist
     except Exception as e:
         print('api error in get scores:', e)
         return "failed"
 
-@app.post("/scores") # werkt maar scores.json moet nog in volume, docker maakt snapchot bij opstart en kan geen txt files editn
+@app.post("/scores")
 async def add_scores(score: Score):
     try:
         jsonobj = json.dumps(jsonable_encoder(score))
+        print("--post api--")
+        print(jsonobj)
         with open(scorespath, "a") as f:
             f.write(jsonobj)
             f.write("\n")

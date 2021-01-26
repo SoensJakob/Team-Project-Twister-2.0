@@ -79,7 +79,7 @@ function colourNameToHex(color)
 const StartGame = () => {     
     let gamesettings = JSON.parse(localStorage.getItem('gamesettings'));
     let players = JSON.parse(localStorage.getItem('gameplayers'));
-    player_info['gamemode'] = gamesettings.gamemode;
+    player_info['gamemode'] = gamesettings.gamemode.toLowerCase();
     for([key, val] of Object.entries(players)) {
         player_info['playerinfo'].push({'name': val, 'score': 0, 'alive':1});
         playercount++;

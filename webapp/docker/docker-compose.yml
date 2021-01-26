@@ -1,16 +1,22 @@
 version: '3.6'
 services:
-  api:
-    build: ./api
-    ports:
-        - 5000:80
-    restart: always
-    volumes:
-      - ./api/app/data:/project-api
   webapp:
     image: dan0n/flask-alpine:python3.6
     build: ./webapp
     ports:
       - 80:80
     restart: always
+<<<<<<< HEAD
     
+=======
+    volumes:
+      - ./webapp/app/data:/project-api
+    depends_on: 
+      - mqtt 
+  mqtt:
+    image: eclipse-mosquitto
+    build: ./mqtt
+    ports:
+      - 9001:9001
+    restart: always
+>>>>>>> cb1c42c48e6ed0d3136ac08d6c5d954a0aec0722
