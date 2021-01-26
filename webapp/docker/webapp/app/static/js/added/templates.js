@@ -1,8 +1,3 @@
-$(document).ready(
-    function () { 
-        $("body").hide().fadeIn(1000);
-});
-
 /*------------------------------------*\
 #Global variables for templates
 \*------------------------------------*/
@@ -12,6 +7,10 @@ let player_count  = 1;
 /*------------------------------------*\
 #Templates
 \*------------------------------------*/
+
+//--------------------------------------
+// Onboarding pages
+//--------------------------------------
 
 const Temp_TutorialPage1 = () => {
     document.querySelector('#indexpage').innerHTML = `
@@ -25,11 +24,9 @@ const Temp_TutorialPage1 = () => {
                 </a>
             </nav>
             <main class="c-tutorial">
-                <h1 class="c-tutorial-title">Welcome to Twister 2.0</h1>
-                <p class="c-tutorial__text">The digital version of twister where you 
-                    and your friends can play multiple 
-                    unique game modes!</p>
-                <button class="o-button" id="BtnTutNext">continue</button>
+                <h1 class="c-tutorial-title">Welkom bij Twister 2.0</h1>
+                <p class="c-tutorial__text">De digitale versie van twister waar je met je vrienden unieke spelletjes kan spelen!</p>
+                <button class="o-button" id="BtnTutNext">Doorgaan</button>
             </main>
             <footer class="c-footer-tutorial">
                 <div class="c-footer-navigation">
@@ -42,7 +39,6 @@ const Temp_TutorialPage1 = () => {
     `;
     document.querySelector('#BtnTutSkip').addEventListener('click', function (){ localStorage.setItem('TutSkipped', true); Temp_Index()});
     document.querySelector('#BtnTutNext').addEventListener('click', function (){ Temp_TutorialPage2() });
-    document.querySelector('#BtnTutPage1').addEventListener('click', function (){ Temp_TutorialPage1() });
     document.querySelector('#BtnTutPage2').addEventListener('click', function (){ Temp_TutorialPage2() });
     document.querySelector('#BtnTutPage3').addEventListener('click', function (){ Temp_TutorialPage3() });
 }
@@ -59,12 +55,10 @@ const Temp_TutorialPage2 = () => {
             </a>
         </nav>
         <main class="c-tutorial">
-            <h1 class="c-tutorial-title_with-image">First select a gamemode</h1>
+            <h1 class="c-tutorial-title_with-image">Duid eerst een spelmodus aan</h1>
             <img class="c-tutorial-image" src="../static/img/phone.png" alt="phone">
-            <p class="c-tutorial__text-image">Twister 2.0 has a wide variety of unique
-                gamemodes that you can play with
-                your friends! </p>
-            <button class="o-button" id="BtnTutNext">continue</button>
+            <p class="c-tutorial__text-image">Twister 2.0 heeft een breede keuze aan unieke spelletjes dat je met je vrienden kan spelen! </p>
+            <button class="o-button" id="BtnTutNext">Doorgaan</button>
         </main>
         <footer class="c-footer-tutorial">
         <div class="c-footer-navigation">
@@ -78,7 +72,6 @@ const Temp_TutorialPage2 = () => {
     document.querySelector('#BtnTutSkip').addEventListener('click', function (){ localStorage.setItem('TutSkipped', true); Temp_Index()});
     document.querySelector('#BtnTutNext').addEventListener('click', function (){ Temp_TutorialPage3() });
     document.querySelector('#BtnTutPage1').addEventListener('click', function (){ Temp_TutorialPage1() });
-    document.querySelector('#BtnTutPage2').addEventListener('click', function (){ Temp_TutorialPage2() });
     document.querySelector('#BtnTutPage3').addEventListener('click', function (){ Temp_TutorialPage3() });
 }
 
@@ -94,11 +87,10 @@ const Temp_TutorialPage3 = () => {
             </a>
         </nav>
         <main class="c-tutorial">
-            <h1 class="c-tutorial-title_with-groupimage">choose the amount of players</h1>
+            <h1 class="c-tutorial-title_with-groupimage">Kies de aantal spelers</h1>
             <img class="c-tutorial-groupImage" src="../static/img/group.svg" alt="phone">
-            <p class="c-tutorial__text-image_group">Choose the amount of players
-                and play the game!</p>
-            <button class="o-button" id="BtnTutNext">continue</button>
+            <p class="c-tutorial__text-image_group">Duid aan met hoeveel spelers jullie zijn en start het spel!</p>
+            <button class="o-button" id="BtnTutNext">Doorgaan</button>
         </main>
         <footer class="c-footer-tutorial">
         <div class="c-footer-navigation">
@@ -113,8 +105,11 @@ const Temp_TutorialPage3 = () => {
     document.querySelector('#BtnTutNext').addEventListener('click', function (){ Temp_Index() });
     document.querySelector('#BtnTutPage1').addEventListener('click', function (){ Temp_TutorialPage1() });
     document.querySelector('#BtnTutPage2').addEventListener('click', function (){ Temp_TutorialPage2() });
-    document.querySelector('#BtnTutPage3').addEventListener('click', function (){ Temp_TutorialPage3() });
 }
+
+//--------------------------------------
+// index page
+//--------------------------------------
 
 const Temp_Index = () => {
     document.querySelector('#indexpage').innerHTML = `
@@ -132,20 +127,108 @@ const Temp_Index = () => {
     `;
 }
 
+//--------------------------------------
+// game info pages
+//--------------------------------------
+
+const Temp_InfoTwister = () => {
+    document.querySelector('#initgamewindow').innerHTML = ``;
+    document.querySelector('#initgamewindow').innerHTML = `
+        <div class="o-container u-background-color-green">
+            <nav class="o-nav o-nav-white c-nav_info">
+                <a href="/initgame" class="o-backbutton o-backbutton_white">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p>Terug</p>
+                </a>
+            </nav>
+            <main class="c-info">
+                <h1>Twister</h1>
+                <img class="c-info-image" src="../static/img/twistermat.png" alt="twistermat">
+                <h2>Hoe speel je het?</h2>
+                <p class="c-info-text">
+                    Iedere speler krijgt om de beurt een actie.
+                    Een actie bestaat uit een kleur en een lichaamsdeel.
+                    De speler moet dan deze actie uitvoeren op de twistermat.
+                </p>
+                <div class="c-info_maxPlayers">
+                    <h3 class="c-info-maxPlayers_text">max spelers: 4</h3>
+                    <div class="c-info-maxPlayers_icons">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                    </div>
+                </div>
+            </main>
+            <footer class="c-footer-tutorial">
+                <div class="c-footer-navigation">
+                    <button class="c-footer-tutorial_button c-footer-tutorial_button_green c-footer-tutorial_button__white" id="InfoTwister"></button>
+                    <button class="c-footer-tutorial_button c-footer-tutorial_button_green" id="InfoMemory"></button>
+                </div>
+            </footer>
+        </div>
+    `;
+    document.querySelector('#InfoMemory').addEventListener('click', function() { Temp_InfoMemory(); });
+}
+
+const Temp_InfoMemory = () => {
+    document.querySelector('#initgamewindow').innerHTML = ``;
+    document.querySelector('#initgamewindow').innerHTML = `
+        <div class="o-container u-background-color-green">
+            <nav class="o-nav o-nav-white c-nav_info">
+                <a href="/initgame" class="o-backbutton o-backbutton_white">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p>Terug</p>
+                </a>
+            </nav>
+            <main class="c-info">
+                <h1>Memory</h1>
+                <img class="c-info-image" src="../static/img/twistermat.png" alt="twistermat">
+                <h2>Hoe speel je het?</h2>
+                <p class="c-info-text">
+                    Iedere speler krijgt een volgorde van platen die oplichten.
+                    Het is de bedoeling dat de speler deze volgorde op de mat nabootst.
+                    Elke keer een volgorde succesvol is nagebootst wordt het spel moeilijker!
+                </p>
+                <div class="c-info_maxPlayers">
+                    <h3 class="c-info-maxPlayers_text">max spelers: 4</h3>
+                    <div class="c-info-maxPlayers_icons">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                        <img class="c-info-maxPlayers_icon" src="../static/img/person.png" alt="person">
+                    </div>
+                </div>
+            </main>
+            <footer class="c-footer-tutorial">
+                <div class="c-footer-navigation">
+                    <button class="c-footer-tutorial_button c-footer-tutorial_button_green" id="InfoTwister"></button>
+                    <button class="c-footer-tutorial_button c-footer-tutorial_button_green c-footer-tutorial_button__white" id="InfoMemory"></button>
+                </div>
+            </footer>
+        </div>
+    `;
+    document.querySelector('#InfoTwister').addEventListener('click', function() { Temp_InfoTwister(); });
+}
+
+//--------------------------------------
+// game initiliaze pages
+//--------------------------------------
+
 const Temp_SelectGameOptions = () => {
     document.querySelector('#initgamewindow').innerHTML = `
     <div class="o-container u-background-color-green u-justify-bottom">
         <nav class="o-nav o-nav-white">
             <a href="/" class="o-backbutton o-backbutton_white">
                 <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                <p>Back</p>
+                <p>Terug</p>
             </a>
             <div class="c-hamburgerNav">
                 <button id="nav_button">
                 <img src="../static/img/hamburger.svg" alt="navigation"></button>
                 <div id="hidden_nav">
                     <div class="hidden_nav-line hidden_nav-firstline">
-                        <a href="/scores"><p>leaderboards</p></a>
+                        <a href="/scores"><p>scoreborden</p></a>
                         <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
                     </div>
                     <div class="hidden_nav-line hidden_nav-lastline">
@@ -162,11 +245,11 @@ const Temp_SelectGameOptions = () => {
         <main class="c-SelectGameOptions">
             <div class="o-row">
                 <div class="c-label-wrap">
-                    <label class="c-custom-select-label" for="GameMode">Gamemode:</label>
-                    <a id="linkInfo" href="infopageTwister.html"><button class="c-info_button" onclick=""><img class="c-info_image" src="../static/img/info.png" alt="info"></button></a>
+                    <label class="c-custom-select-label" for="GameMode">Spelmodus:</label>
+                    <a id="linkInfo"><button class="c-info_button" id="BtnShowInfo"><img class="c-info_image" src="../static/img/info.png" alt="info"></button></a>
                 </div>
                 <select id="GameMode" class="o-select">
-                    <option value="Twister-Classic">Twister Classic</option>
+                    <option value="Twister-Classic">Twister</option>
                     <option value="Memory" >Memory</option>
                 </select>
             </div>
@@ -183,10 +266,26 @@ const Temp_SelectGameOptions = () => {
             </div>
         </main>
         <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-            <button type="button" class="o-button-large" id="BtnValidateGameOptions"><span>play</span></button>
+            <button type="button" class="o-button-large" id="BtnValidateGameOptions"><span>Speel</span></button>
         </footer>
     </div>
     `;
+    document.querySelector("#BtnShowInfo").addEventListener('click', function () {
+        let gamemode = document.querySelector("#GameMode").value;
+        console.log(gamemode);
+        switch (gamemode) {
+            case "Twister-Classic":
+                Temp_InfoTwister();
+                break;
+            case "Memory":
+                Temp_InfoMemory();
+                break;
+        
+            default:
+                console.log('failed to show infopage - wrong gamemode selected');
+                break;
+        }
+    })
     document.querySelector("#BtnValidateGameOptions").addEventListener("click", ValidateGameSettings);
     /*hier komt hamburger js */
     document.getElementById("HamburgerbuttonBack").addEventListener("click", function(){
@@ -213,18 +312,6 @@ const Temp_SelectGameOptions = () => {
             nb.style.borderRadius = "1rem 1rem 0 0";
         }
     })
-    /* juiste link info page*/
-    document.querySelector("#GameMode").addEventListener("change", function(){
-        switch (this.value) {
-            case "Twister-Classic":
-                let linktwister = document.getElementById("linkInfo");
-                linktwister.setAttribute("href", "infopageTwister.html");
-                break;
-            case "Memory":
-                let linkmemory = document.getElementById("linkInfo");
-                linkmemory.setAttribute("href", "infopageMemory.html");
-        }
-    });
 
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
@@ -252,12 +339,12 @@ const Temp_SelectPlayers = (minplayers, maxplayers) => {
             <nav class="o-nav o-nav-white">
                 <a href="/initgame" class="o-backbutton o-backbutton_white">
                     <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                    <p>Back</p>
+                    <p>Terug</p>
                 </a>
             </nav>
             <main class="c-numberPlayers">
                 <div class="c-numberPlayers-slider">
-                    <p>number of players</p>
+                    <p>Aantal spelers</p>
                     <div class="o-slider-wrap">
                         <input type="range" min="1" max="${maxplayers}" value="1" class="o-slider" id="myRange">
                         <span class="o-NumberPlayersValue"></span>
@@ -265,13 +352,13 @@ const Temp_SelectPlayers = (minplayers, maxplayers) => {
                 </div>
                 <div id="playerfields">    
                     <div class="o-row c-newplayer">
-                        <label for="playername">name player:</label>
-                        <input type="text" class="c-inputplayer" placeholder="name..." name="playername" maxlength="10" required>
+                        <label for="playername">naam speler:</label>
+                        <input type="text" class="c-inputplayer" placeholder="naam..." name="playername" maxlength="10" required>
                     </div> 
                 </div>
             </main>
             <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
-                <button type="button" class="o-button-large" id="BtnValidatePlayers"><span>play</span></button>
+                <button type="button" class="o-button-large" id="BtnValidatePlayers"><span>speel</span></button>
             </footer>
         </div>
     `;
@@ -290,6 +377,10 @@ const Temp_SelectPlayers = (minplayers, maxplayers) => {
     });
 }
 
+//--------------------------------------
+// game pages
+//--------------------------------------
+
 const Temp_WaitingScreen = (time, player, gamemode, gametimer) => {
     if (!player) {
         document.querySelector('#gamewindow').innerHTML = `
@@ -297,12 +388,12 @@ const Temp_WaitingScreen = (time, player, gamemode, gametimer) => {
                 <nav class="o-nav">
                     <a href="/" class="o-backbutton o-backbutton_white">
                         <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
-                        <p>Back</p>
+                        <p>Terug</p>
                     </a>
                 </nav> 
                 <main class="c-waitPage">
-                    <h1 class="c-ready">Get Ready</h1>
-                    <h2>The game starts in:</h2>
+                    <h1 class="c-ready">Maak je klaar</h1>
+                    <h2>Het spel begint in:</h2>
                     <p class="c-counter" id="WaitingCounter">${time}</p>
                 </main>
             </div>
@@ -314,11 +405,11 @@ const Temp_WaitingScreen = (time, player, gamemode, gametimer) => {
             <div class="o-container u-justify-bottom u-background-color-white">
                 <main class="c-lose">
                     <h1>game over</h1>
-                    <p class="c-lose-name" id="currentplayer">for ${player}</p>
+                    <p class="c-lose-name" id="currentplayer">voor ${player}</p>
                     <img class="c-victory_img" src="../static/img/to_late.png" alt="victory crown">
                 </main>
                 <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
-                    <button type="button" class="o-button-large" id="ContinueGame"><span>doorgaan</span></button>
+                    <button type="button" class="o-button-large" id="ContinueGame"><span>Doorgaan</span></button>
                 </footer>
             </div>
         `;
@@ -345,11 +436,11 @@ const Temp_TwisterClassic = (gametimer, color) => {
             <nav class="o-nav">
                 <a href="/initgame" class="o-backbutton">
                     <img class="o-backbutton_img" src="../static/img/arrow-${textcolor}.png" alt="arrow back">
-                    <p class="o-backbutton-${textcolor}">Back</p>
+                    <p class="o-backbutton-${textcolor}">Terug</p>
                 </a>
             </nav> 
             <main class="c-gamemode-twister u-textcolor-${textcolor}">
-                <h1 id="twistermovelimb">right foot</h1>
+                <h1 id="twistermovelimb">linker voet</h1>
                 <img class="c-gamemode-twister__image" id="imgtwisterlimb">
                 <div id="timer" class="c-gamemode-twister-info">
                 </div>
@@ -357,7 +448,7 @@ const Temp_TwisterClassic = (gametimer, color) => {
             </main>
             <footer class="o-footer u-footer-background-color-${color} u-footer-border-color-${color} u-textcolor-${textcolor} c-gamemode-twister__footer">
                 <div class="o-row">
-                    <p>player: </p>
+                    <p>speler: </p>
                     <label class="c-gamemode-twister__name" id="currentplayer"></label>
                 </div>
             </footer>
@@ -368,7 +459,7 @@ const Temp_TwisterClassic = (gametimer, color) => {
     `;
     if (gametimer) {
         document.querySelector('#timer').innerHTML += `
-            <p class="c-gamemode-twister__seconds">seconds left: <span id="progressBarnumber">${gametimer/10}</span></p>
+            <p class="c-gamemode-twister__seconds">tijd: <span id="progressBarnumber">${gametimer/10}</span></p>
             <progress value="0" max="${gametimer/10}" id="progressBar"></progress>
         `;
     }
@@ -378,6 +469,12 @@ const Temp_TwisterClassic = (gametimer, color) => {
      function myFunction_set(color) {
      // Set the value of variable --blue to another value
      console.log(color)
+     if(color == "yellow"){
+        r.style.setProperty('--global-gamecolor-value', `var(--global-textcolor)`);
+     }
+     else{
+        r.style.setProperty('--global-gamecolor-value', `var(--global-color-white)`);
+     }
      r.style.setProperty('--global-gamecolor', `var(--global-color-${color}-dark)`);
      r.style.setProperty('--global-gamecolor-border', `var(--global-color-${color}-darkest)`);
      }
@@ -391,12 +488,12 @@ const Temp_Memory = (gametimer) => {
             <nav class="o-nav o-nav-white c-nav-memory">
                 <a href="/" class="o-backbutton o-backbutton_white">
                     <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                    <p>Back</p>
+                    <p>Terug</p>
                 </a>
             </nav>
             <main class="c-memory">
-                <h1 id="memory-currplayer">bobby</h1>
-                <p id="memory-lvl">lvl: 3</p>
+                <h1 id="memory-currplayer"></h1>
+                <p id="memory-lvl"></p>
                 <div class="c-memory_mat">
                     <div class="c-memory-buttons" id="buttonfield">
                     </div>
@@ -450,19 +547,20 @@ const Temp_EndGame = (player_info) => {
             <nav class="o-nav">
                 <a href="/initgame" class="o-backbutton">
                     <img class="o-backbutton_img" src="../static/img/arrow-grey.png" alt="arrow back">
-                    <p class="o-backbutton-grey">Back</p>
+                    <p class="o-backbutton-grey">Terug</p>
                 </a>
             </nav> 
             <main class="c-victory">
-                <h1>game finished</h1>
+                <h1>spel afgelopen
+                </h1>
                 <img class="c-victory_img" src="../static/img/crown.svg" alt="victory crown">
-                <p class="c-victory_text">player:</p>
+                <p class="c-victory_text">speler:</p>
                 <p class="c-victory_text-big" id="currentplayer">${player_info[0].name}</p>
-                <p>won with a score of</p>
+                <p class="c-victory-text-small">heeft gewonnen met <br> een score van </p>
                 <p class="c-victory_text-number" id="#">${player_info[0].score}</p>
             </main>
             <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-                <button type="button" class="o-button-large" id="Continue"><span>Next</span></button>
+                <button type="button" class="o-button-large" id="Continue"><span>Volgende</span></button>
             </footer>
         </div>
     `;
@@ -475,7 +573,7 @@ const Temp_EndGameOverview = (player_info) => {
         <nav class="o-nav c-nav-score">
         <a href="/initgame" class="o-backbutton">
             <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-            <p class="o-backbutton-white">Back</p>
+            <p class="o-backbutton-white">Terug</p>
         </a>
         </nav> 
         <main class="c-score">
@@ -485,11 +583,10 @@ const Temp_EndGameOverview = (player_info) => {
             </div>
         </main>
         <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-            <button type="button" class="o-button-large" id="Continue"><span>continue</span></button>
+            <button type="button" class="o-button-large" id="Continue"><span>Doorgaan</span></button>
         </footer>
     </div>
     `;
-    document.querySelector('#Continue').addEventListener('click', function() {window.location.href='/scores'})
     let i = 1;
     player_info.forEach(player => {
         if (i == 1) {
@@ -525,6 +622,7 @@ const Temp_EndGameOverview = (player_info) => {
         }
         i++;
     });
+    document.querySelector('#Continue').addEventListener('click', function() {window.location.href='/initgames'});
 }
 
 /*------------------------------------*\
