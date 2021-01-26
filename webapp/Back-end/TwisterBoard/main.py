@@ -43,7 +43,9 @@ def cleanup():
 
 def on_message(client, userdata, msg):
     message = json.loads(str(msg.payload.decode("utf-8")))
-    if str(msg.topic.decode("utf-8")) == '/twisterboard':
+    topic = msg.topic
+    print(topic)
+    if topic == '/twisterboard':
         try:
             limb = message["limb"]
             row = message["row"]
@@ -57,8 +59,9 @@ def on_message(client, userdata, msg):
             if color != None:
                 create_color(color)            
         except Exception as e:
-            pass
-    elif msg.topic == '/twisterspeaker':
+            print('not executed')
+            print(e)
+    elif topic == '/twisterspeaker':
         volume = message["volume"]
 
 def get_button(row, column):
@@ -132,7 +135,7 @@ try:
     setup()    
     twister.removeAllListeners()
 
-    client = mqtt.Client()
+    client = mqtt.Client(transport="websockets")
     client.on_message = on_message
     connect()
     client.subscribe('/twisterboard')
