@@ -184,6 +184,7 @@ const NextPlayer = (dead) => {
         player_info.playerinfo[currentplayerindex].alive = 0;
         currenplayercount--;
         if (currenplayercount == 0) { // 0 wil zeggen hoeveel players er nog mogen overblijven vooraleer game stopt
+            console.log('no players left');
             EndGame();
         }
         else{
@@ -220,6 +221,7 @@ const EndGame = () => {
             console.log('game - gamemechanics warning: scores are not saved');
         }
     });
+    Temp_EndGame(player_info.playerinfo);
 }
 
 const GetTwisterColor = () => {
