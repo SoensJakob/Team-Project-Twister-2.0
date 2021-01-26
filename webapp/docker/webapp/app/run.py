@@ -19,7 +19,7 @@ hostip = "192.168.0.25"
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template('index.html')
+    return render_template('index.html', mqttip=hostip)
 
 @app.route('/info', methods=['GET'])
 def info():
@@ -27,7 +27,7 @@ def info():
 
 @app.route('/initgame', methods=['GET'])
 def initgame():
-    return render_template('initgame.html')
+    return render_template('initgame.html', mqttip=hostip)
 
 @app.route('/game', methods=['GET'])
 def game():

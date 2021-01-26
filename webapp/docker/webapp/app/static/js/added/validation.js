@@ -49,6 +49,7 @@ const ValidatePlayers = (minplayers, maxplayers) => {
         gameplayers[`player${i + 1}`] = inputplayers[i].value;
     }
     if (!boolvalidation) {
+        disconnect();
         localStorage.setItem("gameplayers", JSON.stringify(gameplayers));
         window.location.href = "/game"; 
     }

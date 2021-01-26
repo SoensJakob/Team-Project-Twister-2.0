@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% block scripts %}
+  <script src="../static/js/lib/paho-mqttws31.js"></script>
+  <script src="../static/js/added/mqtt.js"></script>
   <script src="../static/js/added/templates.js"></script>
-  <script src="../static/js/main.js"></script>
+  <script src="../static/js/main.js" defer></script>
 {% endblock %}
 {% block content %}
   <div id="indexpage"></div>
   </div>
+  <p class="o-hidden" id="mqttip">{{mqttip}}</p>
 {% endblock %}

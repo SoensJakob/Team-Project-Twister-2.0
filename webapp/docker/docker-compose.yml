@@ -16,7 +16,8 @@ services:
     depends_on: 
       - mqtt 
   mqtt:
-    image: toke/mosquitto
+    image: eclipse-mosquitto
+    build: ./mqtt
     ports:
       - 9001:9001
     restart: always
