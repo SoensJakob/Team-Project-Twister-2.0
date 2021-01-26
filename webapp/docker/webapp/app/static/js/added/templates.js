@@ -629,7 +629,7 @@ const Temp_EndGameOverview = (player_info) => {
         }
         i++;
     });
-    document.querySelector('#Continue').addEventListener('click', function() {window.location.href='/initgames'});
+    document.querySelector('#Continue').addEventListener('click', function() {window.location.href='/initgame'});
 }
 
 /*------------------------------------*\
