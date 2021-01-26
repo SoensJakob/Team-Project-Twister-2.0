@@ -13,10 +13,3 @@ services:
     ports:
       - 80:80
     restart: always
-    depends_on: 
-      - mqtt 
-  mqtt:
-    image: eclipse-mosquitto
-    build: ./mqtt
-    
-    restart: always
