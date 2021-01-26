@@ -1,3 +1,10 @@
+$(document).ready(
+    function () { 
+        $("body").hide().fadeIn(1000);
+    }
+);
+
+
 /*------------------------------------*\
 #Global variables for templates
 \*------------------------------------*/
