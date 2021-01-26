@@ -11,7 +11,7 @@ from flask import url_for, render_template, request, redirect, session, g
 
 app = Flask(__name__)
 
-hostip = "192.168.4.1"
+hostip = "192.168.0.25"
 # rpi static : 192.168.3.1
 # r thuis: 192.168.0.173
 # r school: 172.30.252.7
