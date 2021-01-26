@@ -35,6 +35,8 @@ body{
    --global-gamecolor : var(--global-color-green-dark);
    --global-gamecolor-border : var(--global-color-green-darkest);
 
+   --global-gamecolor-value: var(--global-color-white);
+
   /*textcolor*/
   --global-textcolor: #4B4B4B;
 
@@ -145,7 +147,7 @@ progress::-moz-progress-bar {
   border-radius: 2rem;
 }
 progress::-webkit-progress-value {
-  background-color: var(--global-color-white);
+  background-color: var(--global-gamecolor-value);
   border-radius: 2rem;
   border: none;
 }
@@ -290,7 +292,7 @@ in case there is a background color that needs white color
   padding: 0.5rem 2rem;
   border-radius: var(--global-borderRadius);
   outline: none;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
   color: var(--global-textcolor);
   cursor: pointer;
@@ -801,8 +803,12 @@ flex-grow: 0.6;
   font-size: 2rem;
 }
 .c-victory_text-number{
-  padding-top: 2rem;
+  padding-top: 1rem;
   font-size: 2.5rem;
+}
+.c-victory-text-small{
+  padding-top: 0.25rem;
+  text-align: center;
 }
 /*lose page page*/
 .c-lose{

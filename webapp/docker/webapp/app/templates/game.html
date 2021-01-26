@@ -4,9 +4,10 @@
     <script src="../static/js/added/mqtt.js"></script>
     <script src="../static/js/added/game-mechanics.js"></script>
     <script src="../static/js/added/templates.js"></script>
-    <script src="../static/js/game.js"></script>
+    <script src="../static/js/game.js" defer></script>
 {% endblock %}
 {% block content %}
     <div id="gamewindow">
     </div>
+    <p class="o-hidden" id="mqttip">{{mqttip}}</p>
 {% endblock %}

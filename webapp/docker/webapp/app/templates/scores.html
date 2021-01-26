@@ -5,14 +5,14 @@
 {% endblock %}
 {% block content %}
     <div class="o-container u-justify-bottom u-background-color-green">
-        <nav class="o-nav o-nav-white">
-            <a href="/" class="o-backbutton">
-                <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                <p class="o-backbutton">Back</p>
-            </a>
+        <nav class="o-nav c-nav-score">
+        <a href="/initgame" class="o-backbutton">
+            <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+            <p class="o-backbutton-white">Terug</p>
+        </a>
         </nav> 
         <main class="c-score">
-            <h1>leaderboards</h1>
+            <h1>scoreborden</h1>
             <div class="c-score-filter">
                 <button class="c-score-filter-button" id="BtnPrevGamemode">
                     <img class="c-score-filter-arrows" src="../static/img/arrow-white.png" alt="arrow left">
@@ -22,7 +22,9 @@
                     <img class="c-score-filter-arrows c-score-filter-arrows-rotation" src="../static/img/arrow-white.png" alt="arrow left">
                 </button>
             </div>
-            {% for score in gamescores %}
+            <div class="c-scoreboard_container" id="scoreboard">
+                <!--hier begint de score-->
+                {% for score in gamescores %}
                 <div class="c-scoreboard">
                     <div class="c-place">
                         <p>{{loop.index}}</p>
@@ -38,9 +40,10 @@
                     </div>
                 </div>
             {% endfor %}
+            </div>
         </main>
         <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-            <button type="button" class="o-button-large" id="BtnScoresHome">Home</button>
+            <button type="button" class="o-button-large" id="BtnScoresHome"><span>Doorgaan</span></button>
         </footer>
     </div>
 {% endblock %}
