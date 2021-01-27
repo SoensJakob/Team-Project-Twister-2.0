@@ -26,6 +26,7 @@ const onConnectionLost = function(){
 //-------------------------------------------------------------------------------------------
 const onMessageArrived = function(r_message){
     try{
+        console.log(r_message.payloadString);
         setoutmsg(r_message.payloadString);
     }
     catch(err){

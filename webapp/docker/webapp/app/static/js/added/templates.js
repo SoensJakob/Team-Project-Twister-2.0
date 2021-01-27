@@ -120,6 +120,7 @@ const Temp_TutorialPage3 = () => {
 
 const Temp_Index = () => {
     document.querySelector('#indexpage').innerHTML = `
+
         <div id="indexpage"></div>
             <div class="o-container u-justify-bottom">
                 <nav class="o-nav o-nav-white">
@@ -152,9 +153,20 @@ const Temp_Index = () => {
                     <img class="c-startpage-image" src="../static/img/logo.png" alt="logo Twister">
                     <a><button class="o-button c-startpage-button" id="BtnStart"><span>start</span></button></a>
                 </main>
+
             </div>
-        </div>
+        </nav>
+        <header class="c-startpage-header">
+            <h1 class="c-title-index">Twister 2.0</h1>
+        </header>
+        <main class="c-startpage-main">
+            <img class="c-startpage-image" src="../static/img/logo.png" alt="logo Twister">
+            <a href="/initgame"><button class="o-button c-startpage-button"><span>start</span></button></a>
+        </main>
+    </div>
+    </div>
     `;
+
     document.querySelector('#BtnStart').addEventListener('click', function() {
         disconnect();
         window.location.href='/initgame';
@@ -163,6 +175,7 @@ const Temp_Index = () => {
         send_message(`{"volume": ${this.value}}`);
     });
     /*hier komt hamburger js */
+
     document.getElementById("HamburgerbuttonBack").addEventListener("click", function(){
         var hv = document.getElementById("hidden_nav"); 
         var nb = document.getElementById('nav_button');
@@ -174,6 +187,7 @@ const Temp_Index = () => {
             hv.style.display = "flex";
             nb.style.borderRadius = "1rem 1rem 0 0";
         }
+
     });
     document.getElementById("nav_button").addEventListener("click", function(){
         var hv = document.getElementById("hidden_nav"); 
@@ -186,7 +200,10 @@ const Temp_Index = () => {
             hv.style.display = "flex";
             nb.style.borderRadius = "1rem 1rem 0 0";
         }
+
+      
     });
+
 }
 
 //--------------------------------------
@@ -467,6 +484,7 @@ const Temp_WaitingScreen = (time, player, gamemode, gametimer) => {
     }
     else if (player) {
         document.querySelector('#gamewindow').innerHTML = `
+
             <div class="o-container u-justify-bottom u-background-color-white">
                 <!--lege nav voor zelfde padding op elke pagina te hebben-->
                 <nav class="o-nav">
@@ -480,6 +498,7 @@ const Temp_WaitingScreen = (time, player, gamemode, gametimer) => {
                     <button type="button" class="o-button-large c-lose-footer" id="ContinueGame"><span>spelpagina</span></button>
                 </footer>
             </div>
+  
         `;
         document.querySelector('#ContinueGame').addEventListener('click', function() { 
             switch (gamemode) {

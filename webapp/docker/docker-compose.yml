@@ -6,9 +6,7 @@ services:
     ports:
       - 80:80
     restart: always
-<<<<<<< HEAD
-    
-=======
+
     volumes:
       - ./webapp/app/data:/project-api
     depends_on: 
@@ -19,4 +17,4 @@ services:
     ports:
       - 9001:9001
     restart: always
->>>>>>> cb1c42c48e6ed0d3136ac08d6c5d954a0aec0722
+
