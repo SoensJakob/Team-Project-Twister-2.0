@@ -90,7 +90,9 @@ def listen_to_color(row):
         sleep(interval/4)
         for x in buttons[row]:
             y = io.input(x)
-            if y == 0 and (x not in checkable_buttons):
+
+            if y == 0 and x not in checkable_buttons:
+
                 checkable_buttons.append(x)
                 places = get_row_column(x)
                 msg = json.dumps({"buttonpressed":[{"row":int(places[0]), "column":int(places[1])}]})

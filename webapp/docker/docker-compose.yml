@@ -1,18 +1,12 @@
 version: '3.6'
 services:
-  api:
-    build: ./api
-    ports:
-        - 5000:80
-    #restart: always
-    volumes:
-      - ./api/app/data:/project-api
   webapp:
     image: dan0n/flask-alpine:python3.6
     build: ./webapp
     ports:
       - 80:80
     restart: always
+
     volumes:
       - ./webapp/app/data:/project-api
     depends_on: 
@@ -23,3 +17,4 @@ services:
     ports:
       - 9001:9001
     restart: always
+

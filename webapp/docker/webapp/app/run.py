@@ -11,7 +11,9 @@ from flask import url_for, render_template, request, redirect, session, g
 
 app = Flask(__name__)
 
+
 hostip = "192.168.4.1"
+
 # rpi static : 192.168.3.1
 # r thuis: 192.168.0.173
 # r school: 172.30.252.7
@@ -19,7 +21,7 @@ hostip = "192.168.4.1"
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template('index.html')
+    return render_template('index.html', mqttip=hostip)
 
 @app.route('/info', methods=['GET'])
 def info():
@@ -27,7 +29,7 @@ def info():
 
 @app.route('/initgame', methods=['GET'])
 def initgame():
-    return render_template('initgame.html')
+    return render_template('initgame.html', mqttip=hostip)
 
 @app.route('/game', methods=['GET'])
 def game():
@@ -40,8 +42,9 @@ def scores(gamemode=None):
 
     if request.method == 'GET':
         try:
-            r = requests.get(f'http://{hostip}:5000/scores/{gamemodex}')
-            json_resp = r.json()
+            resp = getscores(gamemodex)
+            print("-- get -- ", resp)
+            json_resp = json.loads(json.dumps(resp))
             return render_template('scores.html', gamemode=gamemodex, gamescores=json_resp)
         except Exception as e:
             print("main - scores error get: ", e)
@@ -50,16 +53,44 @@ def scores(gamemode=None):
     if request.method == 'POST':
         try:
             jsonscores = json.loads(request.data) 
-            r = requests.post(f'http://{hostip}:5000/scores', json=jsonscores)
+            print("-- post -- ", jsonscores)
+            savescores(jsonscores)
             return "succes"
             
         except Exception as e:
             print("main - scores error post: ", e)
             return "failed"
 
-@app.route('/test', methods=['GET'])
-def test():
-    return render_template('test.html')
+def getscores(gamemode):
+    try:
+        gamemodex = gamemode if gamemode is not None else "twister-classic"
+        filteredscoreslist = []
+        with open("./data/scores.json") as f:
+            for score in f:
+                scoresdict = json.loads(score)
+                if scoresdict["gamemode"] == gamemodex:
+                    for playerscore in scoresdict["playerinfo"]:
+                        filteredscoreslist.append(playerscore)
+        f.close()
+        filteredscoreslist = sorted(filteredscoreslist, key=lambda k: k.get('score', 0), reverse=True)
+        return filteredscoreslist
+    except Exception as e:
+        print('api error in get scores:', e)
+        return "failed"
+
+def savescores(score):
+    try:
+        jsonobj = json.dumps(score)
+        with open("./data/scores.json", "a") as f:
+            f.write(jsonobj)
+            f.write("\n")
+        f.close()
+        return "succes"
+    except Exception as e:
+        print('flask error in savescore:', e)
+        return "failed"
+
+    
 
 
 if __name__ == '__main__':

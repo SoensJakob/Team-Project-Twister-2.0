@@ -33,7 +33,6 @@ const setoutmsg = (out_msg) => {
         case 'row':
             mqttmssg = ['', JSON.parse('{"row":"", "column":""}')];
             break;
-    
         default:
             console.log("game - game-mechanics error: mqttobj error in setoutmsg");
             break;
@@ -111,7 +110,7 @@ const SetupTwister = (gamesettings) => {
     gametimer = gamesettings.timer;
     (gametimer != 0) ? gametimer *= 10 : gametimer = null;
     gamecolors = ["red", "blue", "yellow", "green"];
-    bodyparts = ["left hand", "left foot", "right foot", "right hand"];
+    bodyparts = ["linker hand", "linker voet", "rechter voet", "rechter hand"];
 }
 
 const SetupMemory = (players, gamesettings) => {
@@ -142,7 +141,7 @@ const PlayTwister = () => {
     // set innerhtml/vaslues temp_playtwister
     document.querySelector("#twistermovelimb").innerHTML = randbodypart;
     document.querySelector("#imgtwisterlimb").src = `../static/img/${arrbodypart[0]}_${arrbodypart[1]}-${(randcolor == "yellow") ? 'grey' : 'white'}.svg`;
-    document.querySelector("#twistermovecolor").innerHTML = randcolor;
+    document.querySelector("#twistermovecolor").innerHTML = ColorEngToNed(randcolor); //hier andre kleur
     document.querySelector("#currentplayer").innerHTML = currentplayer;
     document.querySelector(':root').style.setProperty('--global-gamecolor', `var(--global-color-${randcolor}-dark)`);
     document.querySelector(':root').style.setProperty('--global-gamecolor-border', `var(--global-color-${randcolor}-darkest)`);
@@ -167,6 +166,26 @@ const PlayTwister = () => {
     }, 100);
 }
 
+const ColorEngToNed = (color) => {
+    switch (color) {
+        case "red":
+            return "rood"
+            break;
+        case "blue":
+            return "blauw"
+            break;
+        case "yellow":
+            return "geel"
+            break;
+        case "green":
+            return "groen"
+            break;
+    
+        default:
+            break;
+    }
+}
+
 const PlayMemory = () => {
     // set variables
     mqttmssg = ['', JSON.parse('{"row":"", "column":""}')];
@@ -184,6 +203,7 @@ const NextPlayer = (dead) => {
         player_info.playerinfo[currentplayerindex].alive = 0;
         currenplayercount--;
         if (currenplayercount == 0) { // 0 wil zeggen hoeveel players er nog mogen overblijven vooraleer game stopt
+            console.log('no players left');
             EndGame();
         }
         else{
@@ -220,6 +240,7 @@ const EndGame = () => {
             console.log('game - gamemechanics warning: scores are not saved');
         }
     });
+    Temp_EndGame(player_info.playerinfo);
 }
 
 const GetTwisterColor = () => {

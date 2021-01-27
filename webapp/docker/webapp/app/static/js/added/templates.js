@@ -1,3 +1,10 @@
+$(document).ready(
+    function () { 
+        $("body").hide().fadeIn(1000);
+    }
+);
+
+
 /*------------------------------------*\
 #Global variables for templates
 \*------------------------------------*/
@@ -45,29 +52,29 @@ const Temp_TutorialPage1 = () => {
 
 const Temp_TutorialPage2 = () => {
     document.querySelector('#indexpage').innerHTML = `
-    <div class="o-container u-background-color-red">
-        <nav class="o-nav o-nav-white">
-            <a class="o-backbutton o-backbutton_white">
-                <!--empty item for space-between (only tutorial)-->
-            </a>
-            <a class="o-backbutton o-backbutton_white" id="BtnTutSkip">
-                skip
-            </a>
-        </nav>
-        <main class="c-tutorial">
-            <h1 class="c-tutorial-title_with-image">Duid eerst een spelmodus aan</h1>
-            <img class="c-tutorial-image" src="../static/img/phone.png" alt="phone">
-            <p class="c-tutorial__text-image">Twister 2.0 heeft een breede keuze aan unieke spelletjes dat je met je vrienden kan spelen! </p>
-            <button class="o-button" id="BtnTutNext">Doorgaan</button>
-        </main>
-        <footer class="c-footer-tutorial">
-        <div class="c-footer-navigation">
-            <button class="c-footer-tutorial_button c-footer-tutorial_button_red" id="BtnTutPage1"></button>
-            <button class="c-footer-tutorial_button c-footer-tutorial_button_red c-footer-tutorial_button__white" id="BtnTutPage2"></button>
-            <button class="c-footer-tutorial_button c-footer-tutorial_button_red" id="BtnTutPage3"></button>
+        <div class="o-container u-background-color-red">
+            <nav class="o-nav o-nav-white">
+                <a class="o-backbutton o-backbutton_white">
+                    <!--empty item for space-between (only tutorial)-->
+                </a>
+                <a class="o-backbutton o-backbutton_white" id="BtnTutSkip">
+                    skip
+                </a>
+            </nav>
+            <main class="c-tutorial">
+                <h1 class="c-tutorial-title_with-image">Duid eerst een spelmodus aan</h1>
+                <img class="c-tutorial-image" src="../static/img/phone.png" alt="phone">
+                <p class="c-tutorial__text-image">Twister 2.0 heeft een breede keuze aan unieke spelletjes dat je met je vrienden kan spelen! </p>
+                <button class="o-button" id="BtnTutNext">Doorgaan</button>
+            </main>
+            <footer class="c-footer-tutorial">
+            <div class="c-footer-navigation">
+                <button class="c-footer-tutorial_button c-footer-tutorial_button_red" id="BtnTutPage1"></button>
+                <button class="c-footer-tutorial_button c-footer-tutorial_button_red c-footer-tutorial_button__white" id="BtnTutPage2"></button>
+                <button class="c-footer-tutorial_button c-footer-tutorial_button_red" id="BtnTutPage3"></button>
+            </div>
+            </footer>
         </div>
-        </footer>
-    </div>
     `;
     document.querySelector('#BtnTutSkip').addEventListener('click', function (){ localStorage.setItem('TutSkipped', true); Temp_Index()});
     document.querySelector('#BtnTutNext').addEventListener('click', function (){ Temp_TutorialPage3() });
@@ -77,29 +84,29 @@ const Temp_TutorialPage2 = () => {
 
 const Temp_TutorialPage3 = () => {
     document.querySelector('#indexpage').innerHTML = `
-    <div class="o-container u-background-color-blue">
-        <nav class="o-nav o-nav-white">
-            <a class="o-backbutton o-backbutton_white">
-                <!--empty item for space-between (only tutorial)-->
-            </a>
-            <a class="o-backbutton o-backbutton_white" id="BtnTutSkip">
-                skip
-            </a>
-        </nav>
-        <main class="c-tutorial">
-            <h1 class="c-tutorial-title_with-groupimage">Kies de aantal spelers</h1>
-            <img class="c-tutorial-groupImage" src="../static/img/group.svg" alt="phone">
-            <p class="c-tutorial__text-image_group">Duid aan met hoeveel spelers jullie zijn en start het spel!</p>
-            <button class="o-button" id="BtnTutNext">Doorgaan</button>
-        </main>
-        <footer class="c-footer-tutorial">
-        <div class="c-footer-navigation">
-            <button class="c-footer-tutorial_button c-footer-tutorial_button_blue" id="BtnTutPage1"></button>
-            <button class="c-footer-tutorial_button c-footer-tutorial_button_blue" id="BtnTutPage2"></button>
-            <button class="c-footer-tutorial_button c-footer-tutorial_button_blue c-footer-tutorial_button__white" id="BtnTutPage3"></button>
+        <div class="o-container u-background-color-blue">
+            <nav class="o-nav o-nav-white">
+                <a class="o-backbutton o-backbutton_white">
+                    <!--empty item for space-between (only tutorial)-->
+                </a>
+                <a class="o-backbutton o-backbutton_white" id="BtnTutSkip">
+                    skip
+                </a>
+            </nav>
+            <main class="c-tutorial">
+                <h1 class="c-tutorial-title_with-groupimage">Kies de aantal spelers</h1>
+                <img class="c-tutorial-groupImage" src="../static/img/group.svg" alt="phone">
+                <p class="c-tutorial__text-image_group">Duid aan met hoeveel spelers jullie zijn en start het spel!</p>
+                <button class="o-button" id="BtnTutNext">Doorgaan</button>
+            </main>
+            <footer class="c-footer-tutorial">
+            <div class="c-footer-navigation">
+                <button class="c-footer-tutorial_button c-footer-tutorial_button_blue" id="BtnTutPage1"></button>
+                <button class="c-footer-tutorial_button c-footer-tutorial_button_blue" id="BtnTutPage2"></button>
+                <button class="c-footer-tutorial_button c-footer-tutorial_button_blue c-footer-tutorial_button__white" id="BtnTutPage3"></button>
+            </div>
+            </footer>
         </div>
-        </footer>
-    </div>
     `;
     document.querySelector('#BtnTutSkip').addEventListener('click', function (){ localStorage.setItem('TutSkipped', true); Temp_Index()});
     document.querySelector('#BtnTutNext').addEventListener('click', function (){ Temp_Index() });
@@ -113,29 +120,40 @@ const Temp_TutorialPage3 = () => {
 
 const Temp_Index = () => {
     document.querySelector('#indexpage').innerHTML = `
-    <div id="indexpage"></div>
-    <div class="o-container u-justify-bottom">
-        <nav class="o-nav o-nav-white">
-            <!--nav item dat leeg is om hamburger structuur te behouden-->
-            <a>  
-            </a>
-            <div class="c-hamburgerNav">
-                <button id="nav_button">
-                <img src="../static/img/hamburger.svg" alt="navigation"></button>
-                <div id="hidden_nav">
-                    <div class="hidden_nav-line hidden_nav-firstline">
-                        <a href="/scores"><p>scoreborden</p></a>
-                        <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
-                    </div>
-                    <div class="hidden_nav-line hidden_nav-lastline">
-                    <p class="c-slider-title-volume">volume</p>
-                    <div class="c-slider-volume">   
-                        <div class="c-slider-wrap-volume">         
-                            <input type="range" min="0" max="100" value="50" class="c-volume-slider" id="volume">
+
+        <div id="indexpage"></div>
+            <div class="o-container u-justify-bottom">
+                <nav class="o-nav o-nav-white">
+                    <!--nav item dat leeg is om hamburger structuur te behouden-->
+                    <a>  
+                    </a>
+                    <div class="c-hamburgerNav">
+                        <button id="nav_button">
+                        <img src="../static/img/hamburger.svg" alt="navigation"></button>
+                        <div id="hidden_nav">
+                            <div class="hidden_nav-line hidden_nav-firstline">
+                                <a href="/scores"><p>scoreborden</p></a>
+                                <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
+                            </div>
+                            <div class="hidden_nav-line hidden_nav-lastline">
+                            <p class="c-slider-title-volume">volume</p>
+                            <div class="c-slider-volume">   
+                                <div class="c-slider-wrap-volume">         
+                                    <input type="range" min="0" max="100" value="50" class="c-volume-slider" id="volume">
+                                </div>
+                            </div> 
+                            </div>
                         </div>
-                    </div> 
                     </div>
-                </div>
+                </nav>
+                <header class="c-startpage-header">
+                    <h1 class="c-title-index">Twister 2.0</h1>
+                </header>
+                <main class="c-startpage-main">
+                    <img class="c-startpage-image" src="../static/img/logo.png" alt="logo Twister">
+                    <a><button class="o-button c-startpage-button" id="BtnStart"><span>start</span></button></a>
+                </main>
+
             </div>
         </nav>
         <header class="c-startpage-header">
@@ -148,6 +166,16 @@ const Temp_Index = () => {
     </div>
     </div>
     `;
+
+    document.querySelector('#BtnStart').addEventListener('click', function() {
+        disconnect();
+        window.location.href='/initgame';
+    });
+    document.querySelector("#volume").addEventListener('change', function () {
+        send_message(`{"volume": ${this.value}}`);
+    });
+    /*hier komt hamburger js */
+
     document.getElementById("HamburgerbuttonBack").addEventListener("click", function(){
         var hv = document.getElementById("hidden_nav"); 
         var nb = document.getElementById('nav_button');
@@ -159,7 +187,8 @@ const Temp_Index = () => {
             hv.style.display = "flex";
             nb.style.borderRadius = "1rem 1rem 0 0";
         }
-    })
+
+    });
     document.getElementById("nav_button").addEventListener("click", function(){
         var hv = document.getElementById("hidden_nav"); 
         var nb = document.getElementById('nav_button');
@@ -171,7 +200,10 @@ const Temp_Index = () => {
             hv.style.display = "flex";
             nb.style.borderRadius = "1rem 1rem 0 0";
         }
-    })
+
+      
+    });
+
 }
 
 //--------------------------------------
@@ -264,59 +296,62 @@ const Temp_InfoMemory = () => {
 
 const Temp_SelectGameOptions = () => {
     document.querySelector('#initgamewindow').innerHTML = `
-    <div class="o-container u-background-color-green u-justify-bottom">
-        <nav class="o-nav o-nav-white">
-            <a href="/" class="o-backbutton o-backbutton_white">
-                <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
-                <p>Terug</p>
-            </a>
-            <div class="c-hamburgerNav">
-                <button id="nav_button">
-                <img src="../static/img/hamburger.svg" alt="navigation"></button>
-                <div id="hidden_nav">
-                    <div class="hidden_nav-line hidden_nav-firstline">
-                        <a href="/scores"><p>scoreborden</p></a>
-                        <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
-                    </div>
-                    <div class="hidden_nav-line hidden_nav-lastline">
-                    <p class="c-slider-title-volume">volume</p>
-                    <div class="c-slider-volume">   
-                        <div class="c-slider-wrap-volume">         
-                            <input type="range" min="0" max="100" value="50" class="c-volume-slider" id="volume">
+        <div class="o-container u-background-color-green u-justify-bottom">
+            <nav class="o-nav o-nav-white">
+                <a href="/" class="o-backbutton o-backbutton_white">
+                    <img class="o-backbutton_img" src="../static/img/arrow-white.png" alt="arrow back">
+                    <p>Terug</p>
+                </a>
+                <div class="c-hamburgerNav">
+                    <button id="nav_button">
+                    <img src="../static/img/hamburger.svg" alt="navigation"></button>
+                    <div id="hidden_nav">
+                        <div class="hidden_nav-line hidden_nav-firstline">
+                            <a href="/scores"><p>scoreborden</p></a>
+                            <img id="HamburgerbuttonBack" src="../static/img/nav-back.svg" alt="go back">
                         </div>
-                    </div> 
+                        <div class="hidden_nav-line hidden_nav-lastline">
+                        <p class="c-slider-title-volume">volume</p>
+                        <div class="c-slider-volume">   
+                            <div class="c-slider-wrap-volume">         
+                                <input type="range" min="0" max="100" value="50" class="c-volume-slider" id="volume">
+                            </div>
+                        </div> 
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
-        <main class="c-SelectGameOptions">
-            <div class="o-row">
-                <div class="c-label-wrap">
-                    <label class="c-custom-select-label" for="GameMode">Spelmodus:</label>
-                    <a id="linkInfo"><button class="c-info_button" id="BtnShowInfo"><img class="c-info_image" src="../static/img/info.png" alt="info"></button></a>
-                </div>
-                <select id="GameMode" class="o-select">
-                    <option value="Twister-Classic">Twister</option>
-                    <option value="Memory" >Memory</option>
-                </select>
-            </div>
-            <div id="GameSettings" class="o-row">
+            </nav>
+            <main class="c-SelectGameOptions">
                 <div class="o-row">
-                    <label class="c-custom-select-label" for="GameTimer">Timer:</label>
-                    <div class="c-numberPlayers-slider">   
-                        <div class="o-slider-wrap">         
-                            <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
-                            <span class="o-NumberTimerValue" id="slidervalue-timer"></span>
-                        </div>
+                    <div class="c-label-wrap">
+                        <label class="c-custom-select-label" for="GameMode">Spelmodus:</label>
+                        <a id="linkInfo"><button class="c-info_button" id="BtnShowInfo"><img class="c-info_image" src="../static/img/info.png" alt="info"></button></a>
+                    </div>
+                    <select id="GameMode" class="o-select">
+                        <option value="Twister-Classic">Twister</option>
+                        <option value="Memory" >Memory</option>
+                    </select>
+                </div>
+                <div id="GameSettings" class="o-row">
+                    <div class="o-row">
+                        <label class="c-custom-select-label" for="GameTimer">Timer:</label>
+                        <div class="c-numberPlayers-slider">   
+                            <div class="o-slider-wrap">         
+                                <input type="range" min="0" max="30" value="10" class="o-slider c-slider" id="GameTimer">
+                                <span class="o-NumberTimerValue" id="slidervalue-timer"></span>
+                            </div>
+                        </div> 
                     </div> 
-                </div> 
-            </div>
-        </main>
-        <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
-            <button type="button" class="o-button-large" id="BtnValidateGameOptions"><span>Speel</span></button>
-        </footer>
-    </div>
+                </div>
+            </main>
+            <footer class="o-footer u-footer-background-color-green u-footer-border-color-green">
+                <button type="button" class="o-button-large" id="BtnValidateGameOptions"><span>Speel</span></button>
+            </footer>
+        </div>
     `;
+    document.querySelector("#volume").addEventListener('change', function () {
+        send_message(`{"volume": ${this.value}}`);
+    });
     document.querySelector("#BtnShowInfo").addEventListener('click', function () {
         let gamemode = document.querySelector("#GameMode").value;
         console.log(gamemode);
@@ -332,7 +367,7 @@ const Temp_SelectGameOptions = () => {
                 console.log('failed to show infopage - wrong gamemode selected');
                 break;
         }
-    })
+    });
     document.querySelector("#BtnValidateGameOptions").addEventListener("click", ValidateGameSettings);
     /*hier komt hamburger js */
     document.getElementById("HamburgerbuttonBack").addEventListener("click", function(){
@@ -346,7 +381,7 @@ const Temp_SelectGameOptions = () => {
             hv.style.display = "flex";
             nb.style.borderRadius = "1rem 1rem 0 0";
         }
-    })
+    });
     document.getElementById("nav_button").addEventListener("click", function(){
         var hv = document.getElementById("hidden_nav"); 
         var nb = document.getElementById('nav_button');
@@ -358,7 +393,7 @@ const Temp_SelectGameOptions = () => {
             hv.style.display = "flex";
             nb.style.borderRadius = "1rem 1rem 0 0";
         }
-    })
+    });
 
     const allRanges = document.querySelectorAll(".o-slider-wrap");
     allRanges.forEach(wrap => {
@@ -449,19 +484,21 @@ const Temp_WaitingScreen = (time, player, gamemode, gametimer) => {
     }
     else if (player) {
         document.querySelector('#gamewindow').innerHTML = `
-        <div class="o-container u-justify-bottom u-background-color-white">
-            <!--lege nav voor zelfde padding op elke pagina te hebben-->
-            <nav class="o-nav">
-            </nav>
-            <main class="c-lose">
-                <h1>game over</h1>
-                <p class="c-lose-name" id="currentplayer">voor ${player}</p>
-                <img class="c-victory_img" src="../static/img/to_late.png" alt="victory crown">
-            </main>
-            <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
-                <button type="button" class="o-button-large c-lose-footer" id="ContinueGame"><span>spelpagina</span></button>
-            </footer>
-        </div>
+
+            <div class="o-container u-justify-bottom u-background-color-white">
+                <!--lege nav voor zelfde padding op elke pagina te hebben-->
+                <nav class="o-nav">
+                </nav>
+                <main class="c-lose">
+                    <h1>game over</h1>
+                    <p class="c-lose-name" id="currentplayer">voor ${player}</p>
+                    <img class="c-victory_img" src="../static/img/to_late.png" alt="victory crown">
+                </main>
+                <footer class="o-footer u-footer-background-color-red u-footer-border-color-red">
+                    <button type="button" class="o-button-large c-lose-footer" id="ContinueGame"><span>spelpagina</span></button>
+                </footer>
+            </div>
+  
         `;
         document.querySelector('#ContinueGame').addEventListener('click', function() { 
             switch (gamemode) {
@@ -518,7 +555,6 @@ const Temp_TwisterClassic = (gametimer, color) => {
      // Create a function for setting a variable value
      function myFunction_set(color) {
      // Set the value of variable --blue to another value
-     console.log(color)
      if(color == "yellow"){
         r.style.setProperty('--global-gamecolor-value', `var(--global-textcolor)`);
      }
@@ -674,7 +710,8 @@ const Temp_EndGameOverview = (player_info) => {
         }
         i++;
     });
-    document.querySelector('#Continue').addEventListener('click', function() {window.location.href='/initgames'});
+    document.querySelector('#Spelpagina').addEventListener('click', function() {window.location.href='/initgame'});
+    document.querySelector('#scoreborden').addEventListener('click', function() {window.location.href='/scores'});
 }
 
 /*------------------------------------*\

@@ -19,7 +19,6 @@ var retain_flag         = false;
 
 const onConnectionLost = function(){
 	console.log("connection lost");
-	alert("connection lost");
 	connected_flag = 0;
 }
 
@@ -31,7 +30,7 @@ const onMessageArrived = function(r_message){
         setoutmsg(r_message.payloadString);
     }
     catch(err){
-        alert(err.message);
+        console.log();
     }
 }
 
